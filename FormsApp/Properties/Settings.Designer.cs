@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Krohonde.Properties
+namespace FormsApp.Properties
 {
 
 
