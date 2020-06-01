@@ -10,6 +10,7 @@ namespace Krohonde.World
     public class MotherNature : IMotherNature
     {
         private List<Ant> ants;
+        private string[] KnownAntType = { "WorkerAnt", "SoldierAnt" };
 
         public MotherNature()
         {
@@ -25,7 +26,7 @@ namespace Krohonde.World
         {
             foreach (Ant ant in ants)
             {
-                ant.Live();
+                if (KnownAntType.Contains(ant.GetType().Name)) ant.Live();
             }
         }
 
