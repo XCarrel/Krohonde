@@ -24,8 +24,12 @@ namespace FormsApp
         public Form1()
         {
             InitializeComponent();
-            myWorld = new MotherNature();
-            myWorld.AddAnt(new WorkerAnt(new Point(0, this.ClientSize.Height), new Vector(2, -15), myWorld));
+            myWorld = new MotherNature(this.ClientSize.Width, this.ClientSize.Height);
+            Random alea = new Random();
+            for (int i=0; i<20;i++)
+            {
+                myWorld.AddAnt(new WorkerAnt(new Point(this.ClientSize.Width / 2 + alea.Next(-50, 50), this.ClientSize.Height / 2 + alea.Next(-50, 50)), new Vector(alea.Next(-10,10), alea.Next(-10, 10)), myWorld));
+            }
         }
 
         private void timer_Tick(object sender, EventArgs e)

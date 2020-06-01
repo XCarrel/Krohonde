@@ -9,13 +9,23 @@ namespace Krohonde.World
 {
     public class MotherNature : IMotherNature
     {
+        public Random alea;
+
         private List<Ant> ants;
         private string[] KnownAntType = { "WorkerAnt", "SoldierAnt" };
+        private readonly int width;
+        private readonly int height;
 
-        public MotherNature()
+        public MotherNature(int width, int height)
         {
             ants = new List<Ant>();
+            alea = new Random();
+            this.width = width;
+            this.height = height;
         }
+
+        public int Width { get => width; }
+        public int Height { get => height; }
 
         public void AddAnt(Ant ant)
         {

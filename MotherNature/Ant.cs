@@ -11,9 +11,9 @@ namespace Krohonde.Creatures
     public class Ant
     {
         private Point Location;
-        private Vector Speed;
+        protected Vector Speed;
 
-        private MotherNature MyWorld;
+        protected MotherNature MyWorld;
 
         public Ant(Point location, Vector speed, MotherNature world)
         {
@@ -22,10 +22,9 @@ namespace Krohonde.Creatures
             MyWorld = world;
         }
 
-        public void Live()
+        public virtual void Live()
         {
             Location = Vector.Add(Speed, Location);
-            Speed.Y++;
         }
 
         public int Heading
