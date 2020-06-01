@@ -15,7 +15,6 @@ namespace FormsApp
 {
     public partial class Form1 : Form
     {
-        private WorkerAnt myAnt;
         private MotherNature myWorld;
 
         public Form1()
@@ -23,7 +22,7 @@ namespace FormsApp
             InitializeComponent();
             myWorld = new MotherNature();
             myWorld.AddAnt(new WorkerAnt(new Point(10, 10), new Point(10, 10), myWorld));
-            myWorld.AddAnt(new WorkerAnt(new Point(10, 100), new Point(10, 5), myWorld));
+            myWorld.AddAnt(new FarmerAnt(new Point(10, 100), new Point(10, 5), myWorld));
         }
 
         private void timer_Tick(object sender, EventArgs e)
