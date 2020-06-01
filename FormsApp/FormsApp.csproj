@@ -44,6 +44,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Form1.cs">
@@ -92,9 +93,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Ant.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ant.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\CFermièreEst.bmp" />
@@ -377,6 +375,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\test.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CScoutEst1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WorkerAnt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ant.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

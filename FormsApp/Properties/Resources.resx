@@ -118,83 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="CFermièreEst" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CFermièreEst.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CFermièreNord" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CFermièreNord.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CFermièreNordEst" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CFermièreNordEst.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CFermièreNordOuest" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CFermièreNordOuest.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CFermièreOuest" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CFermièreOuest.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CFermièreSud" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CFermièreSud.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CFermièreSudEst" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CFermièreSudEst.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CFermièreSudOuest" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CFermièreSudOuest.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="COuvrièreEst" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\COuvrièreEst.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="COuvrièreNord" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\COuvrièreNord.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="COuvrièreNordEst" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\COuvrièreNordEst.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="COuvrièreNordOuest" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\COuvrièreNordOuest.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="COuvrièreOuest" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\COuvrièreOuest.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="COuvrièreSud" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\COuvrièreSud.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="COuvrièreSudEst" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\COuvrièreSudEst.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="COuvrièreSudOuest" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\COuvrièreSudOuest.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="CReine" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\CReine.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="CScoutEst" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CScoutEst.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CScoutNord" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CScoutNord.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CScoutNordEst" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CScoutNordEst.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CScoutNordOuest" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CScoutNordOuest.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CScoutOuest" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CScoutOuest.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CScoutSud" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CScoutSud.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CScoutSudEst" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CScoutSudEst.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CScoutSudOuest" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CScoutSudOuest.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Dépôt" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Dépôt.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FarmerAnt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CFermièreEst.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Fourmilière" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Fourmilière.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -397,7 +328,16 @@
   <data name="Rocher" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Rocher.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ScoutAnt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CScoutEst.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SoldierAnt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CScoutEst1.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="test" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\test.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="WorkerAnt" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ant.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
