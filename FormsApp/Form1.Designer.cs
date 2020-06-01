@@ -38,10 +38,10 @@
             // 
             // ant0
             // 
-            this.ant0.Image = global::FormsApp.Properties.Resources.ant;
+            this.ant0.Image = global::FormsApp.Properties.Resources.CFermièreEst;
             this.ant0.Location = new System.Drawing.Point(346, 165);
             this.ant0.Name = "ant0";
-            this.ant0.Size = new System.Drawing.Size(30, 47);
+            this.ant0.Size = new System.Drawing.Size(16, 16);
             this.ant0.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.ant0.TabIndex = 0;
             this.ant0.TabStop = false;
@@ -54,10 +54,10 @@
             // 
             // ant1
             // 
-            this.ant1.Image = global::FormsApp.Properties.Resources.ant;
+            this.ant1.Image = global::FormsApp.Properties.Resources.COuvrièreNord;
             this.ant1.Location = new System.Drawing.Point(424, 288);
             this.ant1.Name = "ant1";
-            this.ant1.Size = new System.Drawing.Size(30, 47);
+            this.ant1.Size = new System.Drawing.Size(16, 16);
             this.ant1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.ant1.TabIndex = 1;
             this.ant1.TabStop = false;

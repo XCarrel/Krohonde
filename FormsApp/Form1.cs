@@ -28,8 +28,8 @@ namespace FormsApp
         private void timer_Tick(object sender, EventArgs e)
         {
             myWorld.Live();
-            ant0.SetBounds(myWorld.Ants[0].X, myWorld.Ants[0].Y, 40, 40);
-            ant1.SetBounds(myWorld.Ants[1].X, myWorld.Ants[1].Y, 40, 40);
+            ant0.SetBounds(myWorld.Ants[0].X, myWorld.Ants[0].Y, 16, 16);
+            ant1.SetBounds(myWorld.Ants[1].X, myWorld.Ants[1].Y, 16, 16);
         }
     }
 }

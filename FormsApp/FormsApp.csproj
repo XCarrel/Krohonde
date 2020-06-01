@@ -96,5 +96,287 @@
   <ItemGroup>
     <None Include="Resources\ant.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CFermièreEst.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CFermièreNord.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CFermièreNordEst.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CFermièreNordOuest.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CFermièreOuest.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CFermièreSud.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CFermièreSudEst.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CFermièreSudOuest.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\COuvrièreEst.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\COuvrièreNord.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\COuvrièreNordEst.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\COuvrièreNordOuest.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\COuvrièreOuest.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\COuvrièreSud.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\COuvrièreSudEst.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\COuvrièreSudOuest.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CReine.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CScoutEst.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CScoutNord.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CScoutNordEst.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CScoutNordOuest.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CScoutOuest.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CScoutSud.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CScoutSudEst.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CScoutSudOuest.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Dépôt.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Fourmilière.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Herbe.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveFermière1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveFermière2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveFermière3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveFermière4.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveFermière5.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveFermière6.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveFermière7.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveFermière8.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveOuvrière1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveOuvrière2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveOuvrière3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveOuvrière4.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveOuvrière5.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveOuvrière6.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveOuvrière7.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveOuvrière8.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveScout1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveScout2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveScout3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveScout4.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveScout5.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveScout6.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveScout7.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LarveScout8.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Matériau1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Matériau2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Matériau3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Matériau4.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Matériau5.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Matériau6.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Matériau7.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Matériau8.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nourriture1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nourriture2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nourriture3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nourriture4.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nourriture5.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nourriture6.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nourriture7.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nourriture8.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneDépôt1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneDépôt2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneDépôt3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneDépôt4.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneDépôt5.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneDépôt6.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneDépôt7.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneDépôt8.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneFourmilière1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneFourmilière2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneFourmilière3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneFourmilière4.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneFourmilière5.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneFourmilière6.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneFourmilière7.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneFourmilière8.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneNourriture1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneNourriture2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneNourriture3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneNourriture4.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneNourriture5.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneNourriture6.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneNourriture7.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PhéromoneNourriture8.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Rocher.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\test.bmp" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
