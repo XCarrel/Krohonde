@@ -22,13 +22,15 @@ namespace FormsApp
         {
             InitializeComponent();
             myWorld = new MotherNature();
-            myAnt = new WorkerAnt(new Point(10, 10), new Point(10, 10), myWorld);
+            myWorld.AddAnt(new WorkerAnt(new Point(10, 10), new Point(10, 10), myWorld));
+            myWorld.AddAnt(new WorkerAnt(new Point(10, 100), new Point(10, 5), myWorld));
         }
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            myAnt.Live();
-            ant0.SetBounds(myAnt.X, myAnt.Y,40,40);
+            myWorld.Live();
+            ant0.SetBounds(myWorld.Ants[0].X, myWorld.Ants[0].Y, 40, 40);
+            ant1.SetBounds(myWorld.Ants[1].X, myWorld.Ants[1].Y, 40, 40);
         }
     }
 }

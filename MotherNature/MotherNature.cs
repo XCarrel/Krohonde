@@ -9,6 +9,30 @@ namespace Krohonde.World
 {
     public class MotherNature : IMotherNature
     {
+        private List<Ant> ants;
+
+        public MotherNature()
+        {
+            ants = new List<Ant>();
+        }
+
+        public void AddAnt(Ant ant)
+        {
+            ants.Add(ant);
+        }
+
+        public void Live()
+        {
+            foreach (Ant ant in ants)
+            {
+                ant.Live();
+            }
+        }
+
+        public List<Ant> Ants
+        {
+            get => ants;
+        }
         #region IMotherNature methods
         public void Build(Ant ant)
         {
