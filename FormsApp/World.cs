@@ -13,7 +13,7 @@ using Creatures;
 using System.Collections;
 using System.Drawing.Drawing2D;
 using System.Windows;
-using Point = System.Windows.Point;
+using Point = System.Drawing.Point;
 
 namespace FormsApp
 {
@@ -71,12 +71,25 @@ namespace FormsApp
         private void pctWorld_Paint(object sender, PaintEventArgs e)
         {
             Graphics graphics = e.Graphics;
+            // All ants
             foreach (Ant ant in myWorld.Ants)
             {
                 Image sourceImage = global::FormsApp.Properties.Resources.ant;
                 sourceImage = RotateImage(sourceImage, ant.Heading);
                 graphics.DrawImage(sourceImage, (int)ant.X, (int)ant.Y, sourceImage.Width, sourceImage.Height);
             }
+
+            // Anthill
+            Point[] ahill = new Point[] {
+                new Point { X = 100, Y = 100 },
+                new Point { X = 150, Y = 70 },
+                new Point { X = 200, Y = 110 },
+                new Point { X = 150, Y = 150 },
+                new Point { X = 200, Y = 250 },
+                new Point { X = 100, Y = 200 }
+            };
+            graphics.FillClosedCurve(new TextureBrush(Properties.Resources.anthill), ahill);
+            graphics.DrawPolygon(new Pen(Color.Black), ahill);
         }
     }
 }
