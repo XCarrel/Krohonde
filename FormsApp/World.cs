@@ -17,11 +17,11 @@ using Point = System.Windows.Point;
 
 namespace FormsApp
 {
-    public partial class Form1 : Form
+    public partial class World : Form
     {
         private MotherNature myWorld;
 
-        public Form1()
+        public World()
         {
             InitializeComponent();
             myWorld = new MotherNature(this.ClientSize.Width, this.ClientSize.Height);

@@ -1,6 +1,6 @@
 ﻿namespace FormsApp
 {
-    partial class Form1
+    partial class World
     {
         /// <summary>
         /// Required designer variable.
@@ -51,15 +51,15 @@
             this.pctWorld.TabStop = false;
             this.pctWorld.Paint += new System.Windows.Forms.PaintEventHandler(this.pctWorld_Paint);
             // 
-            // Form1
+            // World
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1184, 561);
             this.Controls.Add(this.pctWorld);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "World";
+            this.Text = "Krohonde";
             ((System.ComponentModel.ISupportInitialize)(this.pctWorld)).EndInit();
             this.ResumeLayout(false);
 
