@@ -35,18 +35,7 @@ namespace FormsApp
         private void timer_Tick(object sender, EventArgs e)
         {
             myWorld.Live();
-            this.Invalidate();
-        }
-
-        private void Form1_Paint(object sender, PaintEventArgs e)
-        {
-            Graphics graphics = e.Graphics;
-            foreach (Ant ant in myWorld.Ants)
-            {
-                Image sourceImage = global::FormsApp.Properties.Resources.WorkerAnt;
-                sourceImage = RotateImage(sourceImage, ant.Heading);
-                graphics.DrawImage(sourceImage, (int)ant.X, (int)ant.Y,sourceImage.Width,sourceImage.Height);
-            }
+            pctWorld.Invalidate();
         }
 
         public static Image RotateImage(Image img, float rotationAngle)
@@ -77,6 +66,17 @@ namespace FormsApp
 
             //return the image
             return bmp;
+        }
+
+        private void pctWorld_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics graphics = e.Graphics;
+            foreach (Ant ant in myWorld.Ants)
+            {
+                Image sourceImage = global::FormsApp.Properties.Resources.ant;
+                sourceImage = RotateImage(sourceImage, ant.Heading);
+                graphics.DrawImage(sourceImage, (int)ant.X, (int)ant.Y, sourceImage.Width, sourceImage.Height);
+            }
         }
     }
 }

@@ -30,29 +30,44 @@
         {
             this.components = new System.ComponentModel.Container();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.pctWorld = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pctWorld)).BeginInit();
             this.SuspendLayout();
             // 
             // timer
             // 
             this.timer.Enabled = true;
-            this.timer.Interval = 200;
+            this.timer.Interval = 50;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // pctWorld
+            // 
+            this.pctWorld.BackColor = System.Drawing.Color.White;
+            this.pctWorld.BackgroundImage = global::FormsApp.Properties.Resources.grass;
+            this.pctWorld.Location = new System.Drawing.Point(0, 0);
+            this.pctWorld.Name = "pctWorld";
+            this.pctWorld.Size = new System.Drawing.Size(5000, 5000);
+            this.pctWorld.TabIndex = 0;
+            this.pctWorld.TabStop = false;
+            this.pctWorld.Paint += new System.Windows.Forms.PaintEventHandler(this.pctWorld_Paint);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.ClientSize = new System.Drawing.Size(1398, 787);
+            this.AutoScroll = true;
+            this.ClientSize = new System.Drawing.Size(1184, 561);
+            this.Controls.Add(this.pctWorld);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
+            ((System.ComponentModel.ISupportInitialize)(this.pctWorld)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.PictureBox pctWorld;
     }
 }
 
