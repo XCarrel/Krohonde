@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Krohonde.World;
 using Krohonde.Creatures;
 using System.Windows;
+using Point = System.Drawing.Point;
 
 namespace Creatures
 {
