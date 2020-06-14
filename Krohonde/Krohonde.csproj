@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B56F1BFA-FFA4-4637-B1EC-67D43DECA5C1}</ProjectGuid>
+    <ProjectGuid>{3715227D-5762-432B-993E-5D6B2A2A3384}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MotherNature</RootNamespace>
-    <AssemblyName>MotherNature</AssemblyName>
+    <RootNamespace>Krohonde</RootNamespace>
+    <AssemblyName>Krohonde</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -34,6 +34,9 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,17 +48,14 @@
   <ItemGroup>
     <Compile Include="Ant.cs" />
     <Compile Include="Colony.cs" />
+    <Compile Include="FarmerAnt.cs" />
     <Compile Include="Food.cs" />
     <Compile Include="FoodCluster.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="IMotherNature.cs" />
     <Compile Include="MotherNature.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Krohonde\Krohonde.csproj">
-      <Project>{3715227d-5762-432b-993e-5d6b2a2a3384}</Project>
-      <Name>Krohonde</Name>
-    </ProjectReference>
+    <Compile Include="WorkerAnt.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

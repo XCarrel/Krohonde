@@ -47,11 +47,5 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorkerAnt.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MotherNature\MotherNature.csproj">
-      <Project>{b56f1bfa-ffa4-4637-b1ec-67d43deca5c1}</Project>
-      <Name>MotherNature</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

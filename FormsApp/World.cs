@@ -7,13 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Krohonde.Creatures;
-using Krohonde.World;
-using Creatures;
 using System.Collections;
-using System.Drawing.Drawing2D;
 using System.Windows;
-using Point = System.Drawing.Point;
+using Krohonde;
 
 namespace FormsApp
 {
@@ -25,12 +21,13 @@ namespace FormsApp
         {
             InitializeComponent();
             myWorld = new MotherNature(pctWorld.ClientSize.Width, pctWorld.ClientSize.Height);
-            Random alea = new Random();
-            for (int i=0; i<20;i++)
-            {
-                myWorld.AddAnt(new WorkerAnt(new Point(this.ClientSize.Width / 2 + alea.Next(-50, 50), this.ClientSize.Height / 2 + alea.Next(-50, 50)), new Vector(alea.Next(-10,10), alea.Next(-10, 10)), myWorld));
-            }
             myWorld.Seed();
+            Colony colo = new Colony(new System.Windows.Point(100, 100), myWorld);
+            colo.Spawn();
+            myWorld.AddColony(colo);
+            colo = new Colony(new System.Windows.Point(800, 300), myWorld);
+            colo.Spawn();
+            myWorld.AddColony(colo);
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -55,10 +52,6 @@ namespace FormsApp
 
             gfx.TranslateTransform(-(float)bmp.Width / 2, -(float)bmp.Height / 2);
 
-            //set the InterpolationMode to HighQualityBicubic so to ensure a high
-            //quality image once it is transformed to the specified size
-            gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
-
             //now draw our new image onto the graphics object
             gfx.DrawImage(img, 0,0,img.Width,img.Height);
 
@@ -73,27 +66,21 @@ namespace FormsApp
         {
             Graphics graphics = e.Graphics;
             // All ants
-            foreach (Ant ant in myWorld.Ants)
+            foreach (Colony colony in myWorld.Colonies)
             {
-                Image sourceImage = global::FormsApp.Properties.Resources.ant;
-                sourceImage = RotateImage(sourceImage, ant.Heading);
-                graphics.DrawImage(sourceImage, (int)ant.X, (int)ant.Y, sourceImage.Width, sourceImage.Height);
+                foreach (Ant ant in colony.Population)
+                {
+                    Image sourceImage = global::FormsApp.Properties.Resources.ant;
+                    sourceImage = RotateImage(sourceImage, ant.Heading+90);
+                    graphics.DrawImage(sourceImage, (int)ant.X, (int)ant.Y, sourceImage.Width, sourceImage.Height);
+                }
+                graphics.FillClosedCurve(new TextureBrush(Properties.Resources.anthill), colony.Hill);
+                graphics.DrawPolygon(new Pen(Color.Black), colony.Hill);
             }
 
-            // Anthill
-            Point[] ahill = new Point[] {
-                new Point { X = 100, Y = 100 },
-                new Point { X = 150, Y = 70 },
-                new Point { X = 200, Y = 110 },
-                new Point { X = 150, Y = 150 },
-                new Point { X = 200, Y = 250 },
-                new Point { X = 100, Y = 200 }
-            };
-            graphics.FillClosedCurve(new TextureBrush(Properties.Resources.anthill), ahill);
-            graphics.DrawPolygon(new Pen(Color.Black), ahill);
 
             // Food
-            foreach(FoodCluster fc in myWorld.FoodStock)
+            foreach (FoodCluster fc in myWorld.FoodStock)
             {
                 graphics.DrawCurve(new Pen(new TextureBrush(Properties.Resources.bread), 5), fc.Content.Select(x => x.Location).ToArray());
             }

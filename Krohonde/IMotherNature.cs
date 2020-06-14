@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Krohonde.Creatures;
 
-namespace Krohonde.World
+namespace Krohonde
 {
-    interface IMotherNature
+    public interface IMotherNature
     {
         #region Probing the world
         void LookAroundForFood(Ant ant);

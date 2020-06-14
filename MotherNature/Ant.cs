@@ -9,14 +9,14 @@ using Point = System.Drawing.Point;
 
 namespace Krohonde.Creatures
 {
-    public class Ant
+    public class BasicAnt
     {
         private Point Location;
         protected Vector Speed;
 
         protected MotherNature MyWorld;
 
-        public Ant(Point location, Vector speed, MotherNature world)
+        public BasicAnt(Point location, Vector speed, MotherNature world)
         {
             Location = location;
             Speed = speed;

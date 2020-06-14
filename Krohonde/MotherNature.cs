@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Krohonde.Creatures;
 using Point = System.Drawing.Point;
 
-namespace Krohonde.World
+namespace Krohonde
 {
     public class MotherNature : IMotherNature
     {
         public Random alea;
 
+        private List<Colony> colonies;
         private List<FoodCluster> food;
         private string[] KnownAntType = { "WorkerAnt", "SoldierAnt" };
         private readonly int width;
@@ -19,7 +19,7 @@ namespace Krohonde.World
 
         public MotherNature(int width, int height)
         {
-            ants = new List<Ant>();
+            colonies = new List<Colony>();
             food = new List<FoodCluster>();
             alea = new Random();
             this.width = width;
@@ -28,11 +28,6 @@ namespace Krohonde.World
 
         public int Width { get => width; }
         public int Height { get => height; }
-
-        public void AddAnt(Ant ant)
-        {
-            ants.Add(ant);
-        }
 
         public void Seed()
         {
@@ -51,15 +46,23 @@ namespace Krohonde.World
 
         public void Live()
         {
-            foreach (Ant ant in ants)
+            foreach (Colony colony in colonies)
             {
-                if (KnownAntType.Contains(ant.GetType().Name)) ant.Live();
+                foreach (Ant ant in colony.Population)
+                {
+                    if (KnownAntType.Contains(ant.GetType().Name)) ant.Live();
+                }
             }
         }
 
-        public List<Ant> Ants
+        public void AddColony(Colony colo)
         {
-            get => ants;
+            colonies.Add(colo);
+        }
+
+        public List<Colony> Colonies
+        {
+            get => colonies;
         }
 
         public List<FoodCluster> FoodStock
