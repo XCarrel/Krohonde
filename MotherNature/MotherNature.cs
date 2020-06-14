@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Krohonde.Creatures;
+using Point = System.Drawing.Point;
 
 namespace Krohonde.World
 {
@@ -12,6 +13,7 @@ namespace Krohonde.World
         public Random alea;
 
         private List<Ant> ants;
+        private List<Food> food;
         private string[] KnownAntType = { "WorkerAnt", "SoldierAnt" };
         private readonly int width;
         private readonly int height;
@@ -19,6 +21,7 @@ namespace Krohonde.World
         public MotherNature(int width, int height)
         {
             ants = new List<Ant>();
+            food = new List<Food>();
             alea = new Random();
             this.width = width;
             this.height = height;
@@ -32,6 +35,16 @@ namespace Krohonde.World
             ants.Add(ant);
         }
 
+        public void Seed()
+        {
+            Food seed = new Food(new Point(500,100), 10);
+            for (int i=0; i<80; i++)
+            {
+                food.Add(seed);
+                seed = new Food(new Point(seed.Location.X+alea.Next(-4,4),seed.Location.Y + alea.Next(-4, 4)),seed.Value); // clone to have a new object
+            }
+        }
+
         public void Live()
         {
             foreach (Ant ant in ants)
@@ -43,6 +56,11 @@ namespace Krohonde.World
         public List<Ant> Ants
         {
             get => ants;
+        }
+
+        public List<Food> FoodStock
+        {
+            get => food;
         }
         #region IMotherNature methods
         public void Build(Ant ant)
