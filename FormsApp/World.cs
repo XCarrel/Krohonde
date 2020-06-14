@@ -24,7 +24,7 @@ namespace FormsApp
         public World()
         {
             InitializeComponent();
-            myWorld = new MotherNature(this.ClientSize.Width, this.ClientSize.Height);
+            myWorld = new MotherNature(pctWorld.ClientSize.Width, pctWorld.ClientSize.Height);
             Random alea = new Random();
             for (int i=0; i<20;i++)
             {
