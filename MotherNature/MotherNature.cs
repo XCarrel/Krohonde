@@ -13,7 +13,7 @@ namespace Krohonde.World
         public Random alea;
 
         private List<Ant> ants;
-        private List<Food> food;
+        private List<FoodCluster> food;
         private string[] KnownAntType = { "WorkerAnt", "SoldierAnt" };
         private readonly int width;
         private readonly int height;
@@ -21,7 +21,7 @@ namespace Krohonde.World
         public MotherNature(int width, int height)
         {
             ants = new List<Ant>();
-            food = new List<Food>();
+            food = new List<FoodCluster>();
             alea = new Random();
             this.width = width;
             this.height = height;
@@ -37,11 +37,16 @@ namespace Krohonde.World
 
         public void Seed()
         {
-            Food seed = new Food(new Point(500,100), 10);
-            for (int i=0; i<80; i++)
+            for (int c=0; c<3; c++)
             {
-                food.Add(seed);
-                seed = new Food(new Point(seed.Location.X+alea.Next(-4,4),seed.Location.Y + alea.Next(-4, 4)),seed.Value); // clone to have a new object
+                Food seed = new Food(new Point(500, 100 + 150 * c), 10);
+                FoodCluster fc = new FoodCluster();
+                for (int i = 0; i < 180; i++)
+                {
+                    fc.Add(seed);
+                    seed = new Food(new Point(seed.Location.X + alea.Next(0, 5) - 2, seed.Location.Y + alea.Next(0,5)-2), seed.Value); // clone to have a new object
+                }
+                food.Add(fc);
             }
         }
 
@@ -58,7 +63,7 @@ namespace Krohonde.World
             get => ants;
         }
 
-        public List<Food> FoodStock
+        public List<FoodCluster> FoodStock
         {
             get => food;
         }

@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Ant.cs" />
     <Compile Include="Food.cs" />
+    <Compile Include="FoodCluster.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="IMotherNature.cs" />
     <Compile Include="MotherNature.cs" />

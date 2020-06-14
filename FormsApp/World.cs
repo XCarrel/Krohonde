@@ -93,9 +93,10 @@ namespace FormsApp
             graphics.DrawPolygon(new Pen(Color.Black), ahill);
 
             // Food
-            graphics.DrawPolygon(new Pen(new TextureBrush(Properties.Resources.bread),5), myWorld.FoodStock.Select(x => x.Location).ToArray());
-            graphics.FillClosedCurve(new TextureBrush(Properties.Resources.bread), myWorld.FoodStock.Select(x => x.Location).ToArray());
-            graphics.DrawPolygon(new Pen(Color.Black), myWorld.FoodStock.Select(x => x.Location).ToArray());
+            foreach(FoodCluster fc in myWorld.FoodStock)
+            {
+                graphics.DrawCurve(new Pen(new TextureBrush(Properties.Resources.bread), 5), fc.Content.Select(x => x.Location).ToArray());
+            }
         }
     }
 }
