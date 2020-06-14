@@ -7,8 +7,8 @@ using Point = System.Drawing.Point;
 
 namespace Krohonde
 {
-    public class Food : Resource
+    public class Brick : Resource
     {
-        public Food (Point loc, int val) : base (loc, val) { }
+        public Brick(Point loc, int val) : base(loc, val) { } 
     }
 }

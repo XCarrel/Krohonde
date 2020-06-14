@@ -22,11 +22,12 @@ namespace FormsApp
             InitializeComponent();
             myWorld = new MotherNature(pctWorld.ClientSize.Width, pctWorld.ClientSize.Height);
             myWorld.Seed();
-            Colony colo = new Colony(new System.Windows.Point(100, 100), myWorld);
-            colo.Spawn();
+            myWorld.Quake();
+            Colony colo = new Colony(new System.Windows.Point(400, 200), myWorld);
+            colo.Spawn(300);
             myWorld.AddColony(colo);
-            colo = new Colony(new System.Windows.Point(800, 300), myWorld);
-            colo.Spawn();
+            colo = new Colony(new System.Windows.Point(1200, 600), myWorld);
+            colo.Spawn(500);
             myWorld.AddColony(colo);
         }
 
@@ -78,11 +79,15 @@ namespace FormsApp
                 graphics.DrawPolygon(new Pen(Color.Black), colony.Hill);
             }
 
-
             // Food
             foreach (FoodCluster fc in myWorld.FoodStock)
             {
-                graphics.DrawCurve(new Pen(new TextureBrush(Properties.Resources.bread), 5), fc.Content.Select(x => x.Location).ToArray());
+                graphics.DrawCurve(new Pen(new TextureBrush(Properties.Resources.pollen), 5), fc.Content.Select(x => x.Location).ToArray());
+            }
+            // Bricks
+            foreach (BrickCluster bc in myWorld.BrickStock)
+            {
+                graphics.DrawCurve(new Pen(new TextureBrush(Properties.Resources.brick), 5), bc.Content.Select(x => x.Location).ToArray());
             }
         }
     }

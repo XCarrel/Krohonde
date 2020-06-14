@@ -29,12 +29,12 @@ namespace Krohonde
             ants = new List<Ant>();
         }
 
-        public void Spawn()
+        public void Spawn(int nbAnts)
         {
-            ants.Add(new WorkerAnt(new Point(location.X - 50, location.Y + 50), new Point(5, 5), myWorld));
-            ants.Add(new WorkerAnt(new Point(location.X + 50, location.Y + 50), new Point(-5, 5), myWorld));
-            ants.Add(new WorkerAnt(new Point(location.X - 50, location.Y - 50), new Point(5, -5), myWorld));
-            ants.Add(new WorkerAnt(new Point(location.X + 50, location.Y - 50), new Point(-5, -5), myWorld));
+            for (int i=0; i<nbAnts; i++)
+            {
+                ants.Add(new WorkerAnt(new Point(location.X + myWorld.alea.Next(0,200)-100, location.Y + myWorld.alea.Next(0, 200) - 100), new Point(myWorld.alea.Next(0, 9) - 4, myWorld.alea.Next(0, 9) - 4), myWorld));
+            }
         }
 
         public System.Drawing.Point[] Hill { get => hill; }

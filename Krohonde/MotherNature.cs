@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Point = System.Drawing.Point;
+using System.Windows;
 
 namespace Krohonde
 {
     public class MotherNature : IMotherNature
     {
+        private const int FOOD_CLUSTERS = 50;
+        private const int FOOD_CLUSTER_SIZE = 200;
+        private const int BRICK_CLUSTERS = 50;
+        private const int BRICK_CLUSTER_SIZE = 200;
+
         public Random alea;
 
         private List<Colony> colonies;
         private List<FoodCluster> food;
+        private List<BrickCluster> bricks;
         private string[] KnownAntType = { "WorkerAnt", "SoldierAnt" };
         private readonly int width;
         private readonly int height;
@@ -21,6 +27,7 @@ namespace Krohonde
         {
             colonies = new List<Colony>();
             food = new List<FoodCluster>();
+            bricks = new List<BrickCluster>();
             alea = new Random();
             this.width = width;
             this.height = height;
@@ -31,16 +38,31 @@ namespace Krohonde
 
         public void Seed()
         {
-            for (int c=0; c<3; c++)
+            for (int c = 0; c < FOOD_CLUSTERS; c++)
             {
-                Food seed = new Food(new Point(500, 100 + 150 * c), 10);
+                Food seed = new Food(new System.Drawing.Point(alea.Next(width / 20, 19 * width / 20), alea.Next(height / 20, 19 * height / 20)), 10);
                 FoodCluster fc = new FoodCluster();
-                for (int i = 0; i < 180; i++)
+                for (int i = 0; i < FOOD_CLUSTER_SIZE; i++)
                 {
                     fc.Add(seed);
-                    seed = new Food(new Point(seed.Location.X + alea.Next(0, 5) - 2, seed.Location.Y + alea.Next(0,5)-2), seed.Value); // clone to have a new object
+                    seed = new Food(new System.Drawing.Point(seed.Location.X + alea.Next(0, 5) - 2, seed.Location.Y + alea.Next(0, 5) - 2), seed.Value); // re-instantiate to have a new object
                 }
                 food.Add(fc);
+            }
+        }
+
+        public void Quake()
+        {
+            for (int c = 0; c < BRICK_CLUSTERS; c++)
+            {
+                Brick seed = new Brick(new System.Drawing.Point(alea.Next(width / 20, 19 * width / 20), alea.Next(height / 20, 19 * height / 20)), 10);
+                BrickCluster bc = new BrickCluster();
+                for (int i = 0; i < BRICK_CLUSTER_SIZE; i++)
+                {
+                    bc.Add(seed);
+                    seed = new Brick(new System.Drawing.Point(seed.Location.X + alea.Next(0, 5) - 2, seed.Location.Y + alea.Next(0, 5) - 2), seed.Value); // re-instantiate to have a new object
+                }
+                bricks.Add(bc);
             }
         }
 
@@ -68,6 +90,10 @@ namespace Krohonde
         public List<FoodCluster> FoodStock
         {
             get => food;
+        }
+        public List<BrickCluster> BrickStock
+        {
+            get => bricks;
         }
         #region IMotherNature methods
 

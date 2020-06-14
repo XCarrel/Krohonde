@@ -37,7 +37,7 @@
             // timer
             // 
             this.timer.Enabled = true;
-            this.timer.Interval = 50;
+            this.timer.Interval = 500;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // pctWorld

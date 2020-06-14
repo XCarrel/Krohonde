@@ -91,13 +91,16 @@
     <None Include="Resources\anthill.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\bread.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Krohonde\Krohonde.csproj">
       <Project>{3715227d-5762-432b-993e-5d6b2a2a3384}</Project>
       <Name>Krohonde</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\brick.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pollen.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
