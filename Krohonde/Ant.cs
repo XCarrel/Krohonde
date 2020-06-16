@@ -7,8 +7,11 @@ using System.Windows;
 
 namespace Krohonde
 {
-    public class Ant
+    public abstract class Ant
     {
+        static int lastid = 0;
+        private readonly int id;
+
         private readonly Point origin;
         private Point Location;
         protected Point Speed;
@@ -21,13 +24,16 @@ namespace Krohonde
             Speed = speed;
             MyColony = colony;
             origin = new Point(0, 0);
+            id = ++lastid;
         }
 
-        public virtual void Live()
+        protected void Move()
         {
             Location.X += Speed.X;
             Location.Y += Speed.Y;
         }
+
+        public abstract void Live();
 
         public int Heading
         {

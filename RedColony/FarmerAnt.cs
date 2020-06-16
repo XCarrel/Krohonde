@@ -9,7 +9,12 @@ namespace Krohonde.RedColony
 {
     public class FarmerAnt : Ant
     {
-        public FarmerAnt(Point location, Point speed, RedColony colony) : base(location, speed, colony)
+        public FarmerAnt(Point location, Point speed, RedColony colony) : base(location, speed, colony) 
         { }
+
+        public override void Live()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

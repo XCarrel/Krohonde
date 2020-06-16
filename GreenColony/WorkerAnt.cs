@@ -15,7 +15,7 @@ namespace Krohonde.GreenColony
 
         public override void Live()
         {
-            base.Live();
+            Move();
         }
     }
 }
