@@ -14,6 +14,10 @@ namespace Krohonde
         private static int lastactionby; // the id of the last ant that performed an action (prevent double play)
         private readonly string fullname;
 
+        private int energy;     // 0 energy means you're dead
+        private int strength;   // With more strength, Farmer and Worker can carry more, Soldier hit harder, Scouts go faster. All get tired more slowly.
+        private int toughness;  // Resistance to enemy's hits
+
         private readonly Point origin; // a reference used for heading calculation
         private Point Location;
         protected Point Speed;
@@ -30,10 +34,20 @@ namespace Krohonde
             fullname = colony.GetType().Name+this.GetType().Name+id;
         }
 
+        /// <summary>
+        /// Verifies that an ant is not trying to make more than one action in a lifecycle
+        /// </summary>
+        /// <returns></returns>
+        private bool ActionAllowed()
+        {
+            bool res = (lastactionby == id);
+            lastactionby = id;
+            return res;
+        }
+
         protected void Move()
         {
-            if (lastactionby == id) return; // ignore multiple actions by same ant
-            lastactionby = id;
+            if (!ActionAllowed()) return; // ignore multiple actions by same ant
             Location.X += Speed.X;
             Location.Y += Speed.Y;
         }
