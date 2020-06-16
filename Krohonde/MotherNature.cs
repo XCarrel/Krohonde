@@ -24,6 +24,7 @@ namespace Krohonde
         private readonly int width;
         private readonly int height;
         private Stopwatch sw;
+        private TimeSpan lastThump;
 
         public MotherNature(int width, int height)
         {
@@ -78,7 +79,8 @@ namespace Krohonde
 
         public void Live()
         {
-            Console.WriteLine(string.Format("Thump {0}",sw.Elapsed));
+            Console.WriteLine(string.Format("Thump {0}",sw.Elapsed-lastThump));
+            lastThump = sw.Elapsed;
             foreach (Colony colony in colonies)
             {
                 foreach (Ant ant in colony.Population)

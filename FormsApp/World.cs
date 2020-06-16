@@ -35,8 +35,8 @@ namespace FormsApp
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            myWorld.Live();
-            pctWorld.Invalidate();
+            myWorld.Live(); // update
+            if (chkRender.Checked || chkRenderOnce.Checked) pctWorld.Invalidate(); // render
         }
         public static Image RotateImage(Image img, float rotationAngle)
         {
@@ -94,6 +94,7 @@ namespace FormsApp
             {
                 graphics.DrawCurve(new Pen(new TextureBrush(Properties.Resources.brick), 5), bc.Content.Select(x => x.Location).ToArray());
             }
+            chkRenderOnce.Checked = false;
         }
 
     }
