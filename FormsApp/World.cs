@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Collections;
 using System.Windows;
 using Krohonde;
+using Krohonde.RedColony;
+using Krohonde.GreenColony;
 
 namespace FormsApp
 {
@@ -23,12 +25,12 @@ namespace FormsApp
             myWorld = new MotherNature(pctWorld.ClientSize.Width, pctWorld.ClientSize.Height);
             myWorld.Seed();
             myWorld.Quake();
-            Colony colo = new Colony(new System.Windows.Point(400, 200), myWorld);
-            colo.Spawn(300);
-            myWorld.AddColony(colo);
-            colo = new Colony(new System.Windows.Point(1200, 600), myWorld);
-            colo.Spawn(500);
-            myWorld.AddColony(colo);
+            RedColony rcolo = new RedColony(new System.Windows.Point(400, 200), myWorld);
+            rcolo.Spawn(30);
+            myWorld.AddColony(rcolo);
+            GreenColony gcolo = new GreenColony(new System.Windows.Point(1200, 600), myWorld);
+            gcolo.Spawn(50);
+            myWorld.AddColony(gcolo);
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -36,7 +38,6 @@ namespace FormsApp
             myWorld.Live();
             pctWorld.Invalidate();
         }
-
         public static Image RotateImage(Image img, float rotationAngle)
         {
             //create an empty Bitmap image
@@ -66,7 +67,7 @@ namespace FormsApp
         private void pctWorld_Paint(object sender, PaintEventArgs e)
         {
             Graphics graphics = e.Graphics;
-            // All ants
+            // Colonies
             foreach (Colony colony in myWorld.Colonies)
             {
                 foreach (Ant ant in colony.Population)
@@ -77,6 +78,7 @@ namespace FormsApp
                 }
                 graphics.FillClosedCurve(new TextureBrush(Properties.Resources.anthill), colony.Hill);
                 graphics.DrawPolygon(new Pen(Color.Black), colony.Hill);
+                graphics.FillEllipse(new SolidBrush(colony.Color), (float)colony.Location.X-15, (float)colony.Location.Y-15, 30, 30);
             }
 
             // Food
@@ -90,5 +92,7 @@ namespace FormsApp
                 graphics.DrawCurve(new Pen(new TextureBrush(Properties.Resources.brick), 5), bc.Content.Select(x => x.Location).ToArray());
             }
         }
+
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,10 +10,10 @@ namespace Krohonde
 {
     public class MotherNature : IMotherNature
     {
-        private const int FOOD_CLUSTERS = 50;
-        private const int FOOD_CLUSTER_SIZE = 200;
-        private const int BRICK_CLUSTERS = 50;
-        private const int BRICK_CLUSTER_SIZE = 200;
+        private const int FOOD_CLUSTERS = 5;
+        private const int FOOD_CLUSTER_SIZE = 20;
+        private const int BRICK_CLUSTERS = 5;
+        private const int BRICK_CLUSTER_SIZE = 20;
 
         public Random alea;
 
@@ -22,6 +23,7 @@ namespace Krohonde
         private string[] KnownAntType = { "WorkerAnt", "SoldierAnt" };
         private readonly int width;
         private readonly int height;
+        private Stopwatch sw;
 
         public MotherNature(int width, int height)
         {
@@ -31,6 +33,8 @@ namespace Krohonde
             alea = new Random();
             this.width = width;
             this.height = height;
+            sw = new Stopwatch();
+            sw.Start();
         }
 
         public int Width { get => width; }
@@ -68,6 +72,7 @@ namespace Krohonde
 
         public void Live()
         {
+            Console.WriteLine(string.Format("Thump {0}",sw.Elapsed));
             foreach (Colony colony in colonies)
             {
                 foreach (Ant ant in colony.Population)

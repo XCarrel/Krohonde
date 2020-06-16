@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,36 +10,43 @@ namespace Krohonde
 {
     public class Colony
     {
-        private MotherNature myWorld;
-        private Point location;
-        private System.Drawing.Point[] hill;
-        private List<Ant> ants;
+        protected MotherNature myWorld;
+        protected System.Windows.Point location;
+        protected System.Drawing.Point[] hill;
+        protected List<Ant> ants;
+        private readonly Color color;
 
-        public Colony(Point loc, MotherNature world)
+        public Colony(Color col, System.Windows.Point loc, MotherNature world)
         {
             myWorld = world;
             // Anthill
             location = loc;
             hill = new System.Drawing.Point[] {
-                new System.Drawing.Point { X = (int)location.X-50, Y = (int)location.Y-30 },
-                new System.Drawing.Point { X = (int)location.X, Y = (int)location.Y-55 },
-                new System.Drawing.Point { X = (int)location.X+50, Y = (int)location.Y-33 },
-                new System.Drawing.Point { X = (int)location.X+35, Y = (int)location.Y+30 },
-                new System.Drawing.Point { X = (int)location.X-30, Y = (int)location.Y+33 }
+                new System.Drawing.Point { X = (int)location.X-43, Y = (int)location.Y-25 },
+                new System.Drawing.Point { X = (int)location.X, Y = (int)location.Y-50 },
+                new System.Drawing.Point { X = (int)location.X+43, Y = (int)location.Y-25 },
+                new System.Drawing.Point { X = (int)location.X+43, Y = (int)location.Y+25 },
+                new System.Drawing.Point { X = (int)location.X, Y = (int)location.Y+50 },
+                new System.Drawing.Point { X = (int)location.X-43, Y = (int)location.Y+25 },
             };
             ants = new List<Ant>();
+            color = col;
         }
 
         public void Spawn(int nbAnts)
         {
             for (int i=0; i<nbAnts; i++)
             {
-                ants.Add(new WorkerAnt(new Point(location.X + myWorld.alea.Next(0,200)-100, location.Y + myWorld.alea.Next(0, 200) - 100), new Point(myWorld.alea.Next(0, 9) - 4, myWorld.alea.Next(0, 9) - 4), myWorld));
+                ants.Add(new WorkerAnt(new System.Windows.Point(location.X + myWorld.alea.Next(0,200)-100, location.Y + myWorld.alea.Next(0, 200) - 100), new System.Windows.Point(myWorld.alea.Next(0, 9) - 4, myWorld.alea.Next(0, 9) - 4), myWorld));
             }
         }
 
         public System.Drawing.Point[] Hill { get => hill; }
 
         public List<Ant> Population { get => ants; }
+
+        public Color Color { get => color; }
+
+        public System.Windows.Point Location { get => location; }
     }
 }
