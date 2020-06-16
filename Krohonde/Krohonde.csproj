@@ -50,7 +50,6 @@
     <Compile Include="Brick.cs" />
     <Compile Include="BrickCluster.cs" />
     <Compile Include="Colony.cs" />
-    <Compile Include="FarmerAnt.cs" />
     <Compile Include="Food.cs" />
     <Compile Include="FoodCluster.cs" />
     <Compile Include="Helpers.cs" />

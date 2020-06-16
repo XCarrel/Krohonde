@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Krohonde
+namespace Krohonde.GreenColony
 {
     public class FarmerAnt : Ant
     {
-        public FarmerAnt(Point location, Point speed, MotherNature world) : base(location, speed, world)
+        public FarmerAnt(Point location, Point speed, GreenColony colony) : base(location, speed, colony)
         { }
     }
 }

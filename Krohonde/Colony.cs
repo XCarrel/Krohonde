@@ -42,5 +42,7 @@ namespace Krohonde
         public Color Color { get => color; }
 
         public System.Windows.Point Location { get => location; }
+
+        public MotherNature World { get => myWorld; }
     }
 }

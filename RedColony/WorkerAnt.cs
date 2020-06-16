@@ -9,18 +9,18 @@ namespace Krohonde.RedColony
 {
     public class WorkerAnt : Ant
     {
-        public WorkerAnt(Point location, Point speed, MotherNature world) : base (location,speed,world)
+        public WorkerAnt(Point location, Point speed, RedColony colony) : base (location,speed,colony)
         {
         }
 
         public override void Live()
         {
             base.Live();
-            if (MyWorld.alea.Next(0, 5) == 0)
-                if (MyWorld.alea.Next(0, 2) == 0)
-                    Speed.X = MyWorld.alea.Next(0, 9) - 4;
+            if (MyColony.World.alea.Next(0, 5) == 0)
+                if (MyColony.World.alea.Next(0, 2) == 0)
+                    Speed.X = MyColony.World.alea.Next(0, 9) - 4;
                 else
-                    Speed.Y = MyWorld.alea.Next(0, 9) - 4;
+                    Speed.Y = MyColony.World.alea.Next(0, 9) - 4;
         }
     }
 }

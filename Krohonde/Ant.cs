@@ -13,13 +13,13 @@ namespace Krohonde
         private Point Location;
         protected Point Speed;
 
-        protected MotherNature MyWorld;
+        protected Colony MyColony;
 
-        public Ant(Point location, Point speed, MotherNature world)
+        public Ant(Point location, Point speed, Colony colony)
         {
             Location = location;
             Speed = speed;
-            MyWorld = world;
+            MyColony = colony;
             origin = new Point(0, 0);
         }
 

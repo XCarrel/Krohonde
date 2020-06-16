@@ -9,7 +9,7 @@ namespace Krohonde.GreenColony
 {
     public class WorkerAnt : Ant
     {
-        public WorkerAnt(Point location, Point speed, MotherNature world) : base (location,speed,world)
+        public WorkerAnt(Point location, Point speed, GreenColony colony) : base (location,speed,colony)
         {
         }
 
