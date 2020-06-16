@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Krohonde
+namespace Krohonde.RedColony
 {
     public class WorkerAnt : Ant
     {
@@ -16,7 +16,7 @@ namespace Krohonde
         public override void Live()
         {
             base.Live();
-            if (MyWorld.alea.Next(0, 10) == 0)
+            if (MyWorld.alea.Next(0, 5) == 0)
                 if (MyWorld.alea.Next(0, 2) == 0)
                     Speed.X = MyWorld.alea.Next(0, 9) - 4;
                 else
