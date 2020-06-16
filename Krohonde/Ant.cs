@@ -12,8 +12,9 @@ namespace Krohonde
         private static int lastid = 0;
         private readonly int id;
         private static int lastactionby; // the id of the last ant that performed an action (prevent double play)
+        private readonly string fullname;
 
-        private readonly Point origin;
+        private readonly Point origin; // a reference used for heading calculation
         private Point Location;
         protected Point Speed;
 
@@ -26,6 +27,7 @@ namespace Krohonde
             MyColony = colony;
             origin = new Point(0, 0);
             id = ++lastid;
+            fullname = colony.GetType().Name+this.GetType().Name+id;
         }
 
         protected void Move()
