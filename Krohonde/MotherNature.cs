@@ -15,7 +15,7 @@ namespace Krohonde
         private const int BRICK_CLUSTERS = 5;
         private const int BRICK_CLUSTER_SIZE = 20;
 
-        public Random alea;
+        public static Random alea;
 
         private List<Colony> colonies;
         private List<FoodCluster> food;
