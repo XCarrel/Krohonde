@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace Krohonde
 {
-    public class Colony
+    public abstract class Colony
     {
         protected MotherNature myWorld;
         protected System.Windows.Point location;
@@ -33,13 +33,7 @@ namespace Krohonde
             color = col;
         }
 
-        public void Spawn(int nbAnts)
-        {
-            for (int i=0; i<nbAnts; i++)
-            {
-                ants.Add(new WorkerAnt(new System.Windows.Point(location.X + myWorld.alea.Next(0,200)-100, location.Y + myWorld.alea.Next(0, 200) - 100), new System.Windows.Point(myWorld.alea.Next(0, 9) - 4, myWorld.alea.Next(0, 9) - 4), myWorld));
-            }
-        }
+        public abstract void Spawn(int nbAnts);
 
         public System.Drawing.Point[] Hill { get => hill; }
 
