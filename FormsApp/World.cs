@@ -25,6 +25,7 @@ namespace FormsApp
             myWorld = new MotherNature(pctWorld.ClientSize.Width, pctWorld.ClientSize.Height);
             myWorld.Seed(); // put food in the world
             myWorld.Sprinkle(); // put construction material in the world
+            myWorld.AddRocks(); // put rocks in the world
             RedColony rcolo = new RedColony(new System.Windows.Point(400, 200), myWorld);
             rcolo.Spawn(30);
             myWorld.AddColony(rcolo);
@@ -94,7 +95,14 @@ namespace FormsApp
             {
                 graphics.DrawCurve(new Pen(new TextureBrush(Properties.Resources.brick), 5), bc.Content.Select(x => x.Location).ToArray());
             }
-            chkRenderOnce.Checked = false;
+
+            // Rocks
+            foreach (Rock r in myWorld.Rocks)
+            {
+                graphics.FillClosedCurve(new TextureBrush(Properties.Resources.rock), r.Shape);
+            }
+
+            chkRenderOnce.Checked = false; // clear that flag for next loop
         }
 
     }

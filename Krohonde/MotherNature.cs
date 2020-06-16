@@ -14,12 +14,22 @@ namespace Krohonde
         private const int FOOD_CLUSTER_SIZE = 20;
         private const int BRICK_CLUSTERS = 5;
         private const int BRICK_CLUSTER_SIZE = 20;
+        private const int NB_ROCKS = 10;
+        private const int MAX_ROCK_WIDTH = 100;
+        private const int MIN_ROCK_WIDTH = 10;
+        private const int MAX_ROCK_HEIGHT = 100;
+        private const int MIN_ROCK_HEIGHT = 10;
+        private const int MIN_NB_ROCK_EDGES = 3;
+        private const int MAX_NB_ROCK_EDGES = 8;
+
 
         public static Random alea;
 
         private List<Colony> colonies;
         private List<FoodCluster> food;
         private List<BrickCluster> bricks;
+        private List<Rock> rocks;
+
         private string[] KnownAntType = { "WorkerAnt", "SoldierAnt" };
         private readonly int width;
         private readonly int height;
@@ -31,6 +41,7 @@ namespace Krohonde
             colonies = new List<Colony>();
             food = new List<FoodCluster>();
             bricks = new List<BrickCluster>();
+            rocks = new List<Rock>();
             alea = new Random();
             this.width = width;
             this.height = height;
@@ -77,6 +88,18 @@ namespace Krohonde
             }
         }
 
+        public void AddRocks()
+        {
+            for (int r = 0; r < NB_ROCKS; r++)
+            {
+                Point loc = new Point(alea.Next(width / 20, 19 * width / 20), alea.Next(height / 20, 19 * height / 20));
+                int w = MotherNature.alea.Next(MIN_ROCK_WIDTH, MAX_ROCK_WIDTH);
+                int h = MotherNature.alea.Next(MIN_ROCK_HEIGHT, MAX_ROCK_HEIGHT);
+                int nbpts = MotherNature.alea.Next(MIN_NB_ROCK_EDGES, MAX_NB_ROCK_EDGES);
+                rocks.Add(new Rock(loc, nbpts, w, h));
+            }
+        }
+
         public void Live()
         {
             Console.WriteLine(string.Format("Thump {0}",sw.Elapsed-lastThump));
@@ -107,6 +130,11 @@ namespace Krohonde
         public List<BrickCluster> BrickStock
         {
             get => bricks;
+        }
+
+        public List<Rock> Rocks
+        {
+            get => rocks;
         }
         #region IMotherNature methods
 
