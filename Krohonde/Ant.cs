@@ -9,8 +9,9 @@ namespace Krohonde
 {
     public abstract class Ant
     {
-        static int lastid = 0;
+        private static int lastid = 0;
         private readonly int id;
+        private static int lastactionby; // the id of the last ant that performed an action (prevent double play)
 
         private readonly Point origin;
         private Point Location;
@@ -29,6 +30,8 @@ namespace Krohonde
 
         protected void Move()
         {
+            if (lastactionby == id) return; // ignore multiple actions by same ant
+            lastactionby = id;
             Location.X += Speed.X;
             Location.Y += Speed.Y;
         }
