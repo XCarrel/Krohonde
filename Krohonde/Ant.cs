@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +14,7 @@ namespace Krohonde
         private readonly int id;
         private static int lastactionby; // the id of the last ant that performed an action (prevent double play)
         private readonly string fullname;
+        private readonly string certificate;
 
         private int energy;     // 0 energy means you're dead
         private int strength;   // With more strength, Farmer and Worker can carry more, Soldier hit harder, Scouts go faster. All get tired more slowly.
@@ -32,6 +34,7 @@ namespace Krohonde
             origin = new Point(0, 0);
             id = ++lastid;
             fullname = colony.GetType().Name+this.GetType().Name+id;
+            certificate = colony.World.GetBirthCertificate(fullname);
         }
 
         /// <summary>
@@ -40,7 +43,7 @@ namespace Krohonde
         /// <returns></returns>
         private bool ActionAllowed()
         {
-            bool res = (lastactionby == id);
+            bool res = (lastactionby != id);
             lastactionby = id;
             return res;
         }
@@ -63,5 +66,9 @@ namespace Krohonde
         public double Y { get => Location.Y; }
 
         public Colony Colony { get => MyColony; }
+        
+        public string Fullname { get => fullname; }
+
+        public string Certificate { get => certificate; }
     }
 }

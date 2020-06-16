@@ -5,11 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Collections;
 
 namespace Krohonde
 {
     public class MotherNature : IMotherNature
     {
+
         private const int FOOD_CLUSTERS = 5;
         private const int FOOD_CLUSTER_SIZE = 20;
         private const int BRICK_CLUSTERS = 5;
@@ -22,7 +24,6 @@ namespace Krohonde
         private const int MIN_NB_ROCK_EDGES = 3;
         private const int MAX_NB_ROCK_EDGES = 8;
 
-
         public static Random alea;
 
         private List<Colony> colonies;
@@ -30,11 +31,13 @@ namespace Krohonde
         private List<BrickCluster> bricks;
         private List<Rock> rocks;
 
-        private string[] KnownAntType = { "WorkerAnt", "SoldierAnt" };
         private readonly int width;
         private readonly int height;
         private Stopwatch sw;
         private TimeSpan lastThump;
+        Hashtable birthCertificates;
+        Hashtable eggCertificates;
+
 
         public MotherNature(int width, int height)
         {
@@ -47,6 +50,8 @@ namespace Krohonde
             this.height = height;
             sw = new Stopwatch();
             sw.Start();
+            birthCertificates = new Hashtable();
+            eggCertificates = new Hashtable();
         }
 
         public int Width { get => width; }
@@ -88,6 +93,9 @@ namespace Krohonde
             }
         }
 
+        /// <summary>
+        /// Place rocks in the landscape
+        /// </summary>
         public void AddRocks()
         {
             for (int r = 0; r < NB_ROCKS; r++)
@@ -102,14 +110,42 @@ namespace Krohonde
 
         public void Live()
         {
+            /*
             Console.WriteLine(string.Format("Thump {0}",sw.Elapsed-lastThump));
             lastThump = sw.Elapsed;
+            //*/
             foreach (Colony colony in colonies)
             {
                 foreach (Ant ant in colony.Population)
                 {
-                    if (KnownAntType.Contains(ant.GetType().Name)) ant.Live();
+                    if (birthCertificates[ant.Fullname].Equals(ant.Certificate))
+                    {
+                        ant.Live();
+                    }
+                    else
+                    {
+                        Console.WriteLine(ant.Fullname + " is illegal");
+                    }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Get a birth certificate for a specific ant name
+        /// </summary>
+        /// <param name="antname"></param>
+        /// <returns></returns>
+        public string GetBirthCertificate(string antname)
+        {
+            // TODO Give the certificate only in exchange to a certified egg
+            try
+            {
+                string GuidString = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+                birthCertificates.Add(antname,GuidString);
+                return GuidString;
+            } catch (Exception e)
+            {
+                return "";
             }
         }
 

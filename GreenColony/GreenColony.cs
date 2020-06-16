@@ -15,8 +15,7 @@ namespace Krohonde.GreenColony
         {
         }
 
-        override
-        public void Spawn(int nbAnts)
+        public override void Spawn(int nbAnts)
         {
             for (int i=0; i<nbAnts; i++)
             {
