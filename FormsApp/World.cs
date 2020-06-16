@@ -27,10 +27,10 @@ namespace FormsApp
             myWorld.Sprinkle(); // put construction material in the world
             myWorld.AddRocks(); // put rocks in the world
             RedColony rcolo = new RedColony(new System.Windows.Point(400, 200), myWorld);
-            rcolo.Spawn(30);
+            rcolo.Spawn(3);
             myWorld.AddColony(rcolo);
             GreenColony gcolo = new GreenColony(new System.Windows.Point(1200, 600), myWorld);
-            gcolo.Spawn(50);
+            gcolo.Spawn(5);
             myWorld.AddColony(gcolo);
         }
 
@@ -77,7 +77,7 @@ namespace FormsApp
                 {
                     Image sourceImage = global::FormsApp.Properties.Resources.ant;
                     sourceImage = RotateImage(sourceImage, ant.Heading+90);
-                    if (showOrigin) graphics.FillEllipse(new SolidBrush(ant.Colony.Color), (float)ant.X , (float)ant.Y , 20, 20);
+                    if (showOrigin) graphics.FillEllipse(new SolidBrush(ant.Colony.Color), (float)ant.X , (float)ant.Y , 24 * ant.Energy/100, 24 *ant.Energy/100);
                     graphics.DrawImage(sourceImage, (int)ant.X, (int)ant.Y, sourceImage.Width, sourceImage.Height);
                 }
                 graphics.FillClosedCurve(new TextureBrush(Properties.Resources.anthill), colony.Hill);

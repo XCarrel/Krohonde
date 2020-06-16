@@ -33,6 +33,15 @@ namespace Krohonde
             color = col;
         }
 
+        /// <summary>
+        /// Remove an ant from the colony (it's dead or illegal)
+        /// </summary>
+        /// <param name="ant"></param>
+        public void Dispose(Ant ant)
+        {
+            ants.Remove(ant);
+        }
+
         public abstract void Spawn(int nbAnts);
 
         public System.Drawing.Point[] Hill { get => hill; }

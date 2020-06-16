@@ -35,6 +35,9 @@ namespace Krohonde
             id = ++lastid;
             fullname = colony.GetType().Name+this.GetType().Name+id;
             certificate = colony.World.GetBirthCertificate(fullname);
+            energy = 100;
+            strength = 0;
+            toughness = 0;
         }
 
         /// <summary>
@@ -53,6 +56,7 @@ namespace Krohonde
             if (!ActionAllowed()) return; // ignore multiple actions by same ant
             Location.X += Speed.X;
             Location.Y += Speed.Y;
+            energy -= (int)(new Vector(Speed.X, Speed.Y)).Length;
         }
 
         public abstract void Live();
@@ -70,5 +74,7 @@ namespace Krohonde
         public string Fullname { get => fullname; }
 
         public string Certificate { get => certificate; }
+
+        public int Energy { get => energy; }
     }
 }

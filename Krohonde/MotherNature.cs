@@ -116,17 +116,21 @@ namespace Krohonde
             //*/
             foreach (Colony colony in colonies)
             {
+                List<Ant> deadones = new List<Ant>();
                 foreach (Ant ant in colony.Population)
                 {
                     if (birthCertificates[ant.Fullname].Equals(ant.Certificate))
                     {
                         ant.Live();
-                    }
-                    else
-                    {
-                        Console.WriteLine(ant.Fullname + " is illegal");
+                        if (ant.Energy < 0)
+                        {
+                            birthCertificates.Remove(ant.Fullname);
+                            deadones.Add(ant);
+                        }
                     }
                 }
+                // Remove the dead ones
+                foreach (Ant ant in deadones) colony.Dispose(ant);
             }
         }
 
