@@ -67,6 +67,8 @@ namespace FormsApp
         private void pctWorld_Paint(object sender, PaintEventArgs e)
         {
             Graphics graphics = e.Graphics;
+            bool showOrigin = chkShowColonies.Checked;
+
             // Colonies
             foreach (Colony colony in myWorld.Colonies)
             {
@@ -74,11 +76,12 @@ namespace FormsApp
                 {
                     Image sourceImage = global::FormsApp.Properties.Resources.ant;
                     sourceImage = RotateImage(sourceImage, ant.Heading+90);
+                    if (showOrigin) graphics.FillEllipse(new SolidBrush(ant.Colony.Color), (float)ant.X , (float)ant.Y , 20, 20);
                     graphics.DrawImage(sourceImage, (int)ant.X, (int)ant.Y, sourceImage.Width, sourceImage.Height);
                 }
                 graphics.FillClosedCurve(new TextureBrush(Properties.Resources.anthill), colony.Hill);
+                graphics.FillEllipse(new SolidBrush(colony.Color), (float)colony.Location.X-15, (float)colony.Location.Y-15, 30, 30); // Colony "flag"
                 graphics.DrawPolygon(new Pen(Color.Black), colony.Hill);
-                graphics.FillEllipse(new SolidBrush(colony.Color), (float)colony.Location.X-15, (float)colony.Location.Y-15, 30, 30);
             }
 
             // Food
@@ -92,7 +95,6 @@ namespace FormsApp
                 graphics.DrawCurve(new Pen(new TextureBrush(Properties.Resources.brick), 5), bc.Content.Select(x => x.Location).ToArray());
             }
         }
-
 
     }
 }

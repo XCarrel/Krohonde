@@ -36,5 +36,7 @@ namespace Krohonde
 
         public double X { get => Location.X; }
         public double Y { get => Location.Y; }
+
+        public Colony Colony { get => MyColony; }
     }
 }
