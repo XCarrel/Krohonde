@@ -40,6 +40,9 @@ namespace Krohonde
         public int Width { get => width; }
         public int Height { get => height; }
 
+        /// <summary>
+        /// Place food at random in the world
+        /// </summary>
         public void Seed()
         {
             for (int c = 0; c < FOOD_CLUSTERS; c++)
@@ -55,7 +58,10 @@ namespace Krohonde
             }
         }
 
-        public void Quake()
+        /// <summary>
+        /// Place construction material at random in the world
+        /// </summary>
+        public void Sprinkle()
         {
             for (int c = 0; c < BRICK_CLUSTERS; c++)
             {

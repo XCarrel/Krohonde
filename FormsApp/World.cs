@@ -23,8 +23,8 @@ namespace FormsApp
         {
             InitializeComponent();
             myWorld = new MotherNature(pctWorld.ClientSize.Width, pctWorld.ClientSize.Height);
-            myWorld.Seed();
-            myWorld.Quake();
+            myWorld.Seed(); // put food in the world
+            myWorld.Sprinkle(); // put construction material in the world
             RedColony rcolo = new RedColony(new System.Windows.Point(400, 200), myWorld);
             rcolo.Spawn(30);
             myWorld.AddColony(rcolo);
