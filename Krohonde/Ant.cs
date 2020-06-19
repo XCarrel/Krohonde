@@ -54,13 +54,14 @@ namespace Krohonde
         protected void Move(double deltatime)
         {
             if (!ActionAllowed()) return; // ignore multiple actions by same ant
+            double maxSpeed = MyColony.World.getMaxSpeed(this.GetType().Name);
             // Linear speed
             double linspeed = (new Vector(Speed.X, Speed.Y)).Length;
-            if (linspeed > 10) // Too big, let's adjust to max 
+            if (linspeed > maxSpeed) // Too big, let's adjust to max 
             {
-                Speed.X /= (linspeed / 10);
-                Speed.Y /= (linspeed / 10);
-                linspeed = 10;
+                Speed.X /= (linspeed / maxSpeed);
+                Speed.Y /= (linspeed / maxSpeed);
+                linspeed = maxSpeed;
             }
             Location.X += Speed.X * deltatime;
             Location.Y += Speed.Y * deltatime;

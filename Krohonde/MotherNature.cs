@@ -174,6 +174,18 @@ namespace Krohonde
         {
             get => rocks;
         }
+
+        public double getMaxSpeed (string anttype)
+        {
+            switch (anttype)
+            {
+                case "FarmerAnt": return 10;
+                case "WorkerAnt": return 50;
+                case "ScoutAnt": return 20;
+                case "SoldierAnt": return 15;
+                default: return 0;
+            }
+        }
         #region IMotherNature methods
 
         void IMotherNature.LookAroundForFood(Ant ant)
