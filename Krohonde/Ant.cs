@@ -47,16 +47,24 @@ namespace Krohonde
         private bool ActionAllowed()
         {
             bool res = (lastactionby != id);
-            lastactionby = id;
+            lastactionby = id; // static variable that remembers the last ant who did something
             return res;
         }
 
         protected void Move(double deltatime)
         {
             if (!ActionAllowed()) return; // ignore multiple actions by same ant
+            // Linear speed
+            double linspeed = (new Vector(Speed.X, Speed.Y)).Length;
+            if (linspeed > 10) // Too big, let's adjust to max 
+            {
+                Speed.X /= (linspeed / 10);
+                Speed.Y /= (linspeed / 10);
+                linspeed = 10;
+            }
             Location.X += Speed.X * deltatime;
             Location.Y += Speed.Y * deltatime;
-            energy -= (int)(new Vector(Speed.X, Speed.Y)).Length;
+            energy -= (int)linspeed;
         }
 
         /// <summary>

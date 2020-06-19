@@ -104,6 +104,7 @@
             this.Controls.Add(this.pctWorld);
             this.Name = "World";
             this.Text = "Krohonde";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.pctWorld)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
