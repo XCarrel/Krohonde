@@ -13,14 +13,14 @@ namespace Krohonde.RedColony
         {
         }
 
-        public override void Live()
+        public override void Live(double deltatime)
         {
             if (MotherNature.alea.Next(0, 5) == 0)
                 if (MotherNature.alea.Next(0, 2) == 0)
                     Speed.X = MotherNature.alea.Next(0, 9) - 4;
                 else
                     Speed.Y = MotherNature.alea.Next(0, 9) - 4;
-            Move();
+            Move(deltatime);
         }
     }
 }

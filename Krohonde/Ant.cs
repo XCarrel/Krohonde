@@ -51,15 +51,19 @@ namespace Krohonde
             return res;
         }
 
-        protected void Move()
+        protected void Move(double deltatime)
         {
             if (!ActionAllowed()) return; // ignore multiple actions by same ant
-            Location.X += Speed.X;
-            Location.Y += Speed.Y;
+            Location.X += Speed.X * deltatime;
+            Location.Y += Speed.Y * deltatime;
             energy -= (int)(new Vector(Speed.X, Speed.Y)).Length;
         }
 
-        public abstract void Live();
+        /// <summary>
+        /// Updates the ant's state according to the time it has lived since last update
+        /// </summary>
+        /// <param name="deltatime"></param>
+        public abstract void Live(double deltatime);
 
         public int Heading
         {

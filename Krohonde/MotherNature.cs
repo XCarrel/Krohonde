@@ -33,8 +33,8 @@ namespace Krohonde
 
         private readonly int width;
         private readonly int height;
-        private Stopwatch sw;
-        private TimeSpan lastThump;
+        private Stopwatch bigbangtime;
+        private TimeSpan lastupdate;
         Hashtable birthCertificates;
         Hashtable eggCertificates;
 
@@ -48,8 +48,8 @@ namespace Krohonde
             alea = new Random();
             this.width = width;
             this.height = height;
-            sw = new Stopwatch();
-            sw.Start();
+            bigbangtime = new Stopwatch();
+            bigbangtime.Start();
             birthCertificates = new Hashtable();
             eggCertificates = new Hashtable();
         }
@@ -110,10 +110,7 @@ namespace Krohonde
 
         public void Live()
         {
-            /*
-            Console.WriteLine(string.Format("Thump {0}",sw.Elapsed-lastThump));
-            lastThump = sw.Elapsed;
-            //*/
+            double deltatime = (bigbangtime.Elapsed - lastupdate).TotalSeconds;
             foreach (Colony colony in colonies)
             {
                 List<Ant> deadones = new List<Ant>();
@@ -121,7 +118,7 @@ namespace Krohonde
                 {
                     if (birthCertificates[ant.Fullname].Equals(ant.Certificate))
                     {
-                        ant.Live();
+                        ant.Live(deltatime);
                         if (ant.Energy < 0)
                         {
                             birthCertificates.Remove(ant.Fullname);
@@ -132,6 +129,7 @@ namespace Krohonde
                 // Remove the dead ones
                 foreach (Ant ant in deadones) colony.Dispose(ant);
             }
+            lastupdate = bigbangtime.Elapsed;
         }
 
         /// <summary>

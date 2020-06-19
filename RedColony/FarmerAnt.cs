@@ -12,7 +12,7 @@ namespace Krohonde.RedColony
         public FarmerAnt(Point location, Point speed, RedColony colony) : base(location, speed, colony) 
         { }
 
-        public override void Live()
+        public override void Live(double deltatime)
         {
             throw new NotImplementedException();
         }
