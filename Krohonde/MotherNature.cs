@@ -180,7 +180,7 @@ namespace Krohonde
             switch (anttype)
             {
                 case "FarmerAnt": return 10;
-                case "WorkerAnt": return 50;
+                case "WorkerAnt": return 10;
                 case "ScoutAnt": return 20;
                 case "SoldierAnt": return 15;
                 default: return 0;

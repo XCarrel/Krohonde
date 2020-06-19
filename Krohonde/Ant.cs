@@ -35,7 +35,7 @@ namespace Krohonde
             id = ++lastid;
             fullname = colony.GetType().Name+this.GetType().Name+id;
             certificate = colony.World.GetBirthCertificate(fullname);
-            energy = 100;
+            energy = 800;
             strength = 0;
             toughness = 0;
         }
@@ -63,8 +63,18 @@ namespace Krohonde
                 Speed.Y /= (linspeed / maxSpeed);
                 linspeed = maxSpeed;
             }
-            Location.X += Speed.X * deltatime;
-            Location.Y += Speed.Y * deltatime;
+
+            // Check if move is OK
+            double nextX = Location.X + Speed.X * deltatime;
+            double nextY = Location.Y + Speed.Y * deltatime;
+
+            foreach(Rock rock in this.Colony.World.Rocks)
+                if (Helpers.IsInPolygon(rock.Shape, new System.Drawing.Point((int)nextX, (int)nextY))) return;
+
+            Location.X = nextX;
+            Location.Y = nextY;
+
+            // Energy consumption
             energy -= (int)linspeed;
         }
 
