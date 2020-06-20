@@ -29,36 +29,16 @@ namespace Krohonde
         /// <param name="nbpoints"></param>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        public Rock(System.Windows.Point location, int nbpoints, int width, int height)
+        public Rock(System.Windows.Point location, int width, int height)
         {
             shape = new List<Point>();
-
-            int[] axs;
-            int[] ays;
-            axs = getArray(nbpoints, width);
-            ays = getArray(nbpoints, height);
-            for (int i = 0; i < axs.Length; i++)
+            int deg = 0;
+            do
             {
-                shape.Add(new Point((int)(location.X - width + axs[i]), (int)(location.Y + ays[i])));
-            }
-            axs = getArray(nbpoints, width);
-            ays = getArray(nbpoints, height);
-            for (int i = 0; i < axs.Length; i++)
-            {
-                shape.Add(new Point((int)(location.X + axs[i]), (int)(location.Y + height - ays[i])));
-            }
-            axs = getArray(nbpoints, width);
-            ays = getArray(nbpoints, height);
-            for (int i = 0; i < axs.Length; i++)
-            {
-                shape.Add(new Point((int)(location.X + width - axs[i]), (int)(location.Y - ays[i])));
-            }
-            axs = getArray(nbpoints, width);
-            ays = getArray(nbpoints, height);
-            for (int i = 0; i < axs.Length; i++)
-            {
-                shape.Add(new Point((int)(location.X - axs[i]), (int)(location.Y -height + ays[i])));
-            }
+                double angle = deg * Math.PI / 180;
+                shape.Add(new Point((int)(location.X + Math.Cos(angle) * (width / 2 + MotherNature.alea.Next(0, 15))), (int)(location.Y + Math.Sin(angle) * (height / 2 + MotherNature.alea.Next(0, 15)))));
+                deg += MotherNature.alea.Next(10, 30);
+            } while (deg < 360);
         }
 
         public Point[] Shape { get => shape.ToArray(); }
