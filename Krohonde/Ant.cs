@@ -23,6 +23,7 @@ namespace Krohonde
         private readonly Point origin; // a reference used for heading calculation
         private Point Location;
         protected Point Speed;
+        protected Object BlockedBy; // if defined: the object that prevented the ant from moving
 
         protected Colony MyColony;
 
@@ -67,11 +68,17 @@ namespace Krohonde
             // Check if move is OK
             double nextX = HeadPosition.X + Speed.X * deltatime;
             double nextY = HeadPosition.Y + Speed.Y * deltatime;
-            if (nextX < 0 || nextY < 0 || nextX > this.Colony.World.Width || nextY > this.Colony.World.Height) return; // no escape from the world !!!
-
-            foreach(Rock rock in this.Colony.World.Rocks)
-                if (Helpers.IsInPolygon(rock.Shape, new System.Drawing.Point((int)nextX, (int)nextY))) 
+            if (nextX < 0 || nextY < 0 || nextX > this.Colony.World.Width || nextY > this.Colony.World.Height)
+            {
+                BlockedBy = this.Colony.World;
+                return; // no escape from the world !!!
+            }
+            foreach (Rock rock in this.Colony.World.Rocks)
+                if (Helpers.IsInPolygon(rock.Shape, new System.Drawing.Point((int)nextX, (int)nextY)))
+                {
+                    BlockedBy = rock;
                     return; // can't go through a rock
+                }
 
             Location.X += Speed.X * deltatime;
             Location.Y += Speed.Y * deltatime;

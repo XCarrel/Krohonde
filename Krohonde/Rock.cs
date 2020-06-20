@@ -29,23 +29,21 @@ namespace Krohonde
         {
             shape = new List<Point>();
             int deg = 0;
+            int drot = MotherNature.alea.Next(0, 90);
+            double rot = drot * Math.PI / 180; // rotation of the whole rock
             do
             {
                 double angle = deg * Math.PI / 180;
                 int noise = MotherNature.alea.Next(0, Math.Min(width,height)/10); // roughen the shape a bit
-                shape.Add(new Point((int)(location.X + Math.Cos(angle) * (width / 2 + noise)), (int)(location.Y + Math.Sin(angle) * (height / 2 + noise))));
+                Point np = new Point((int)(location.X + Math.Cos(angle) * (width / 2 + noise)), (int)(location.Y + Math.Sin(angle) * (height / 2 + noise)));
+                // rotate around the center point
+                double nx = location.X + (np.X - location.X) * Math.Cos(rot) - (np.Y - location.Y) * Math.Sin(rot);
+                double ny = location.Y + (np.X - location.X) * Math.Sin(rot) + (np.Y - location.Y) * Math.Cos(rot);
+                np.X = (int)nx;
+                np.Y = (int)ny;
+                shape.Add(np);
                 deg += MotherNature.alea.Next(10, 30);
             } while (deg < 360);
-            // rotate a bit so that it doesn't look too orthogonal
-            double rot = MotherNature.alea.Next(0, 90) * Math.PI / 180;
-            for (int i=0; i<shape.Count; i++)
-            {
-                Point p = shape[i];
-                double nx = p.X * Math.Cos(rot) - p.Y * Math.Sin(rot);
-                double ny = p.X * Math.Sin(rot) + p.Y * Math.Cos(rot);
-                p.X = (int)nx;
-                p.Y = (int)ny;
-            }
         }
 
         public Point[] Shape { get => shape.ToArray(); }
