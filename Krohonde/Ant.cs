@@ -35,7 +35,7 @@ namespace Krohonde
             id = ++lastid;
             fullname = colony.GetType().Name+this.GetType().Name+id;
             certificate = colony.World.GetBirthCertificate(fullname);
-            energy = 800;
+            energy = MotherNature.MAX_ENERGY;
             strength = 0;
             toughness = 0;
         }
@@ -67,6 +67,7 @@ namespace Krohonde
             // Check if move is OK
             double nextX = HeadPosition.X + Speed.X * deltatime;
             double nextY = HeadPosition.Y + Speed.Y * deltatime;
+            if (nextX < 0 || nextY < 0 || nextX > this.Colony.World.Width || nextY > this.Colony.World.Height) return; // no escape from the world !!!
 
             foreach(Rock rock in this.Colony.World.Rocks)
                 if (Helpers.IsInPolygon(rock.Shape, new System.Drawing.Point((int)nextX, (int)nextY))) 

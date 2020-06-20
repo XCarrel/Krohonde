@@ -27,10 +27,10 @@ namespace FormsApp
             myWorld.Sprinkle(); // put construction material in the world
             myWorld.AddRocks(); // put rocks in the world
             RedColony rcolo = new RedColony(new System.Windows.Point(400, 200), myWorld);
-            rcolo.Spawn(3);
+            rcolo.Spawn(20);
             myWorld.AddColony(rcolo);
             GreenColony gcolo = new GreenColony(new System.Windows.Point(1200, 600), myWorld);
-            gcolo.Spawn(5);
+            gcolo.Spawn(50);
             myWorld.AddColony(gcolo);
         }
 
@@ -77,7 +77,7 @@ namespace FormsApp
                 {
                     Image sourceImage = global::FormsApp.Properties.Resources.ant;
                     sourceImage = RotateImage(sourceImage, ant.Heading+90);
-                    if (showOrigin) graphics.FillEllipse(new SolidBrush(ant.Colony.Color), (float)ant.X , (float)ant.Y , 24 * ant.Energy/100, 24 *ant.Energy/100);
+                    if (showOrigin) graphics.DrawLine(new Pen(colony.Color, 6), new System.Drawing.Point((int)ant.X, (int)ant.Y), new System.Drawing.Point((int)(ant.X + 24 * ant.Energy / MotherNature.MAX_ENERGY), (int)ant.Y));
                     graphics.DrawImage(sourceImage, (int)ant.X, (int)ant.Y, sourceImage.Width, sourceImage.Height);
                 }
                 graphics.FillClosedCurve(new TextureBrush(Properties.Resources.anthill), colony.Hill);
@@ -99,7 +99,8 @@ namespace FormsApp
             // Rocks
             foreach (Rock r in myWorld.Rocks)
             {
-                graphics.FillClosedCurve(new TextureBrush(Properties.Resources.rock), r.Shape);
+                graphics.FillPolygon(new TextureBrush(Properties.Resources.rock), r.Shape);
+                graphics.DrawPolygon(new Pen(Color.Black,2), r.Shape);
             }
 
             chkRenderOnce.Checked = false; // clear that flag for next loop

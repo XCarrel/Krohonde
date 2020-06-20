@@ -21,10 +21,9 @@ namespace Krohonde
         private const int MIN_ROCK_WIDTH = 10;
         private const int MAX_ROCK_HEIGHT = 100;
         private const int MIN_ROCK_HEIGHT = 10;
-        private const int MIN_NB_ROCK_EDGES = 3;
-        private const int MAX_NB_ROCK_EDGES = 8;
 
         public static Random alea;
+        public const int MAX_ENERGY = 1800; // of an ant 
 
         private List<Colony> colonies;
         private List<FoodCluster> food;
@@ -103,8 +102,7 @@ namespace Krohonde
                 Point loc = new Point(alea.Next(width / 20, 19 * width / 20), alea.Next(height / 20, 19 * height / 20));
                 int w = MotherNature.alea.Next(MIN_ROCK_WIDTH, MAX_ROCK_WIDTH);
                 int h = MotherNature.alea.Next(MIN_ROCK_HEIGHT, MAX_ROCK_HEIGHT);
-                int nbpts = MotherNature.alea.Next(MIN_NB_ROCK_EDGES, MAX_NB_ROCK_EDGES);
-                rocks.Add(new Rock(loc, nbpts, w, h));
+                rocks.Add(new Rock(loc, w, h));
             }
         }
 

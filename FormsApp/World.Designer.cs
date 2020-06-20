@@ -40,7 +40,7 @@
             // timer
             // 
             this.timer.Enabled = true;
-            this.timer.Interval = 50;
+            this.timer.Interval = 10;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // pctWorld
@@ -49,7 +49,7 @@
             this.pctWorld.BackgroundImage = global::FormsApp.Properties.Resources.grass;
             this.pctWorld.Location = new System.Drawing.Point(0, 0);
             this.pctWorld.Name = "pctWorld";
-            this.pctWorld.Size = new System.Drawing.Size(5000, 5000);
+            this.pctWorld.Size = new System.Drawing.Size(1800, 1000);
             this.pctWorld.TabIndex = 0;
             this.pctWorld.TabStop = false;
             this.pctWorld.Paint += new System.Windows.Forms.PaintEventHandler(this.pctWorld_Paint);
