@@ -65,14 +65,15 @@ namespace Krohonde
             }
 
             // Check if move is OK
-            double nextX = Location.X + Speed.X * deltatime;
-            double nextY = Location.Y + Speed.Y * deltatime;
+            double nextX = HeadPosition.X + Speed.X * deltatime;
+            double nextY = HeadPosition.Y + Speed.Y * deltatime;
 
             foreach(Rock rock in this.Colony.World.Rocks)
-                if (Helpers.IsInPolygon(rock.Shape, new System.Drawing.Point((int)nextX, (int)nextY))) return;
+                if (Helpers.IsInPolygon(rock.Shape, new System.Drawing.Point((int)nextX, (int)nextY))) 
+                    return; // can't go through a rock
 
-            Location.X = nextX;
-            Location.Y = nextY;
+            Location.X += Speed.X * deltatime;
+            Location.Y += Speed.Y * deltatime;
 
             // Energy consumption
             energy -= (int)linspeed;
@@ -87,6 +88,15 @@ namespace Krohonde
         public int Heading
         {
             get => (int)(Math.Atan2(Speed.Y , Speed.X -1)*180/Math.PI);
+        }
+
+        public Point HeadPosition
+        {
+            get
+            {
+                double angle = Math.Atan2(Speed.Y, Speed.X - 1);
+                return new Point(Location.X + 12 + 12*Math.Cos(angle), Location.Y + 12 + 12 * Math.Sin(angle));
+            }
         }
 
         public double X { get => Location.X; }
