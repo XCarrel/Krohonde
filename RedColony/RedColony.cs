@@ -20,7 +20,7 @@ namespace Krohonde.RedColony
         {
             for (int i = 0; i < nbAnts; i++)
             {
-                ants.Add(new WorkerAnt(new System.Windows.Point(location.X + 50, location.Y + 50), new System.Windows.Point(MotherNature.alea.Next(0, 200)-100, MotherNature.alea.Next(0, 200)-100), this));
+                ants.Add(new WorkerAnt(new System.Windows.Point(location.X, location.Y), new System.Windows.Point(MotherNature.alea.Next(0, 200)-100, MotherNature.alea.Next(0, 200)-100), this));
             }
         }
 

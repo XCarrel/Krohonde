@@ -20,7 +20,6 @@ namespace Krohonde
         private int strength;   // With more strength, Farmer and Worker can carry more, Soldier hit harder, Scouts go faster. All get tired more slowly.
         private int toughness;  // Resistance to enemy's hits
 
-        private readonly Point origin; // a reference used for heading calculation
         private Point Location;
         protected Point Speed;
         protected Object BlockedBy; // if defined: the object that prevented the ant from moving
@@ -32,7 +31,6 @@ namespace Krohonde
             Location = location;
             Speed = speed;
             MyColony = colony;
-            origin = new Point(0, 0);
             id = ++lastid;
             fullname = colony.GetType().Name+this.GetType().Name+id;
             certificate = colony.World.GetBirthCertificate(fullname);
@@ -84,7 +82,7 @@ namespace Krohonde
             Location.Y += Speed.Y * deltatime;
 
             // Energy consumption
-            energy -= (int)linspeed;
+            energy -= (int)(linspeed * deltatime);
         }
 
         /// <summary>

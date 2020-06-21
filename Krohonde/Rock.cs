@@ -34,7 +34,7 @@ namespace Krohonde
             do
             {
                 double angle = deg * Math.PI / 180;
-                int noise = MotherNature.alea.Next(0, Math.Min(width,height)/10); // roughen the shape a bit
+                int noise = MotherNature.alea.Next(0, Math.Min(width,height)/5); // roughen the shape a bit
                 Point np = new Point((int)(location.X + Math.Cos(angle) * (width / 2 + noise)), (int)(location.Y + Math.Sin(angle) * (height / 2 + noise)));
                 // rotate around the center point
                 double nx = location.X + (np.X - location.X) * Math.Cos(rot) - (np.Y - location.Y) * Math.Sin(rot);
