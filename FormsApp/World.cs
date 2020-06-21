@@ -26,6 +26,7 @@ namespace FormsApp
             myWorld.Seed(); // put food in the world
             myWorld.Sprinkle(); // put construction material in the world
             myWorld.AddRocks(); // put rocks in the world
+            myWorld.Spray(); // add some smell (for testing)
             RedColony rcolo = new RedColony(new System.Windows.Point(400, 200), myWorld);
             rcolo.Spawn(20);
             myWorld.AddColony(rcolo);
@@ -56,7 +57,7 @@ namespace FormsApp
             gfx.TranslateTransform(-(float)bmp.Width / 2, -(float)bmp.Height / 2);
 
             //now draw our new image onto the graphics object
-            gfx.DrawImage(img, 0,0,img.Width,img.Height);
+            gfx.DrawImage(img, 0, 0, img.Width, img.Height);
 
             //dispose of our Graphics object
             gfx.Dispose();
@@ -76,12 +77,12 @@ namespace FormsApp
                 foreach (Ant ant in colony.Population)
                 {
                     Image sourceImage = global::FormsApp.Properties.Resources.ant;
-                    sourceImage = RotateImage(sourceImage, ant.Heading+90);
+                    sourceImage = RotateImage(sourceImage, ant.Heading + 90);
                     if (showOrigin) graphics.DrawLine(new Pen(colony.Color, 6), new System.Drawing.Point((int)ant.X, (int)ant.Y), new System.Drawing.Point((int)(ant.X + 24 * ant.Energy / MotherNature.MAX_ENERGY), (int)ant.Y));
                     graphics.DrawImage(sourceImage, (int)ant.X, (int)ant.Y, sourceImage.Width, sourceImage.Height);
                 }
                 graphics.FillClosedCurve(new TextureBrush(Properties.Resources.anthill), colony.Hill);
-                graphics.FillEllipse(new SolidBrush(colony.Color), (float)colony.Location.X-15, (float)colony.Location.Y-15, 30, 30); // Colony "flag"
+                graphics.FillEllipse(new SolidBrush(colony.Color), (float)colony.Location.X - 15, (float)colony.Location.Y - 15, 30, 30); // Colony "flag"
                 graphics.DrawPolygon(new Pen(Color.Black), colony.Hill);
             }
 
@@ -100,7 +101,20 @@ namespace FormsApp
             foreach (Rock r in myWorld.Rocks)
             {
                 graphics.FillPolygon(new TextureBrush(Properties.Resources.rock), r.Shape);
-                graphics.DrawPolygon(new Pen(Color.Black,2), r.Shape);
+                graphics.DrawPolygon(new Pen(Color.Black, 2), r.Shape);
+            }
+
+            // Pheromons
+            bool green = true;
+            Image gf = global::FormsApp.Properties.Resources.greenphero;
+            Image rf = global::FormsApp.Properties.Resources.redphero;
+            foreach (Pheromon phero in myWorld.Pheromons)
+            {
+                if (green)
+                    graphics.DrawImage(gf, (int)phero.Location.X, (int)phero.Location.Y, gf.Width / 2, gf.Height / 2);
+                else
+                    graphics.DrawImage(rf, (int)phero.Location.X, (int)phero.Location.Y, rf.Width / 2, rf.Height / 2);
+                green = !green;
             }
 
             chkRenderOnce.Checked = false; // clear that flag for next loop

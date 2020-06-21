@@ -29,6 +29,7 @@ namespace Krohonde
         private List<FoodCluster> food;
         private List<BrickCluster> bricks;
         private List<Rock> rocks;
+        private List<Pheromon> pheromons;
 
         private readonly int width;
         private readonly int height;
@@ -44,6 +45,7 @@ namespace Krohonde
             food = new List<FoodCluster>();
             bricks = new List<BrickCluster>();
             rocks = new List<Rock>();
+            pheromons = new List<Pheromon>();
             alea = new Random();
             this.width = width;
             this.height = height;
@@ -103,6 +105,14 @@ namespace Krohonde
                 int w = MotherNature.alea.Next(MIN_ROCK_WIDTH, MAX_ROCK_WIDTH);
                 int h = MotherNature.alea.Next(MIN_ROCK_HEIGHT, MAX_ROCK_HEIGHT);
                 rocks.Add(new Rock(loc, w, h));
+            }
+        }
+
+        public void Spray()
+        {
+            for (int c = 0; c < 20; c++)
+            {
+                pheromons.Add(new Pheromon(new System.Drawing.Point(alea.Next(width / 20, 19 * width / 20), alea.Next(height / 20, 19 * height / 20)), 10));
             }
         }
 
@@ -171,6 +181,11 @@ namespace Krohonde
         public List<Rock> Rocks
         {
             get => rocks;
+        }
+
+        public List<Pheromon> Pheromons
+        {
+            get => pheromons;
         }
 
         public double getMaxSpeed (string anttype)

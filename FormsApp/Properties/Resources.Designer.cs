@@ -103,9 +103,29 @@ namespace FormsApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap greenphero {
+            get {
+                object obj = ResourceManager.GetObject("greenphero", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap pollen {
             get {
                 object obj = ResourceManager.GetObject("pollen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap redphero {
+            get {
+                object obj = ResourceManager.GetObject("redphero", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
