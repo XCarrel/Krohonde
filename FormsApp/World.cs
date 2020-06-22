@@ -105,16 +105,17 @@ namespace FormsApp
             }
 
             // Pheromons
-            bool green = true;
-            Image gf = global::FormsApp.Properties.Resources.greenphero;
-            Image rf = global::FormsApp.Properties.Resources.redphero;
+            Image bf = global::FormsApp.Properties.Resources.pherobuild;
+            Image df = global::FormsApp.Properties.Resources.pherodanger;
+            Image ff = global::FormsApp.Properties.Resources.pherofood;
             foreach (Pheromon phero in myWorld.Pheromons)
             {
-                if (green)
-                    graphics.DrawImage(gf, (int)phero.Location.X, (int)phero.Location.Y, gf.Width / 2, gf.Height / 2);
-                else
-                    graphics.DrawImage(rf, (int)phero.Location.X, (int)phero.Location.Y, rf.Width / 2, rf.Height / 2);
-                green = !green;
+                switch (phero.PheromonType)
+                {
+                    case MotherNature.PheromonTypes.Build: graphics.DrawImage(bf, (int)phero.Location.X, (int)phero.Location.Y, bf.Width / 2, bf.Height / 2); break;
+                    case MotherNature.PheromonTypes.Food: graphics.DrawImage(ff, (int)phero.Location.X, (int)phero.Location.Y, ff.Width / 2, ff.Height / 2); break;
+                    case MotherNature.PheromonTypes.Danger: graphics.DrawImage(df, (int)phero.Location.X, (int)phero.Location.Y, df.Width / 2, df.Height / 2); break;
+                }
             }
 
             chkRenderOnce.Checked = false; // clear that flag for next loop

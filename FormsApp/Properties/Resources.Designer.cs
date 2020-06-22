@@ -103,9 +103,29 @@ namespace FormsApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap greenphero {
+        internal static System.Drawing.Bitmap pherobuild {
             get {
-                object obj = ResourceManager.GetObject("greenphero", resourceCulture);
+                object obj = ResourceManager.GetObject("pherobuild", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pherodanger {
+            get {
+                object obj = ResourceManager.GetObject("pherodanger", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pherofood {
+            get {
+                object obj = ResourceManager.GetObject("pherofood", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -116,16 +136,6 @@ namespace FormsApp.Properties {
         internal static System.Drawing.Bitmap pollen {
             get {
                 object obj = ResourceManager.GetObject("pollen", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap redphero {
-            get {
-                object obj = ResourceManager.GetObject("redphero", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -9,6 +9,13 @@ namespace Krohonde
 {
     public class Pheromon : Resource
     {
-        public Pheromon(Point loc, int val) : base(loc, val) { }
+        protected readonly MotherNature.PheromonTypes pheromontype;
+
+        public Pheromon(Point loc, int val, MotherNature.PheromonTypes pherotype) : base(loc, val) 
+        {
+            pheromontype = pherotype;
+        }
+
+        public MotherNature.PheromonTypes PheromonType { get => pheromontype; }
     }
 }

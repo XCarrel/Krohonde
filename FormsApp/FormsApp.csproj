@@ -47,6 +47,11 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="World.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,11 +72,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -114,10 +114,13 @@
     <None Include="Resources\rock.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\redphero.png" />
+    <None Include="Resources\pherodanger.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\greenphero.png" />
+    <None Include="Resources\pherofood.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pherobuild.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

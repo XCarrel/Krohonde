@@ -24,6 +24,7 @@ namespace Krohonde
 
         public static Random alea;
         public const int MAX_ENERGY = 1800; // of an ant 
+        public enum PheromonTypes { Food, Danger, Build}
 
         private List<Colony> colonies;
         private List<FoodCluster> food;
@@ -112,7 +113,14 @@ namespace Krohonde
         {
             for (int c = 0; c < 20; c++)
             {
-                pheromons.Add(new Pheromon(new System.Drawing.Point(alea.Next(width / 20, 19 * width / 20), alea.Next(height / 20, 19 * height / 20)), 10));
+                PheromonTypes ptype= PheromonTypes.Build;
+                switch (alea.Next(0,3))
+                {
+                    case 0: ptype = PheromonTypes.Build; break;
+                    case 1: ptype = PheromonTypes.Danger; break;
+                    case 2: ptype = PheromonTypes.Food; break;
+                }
+                pheromons.Add(new Pheromon(new System.Drawing.Point(alea.Next(width / 20, 19 * width / 20), alea.Next(height / 20, 19 * height / 20)), 10,ptype));
             }
         }
 
