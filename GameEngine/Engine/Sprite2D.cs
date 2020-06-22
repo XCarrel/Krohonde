@@ -15,14 +15,13 @@ namespace GameEngine.Engine
         public string Tag = "";
         public Bitmap Sprite = null;
 
-        public Sprite2D(Vector2 Position, Vector2 Scale, string Directory, string Tag)
+        public Sprite2D(Vector2 Position, Vector2 Scale, Image source, string Tag)
         {
             this.Position = Position;
             this.Scale = Scale;
             this.Directory = Directory;
             this.Tag = Tag;
-            Image tmp = Image.FromFile($"Assets/Sprites/{Directory}.png");
-            Sprite = new Bitmap(tmp);
+            Sprite = new Bitmap(source);
 
             Log.Info($"[SHAPE2D] ({Tag}) has been registred");
             GameEngine.RegisterSprite(this);

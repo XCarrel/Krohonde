@@ -21,7 +21,7 @@ namespace GameEngine
         public override void OnLoad()
         {
             BackgroundColor = Color.White;
-            player = new Sprite2D(new Vector2(10, 10), new Vector2(30, 30),"ant","Player");
+            player = new Sprite2D(new Vector2(10, 10), new Vector2(30, 30), global::GameEngine.Properties.Resources.ant, "Player");
         }
         public override void OnDraw()
         {
