@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreenColony", "GreenColony\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedColony", "RedColony\RedColony.csproj", "{065CF529-605E-4AFE-9854-D2F1CA1CF10A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameEngine", "GameEngine\GameEngine.csproj", "{7B32F632-BC2F-41B2-86AD-083D84748156}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{065CF529-605E-4AFE-9854-D2F1CA1CF10A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{065CF529-605E-4AFE-9854-D2F1CA1CF10A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{065CF529-605E-4AFE-9854-D2F1CA1CF10A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B32F632-BC2F-41B2-86AD-083D84748156}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B32F632-BC2F-41B2-86AD-083D84748156}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B32F632-BC2F-41B2-86AD-083D84748156}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B32F632-BC2F-41B2-86AD-083D84748156}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
