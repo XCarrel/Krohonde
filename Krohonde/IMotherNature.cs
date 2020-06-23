@@ -27,7 +27,7 @@ namespace Krohonde
         #region Probing the world
         List<Food> LookForFoodAround(Ant ant);
         List<Brick> LookForBricksAround(Ant ant);
-        void LookAroundForEnemies(Ant ant);
+        List<Ant> LookForEnemiesAround(Ant ant);
         void SmellAround(Ant ant);
         #endregion
         #region General actions

@@ -129,6 +129,11 @@ namespace Krohonde
             return Colony.World().LookForBricksAround(this);
         }
 
+        protected List<Ant> EnemiesAroundMe()
+        {
+            energy -= MotherNature.COST_OF_LOOKING_AROUND;
+            return Colony.World().LookForEnemiesAround(this);
+        }
         public double X { get => Location.X; }
         public double Y { get => Location.Y; }
 

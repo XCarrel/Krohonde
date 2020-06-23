@@ -265,9 +265,13 @@ namespace Krohonde
             return res;
         }
 
-        void IMotherNature.LookAroundForEnemies(Ant ant)
+        List<Ant> IMotherNature.LookForEnemiesAround(Ant ant)
         {
-            throw new NotImplementedException();
+            List<Ant> res = new List<Ant>();
+            foreach (Colony colo in colonies)
+                if (colo != ant.Colony)
+                    res.AddRange(colo.Population.Where(b => new Vector(b.X - ant.X, b.Y - ant.Y).Length < ANT_VIEW_RANGE));
+            return res;
         }
 
         void IMotherNature.SmellAround(Ant ant)
