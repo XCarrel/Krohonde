@@ -75,7 +75,25 @@ namespace FormsApp
             {
                 foreach (Ant ant in colony.Population)
                 {
-                    Image sourceImage = global::FormsApp.Properties.Resources.ant;
+                    Image sourceImage;
+                    switch (ant.GetType().Name)
+                    {
+                        case "WorkerAnt":
+                            sourceImage = global::FormsApp.Properties.Resources.worker;
+                            break;
+                        case "FarmerAnt":
+                            sourceImage = global::FormsApp.Properties.Resources.farmer;
+                            break;
+                        case "SoldierAnt":
+                            sourceImage = global::FormsApp.Properties.Resources.soldier;
+                            break;
+                        case "ScoutAnt":
+                            sourceImage = global::FormsApp.Properties.Resources.scout;
+                            break;
+                        default:
+                            sourceImage = global::FormsApp.Properties.Resources.worker;
+                            break;
+                    }
                     sourceImage = RotateImage(sourceImage, ant.Heading + 90);
                     if (showOrigin) graphics.DrawLine(new Pen(colony.Color, 6), new System.Drawing.Point((int)ant.X, (int)ant.Y), new System.Drawing.Point((int)(ant.X + 24 * ant.Energy / MotherNature.MAX_ENERGY), (int)ant.Y));
                     graphics.DrawImage(sourceImage, (int)ant.X, (int)ant.Y, sourceImage.Width, sourceImage.Height);

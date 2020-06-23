@@ -46,6 +46,8 @@
     <Compile Include="FarmerAnt.cs" />
     <Compile Include="GreenColony.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScoutAnt.cs" />
+    <Compile Include="SoldierAnt.cs" />
     <Compile Include="WorkerAnt.cs" />
   </ItemGroup>
   <ItemGroup>

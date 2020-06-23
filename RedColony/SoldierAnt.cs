@@ -7,9 +7,9 @@ using System.Windows;
 
 namespace Krohonde.RedColony
 {
-    public class FarmerAnt : Ant
+    public class SoldierAnt : Ant
     {
-        public FarmerAnt(Point location, Point speed, RedColony colony) : base(location, speed, colony)
+        public SoldierAnt(Point location, Point speed, RedColony colony) : base(location, speed, colony)
         {
         }
 

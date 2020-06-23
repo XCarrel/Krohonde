@@ -10,11 +10,13 @@ namespace Krohonde.GreenColony
     public class FarmerAnt : Ant
     {
         public FarmerAnt(Point location, Point speed, GreenColony colony) : base(location, speed, colony)
-        { }
+        {
+        }
 
         public override void Live(double deltatime)
         {
-            throw new NotImplementedException();
+            if (MotherNature.alea.Next(0, 20) == 0) DropPheromon();
+            Move(deltatime);
         }
     }
 }

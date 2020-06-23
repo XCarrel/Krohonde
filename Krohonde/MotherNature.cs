@@ -242,16 +242,20 @@ namespace Krohonde
             switch (ant.GetType().Name)
             {
                 case "FarmerAnt":
+                    if (pherotype != MotherNature.PheromonTypes.Food) return;
                     break;
                 case "WorkerAnt":
-                    if (pherotype == MotherNature.PheromonTypes.Build)
-                        pheromons.Add(new Pheromon(new System.Drawing.Point((int)ant.X, (int)ant.Y), pherotype, ant.Colony));
+                    if (pherotype != MotherNature.PheromonTypes.Build) return;
                     break;
                 case "ScoutAnt":
+                    if (pherotype != MotherNature.PheromonTypes.Food && pherotype != MotherNature.PheromonTypes.Danger) return;
                     break;
                 case "SoldierAnt":
+                    if (pherotype != MotherNature.PheromonTypes.Danger) return;
                     break;
             }
+            // if we make it there: we passed the test
+            pheromons.Add(new Pheromon(new System.Drawing.Point((int)ant.X, (int)ant.Y), pherotype, ant.Colony));
         }
 
         /// <summary>
@@ -261,18 +265,25 @@ namespace Krohonde
         /// <param name="ant"></param>
         void IMotherNature.DropPheromon(Ant ant)
         {
+            MotherNature.PheromonTypes pherotype;
             switch (ant.GetType().Name)
             {
                 case "FarmerAnt":
+                    pherotype = MotherNature.PheromonTypes.Food;
                     break;
                 case "WorkerAnt":
-                        pheromons.Add(new Pheromon(new System.Drawing.Point((int)ant.X, (int)ant.Y), MotherNature.PheromonTypes.Build, ant.Colony));
+                    pherotype = MotherNature.PheromonTypes.Build;
                     break;
                 case "ScoutAnt":
+                    pherotype = MotherNature.PheromonTypes.Food; // had to choose a default type ....
                     break;
                 case "SoldierAnt":
+                    pherotype = MotherNature.PheromonTypes.Danger;
                     break;
+                default:
+                    return;
             }
+            pheromons.Add(new Pheromon(new System.Drawing.Point((int)ant.X, (int)ant.Y), pherotype, ant.Colony));
         }
 
         void IMotherNature.Build(Ant ant)

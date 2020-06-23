@@ -82,9 +82,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ant.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\grass.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +118,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\pherobuild.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\farmer.png" />
+    <Content Include="Resources\scout.png" />
+    <Content Include="Resources\soldier.png" />
+    <Content Include="Resources\worker.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
