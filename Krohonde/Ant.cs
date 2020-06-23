@@ -105,6 +105,16 @@ namespace Krohonde
             }
         }
 
+        protected void DropPheromon()
+        {
+            ((IMotherNature)MyColony.World).DropPheromon(this);
+        }
+
+        protected void DropPheromon(MotherNature.PheromonTypes pherotype)
+        {
+            ((IMotherNature)MyColony.World).DropPheromon(this, pherotype);
+        }
+
         public double X { get => Location.X; }
         public double Y { get => Location.Y; }
 

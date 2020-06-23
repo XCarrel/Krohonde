@@ -17,7 +17,8 @@ namespace Krohonde
         #region General actions
         void Eat(Ant ant);
         void DropPheromon(Ant ant, MotherNature.PheromonTypes pherotype);
-        
+        void DropPheromon(Ant ant);
+
         #endregion
         #region Worker ants
         void Build(Ant ant);

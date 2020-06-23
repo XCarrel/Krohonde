@@ -26,8 +26,8 @@ namespace Krohonde
         public static Random alea;
         public const int MAX_ENERGY = 1800; // of an ant 
         public const int PHEROMON_LIFE_DURATION = 30; // seconds
-        
-        public enum PheromonTypes { Food, Danger, Build}
+
+        public enum PheromonTypes { Food, Danger, Build }
 
         private List<Colony> colonies;
         private List<FoodCluster> food;
@@ -153,9 +153,10 @@ namespace Krohonde
             try
             {
                 string GuidString = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
-                birthCertificates.Add(antname,GuidString);
+                birthCertificates.Add(antname, GuidString);
                 return GuidString;
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 return "";
             }
@@ -192,7 +193,7 @@ namespace Krohonde
 
         public Stopwatch UniversalTime { get => universaltime; }
 
-        public double getMaxSpeed (string anttype)
+        public double getMaxSpeed(string anttype)
         {
             switch (anttype)
             {
@@ -230,9 +231,48 @@ namespace Krohonde
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Explicit pheromone dropping
+        /// The pheromone will NOT be dropped if it is not allowed for the ant type
+        /// </summary>
+        /// <param name="ant"></param>
+        /// <param name="pherotype"></param>
         void IMotherNature.DropPheromon(Ant ant, MotherNature.PheromonTypes pherotype)
         {
-            pheromons.Add(new Pheromon(new System.Drawing.Point((int)ant.X, (int)ant.Y), pherotype, ant.Colony));
+            switch (ant.GetType().Name)
+            {
+                case "FarmerAnt":
+                    break;
+                case "WorkerAnt":
+                    if (pherotype == MotherNature.PheromonTypes.Build)
+                        pheromons.Add(new Pheromon(new System.Drawing.Point((int)ant.X, (int)ant.Y), pherotype, ant.Colony));
+                    break;
+                case "ScoutAnt":
+                    break;
+                case "SoldierAnt":
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Implicit pheromone dropping
+        /// The type of pheromone depends on the type of ant
+        /// </summary>
+        /// <param name="ant"></param>
+        void IMotherNature.DropPheromon(Ant ant)
+        {
+            switch (ant.GetType().Name)
+            {
+                case "FarmerAnt":
+                    break;
+                case "WorkerAnt":
+                        pheromons.Add(new Pheromon(new System.Drawing.Point((int)ant.X, (int)ant.Y), MotherNature.PheromonTypes.Build, ant.Colony));
+                    break;
+                case "ScoutAnt":
+                    break;
+                case "SoldierAnt":
+                    break;
+            }
         }
 
         void IMotherNature.Build(Ant ant)
