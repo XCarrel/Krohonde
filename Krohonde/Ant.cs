@@ -33,7 +33,7 @@ namespace Krohonde
             MyColony = colony;
             id = ++lastid;
             fullname = colony.GetType().Name+this.GetType().Name+id;
-            certificate = colony.World.GetBirthCertificate(fullname);
+            certificate = colony.World().GetBirthCertificate(fullname);
             energy = MotherNature.MAX_ENERGY;
             strength = 0;
             toughness = 0;
@@ -53,7 +53,7 @@ namespace Krohonde
         protected void Move(double deltatime)
         {
             if (!ActionAllowed()) return; // ignore multiple actions by same ant
-            double maxSpeed = MyColony.World.getMaxSpeed(this.GetType().Name);
+            double maxSpeed = MyColony.World().getMaxSpeed(this.GetType().Name);
             // Linear speed
             double linspeed = (new Vector(Speed.X, Speed.Y)).Length;
             if (linspeed > maxSpeed) // Too big, let's adjust to max 
@@ -66,12 +66,12 @@ namespace Krohonde
             // Check if move is OK
             double nextX = HeadPosition.X + Speed.X * deltatime;
             double nextY = HeadPosition.Y + Speed.Y * deltatime;
-            if (nextX < 0 || nextY < 0 || nextX > this.Colony.World.Width || nextY > this.Colony.World.Height)
+            if (nextX < 0 || nextY < 0 || nextX > this.Colony.World().width || nextY > this.Colony.World().height)
             {
-                BlockedBy = this.Colony.World;
+                BlockedBy = this.Colony.World();
                 return; // no escape from the world !!!
             }
-            foreach (Rock rock in this.Colony.World.Rocks)
+            foreach (Rock rock in this.Colony.World().Rocks())
                 if (Helpers.IsInPolygon(rock.Shape, new System.Drawing.Point((int)nextX, (int)nextY)))
                 {
                     BlockedBy = rock;
@@ -107,13 +107,13 @@ namespace Krohonde
 
         protected void DropPheromon()
         {
-            ((IMotherNature)MyColony.World).DropPheromon(this);
+            MyColony.World().DropPheromon(this);
             energy -= MotherNature.PHEROMON_DROPPING_COST;
         }
 
         protected void DropPheromon(MotherNature.PheromonTypes pherotype)
         {
-            ((IMotherNature)MyColony.World).DropPheromon(this, pherotype);
+            MyColony.World().DropPheromon(this, pherotype);
             energy -= MotherNature.PHEROMON_DROPPING_COST;
         }
 

@@ -17,7 +17,7 @@ namespace FormsApp
 {
     public partial class World : Form
     {
-        private MotherNature myWorld;
+        private IMotherNature myWorld;
 
         public World()
         {
@@ -71,7 +71,7 @@ namespace FormsApp
             bool showOrigin = chkShowColonies.Checked;
 
             // Colonies
-            foreach (Colony colony in myWorld.Colonies)
+            foreach (Colony colony in myWorld.Colonies())
             {
                 foreach (Ant ant in colony.Population)
                 {
@@ -104,25 +104,25 @@ namespace FormsApp
             }
 
             // Food
-            foreach (FoodCluster fc in myWorld.FoodStock)
+            foreach (FoodCluster fc in myWorld.FoodStock())
             {
                 graphics.DrawCurve(new Pen(new TextureBrush(Properties.Resources.pollen), 5), fc.Content.Select(x => x.Location).ToArray());
             }
             // Bricks
-            foreach (BrickCluster bc in myWorld.BrickStock)
+            foreach (BrickCluster bc in myWorld.BrickStock())
             {
                 graphics.DrawCurve(new Pen(new TextureBrush(Properties.Resources.brick), 5), bc.Content.Select(x => x.Location).ToArray());
             }
 
             // Rocks
-            foreach (Rock r in myWorld.Rocks)
+            foreach (Rock r in myWorld.Rocks())
             {
                 graphics.FillPolygon(new TextureBrush(Properties.Resources.rock), r.Shape);
                 graphics.DrawPolygon(new Pen(Color.Black, 2), r.Shape);
             }
 
             // Pheromons
-            foreach (Pheromon phero in myWorld.Pheromons)
+            foreach (Pheromon phero in myWorld.Pheromons())
             {
                 Image img;
                 switch (phero.PheromonType)

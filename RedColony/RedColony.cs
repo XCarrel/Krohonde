@@ -11,7 +11,7 @@ namespace Krohonde.RedColony
 {
     public class RedColony : Colony
     {
-        public RedColony(System.Windows.Point loc, MotherNature world) : base(Color.Red,loc, world)
+        public RedColony(System.Windows.Point loc, IMotherNature world) : base(Color.Red,loc, world)
         {
         }
 

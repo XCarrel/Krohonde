@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +9,25 @@ namespace Krohonde
 {
     public interface IMotherNature
     {
+        #region Build the world
+        void Seed();
+        void Sprinkle();
+        void AddRocks();
+        void AddColony(Colony colo);
+        void Live();
+        string GetBirthCertificate(string antname);
+        double getMaxSpeed(string anttype);
+        int width { get; }
+        int height { get; }
+        Stopwatch universaltime { get; }
+        #endregion
         #region Probing the world
+        List<Colony> Colonies();
+        List<FoodCluster> FoodStock();
+        List<BrickCluster> BrickStock();
+        List<Pheromon> Pheromons();
+        List<Rock> Rocks();
+
         void LookAroundForFood(Ant ant);
         void LookAroundForObstacles(Ant ant);
         void LookAroundForEnemies(Ant ant);

@@ -11,7 +11,7 @@ namespace Krohonde.GreenColony
 {
     public class GreenColony : Colony
     {
-        public GreenColony(System.Windows.Point loc, MotherNature world) : base (Color.LightGreen, loc,world)
+        public GreenColony(System.Windows.Point loc, IMotherNature world) : base (Color.LightGreen, loc,world)
         {
         }
 

@@ -38,7 +38,6 @@ namespace Krohonde
 
         private readonly int width;
         private readonly int height;
-        private Stopwatch universaltime;
         private TimeSpan lastupdate;
         Hashtable birthCertificates;
         Hashtable eggCertificates;
@@ -59,9 +58,6 @@ namespace Krohonde
             birthCertificates = new Hashtable();
             eggCertificates = new Hashtable();
         }
-
-        public int Width { get => width; }
-        public int Height { get => height; }
 
         /// <summary>
         /// Place food at random in the world
@@ -168,31 +164,35 @@ namespace Krohonde
             colonies.Add(colo);
         }
 
-        public List<Colony> Colonies
+        public List<Colony> Colonies()
         {
-            get => colonies;
+            return colonies;
         }
 
-        public List<FoodCluster> FoodStock
+        public List<FoodCluster> FoodStock()
         {
-            get => food;
+            return food;
         }
-        public List<BrickCluster> BrickStock
+        public List<BrickCluster> BrickStock()
         {
-            get => bricks;
-        }
-
-        public List<Rock> Rocks
-        {
-            get => rocks;
+            return bricks;
         }
 
-        public List<Pheromon> Pheromons
+        public List<Rock> Rocks()
         {
-            get => pheromons;
+            return rocks;
         }
 
-        public Stopwatch UniversalTime { get => universaltime; }
+        public List<Pheromon> Pheromons()
+        {
+            return pheromons;
+        }
+
+        public Stopwatch universaltime { get ; }
+
+        int IMotherNature.width => width;
+
+        int IMotherNature.height => height;
 
         public double getMaxSpeed(string anttype)
         {

@@ -10,13 +10,13 @@ namespace Krohonde
 {
     public abstract class Colony
     {
-        protected MotherNature myWorld;
+        protected IMotherNature myWorld;
         protected System.Windows.Point location;
         protected System.Drawing.Point[] hill;
         protected List<Ant> ants;
         private readonly Color color;
 
-        public Colony(Color col, System.Windows.Point loc, MotherNature world)
+        public Colony(Color col, System.Windows.Point loc, IMotherNature world)
         {
             myWorld = world;
             // Anthill
@@ -52,6 +52,6 @@ namespace Krohonde
 
         public System.Windows.Point Location { get => location; }
 
-        public MotherNature World { get => myWorld; }
+        public IMotherNature World() { return myWorld; }
     }
 }
