@@ -242,31 +242,6 @@ namespace Krohonde
             throw new NotImplementedException();
         }
 
-        void IMotherNature.GoFaster(Ant ant)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IMotherNature.GoSlower(Ant ant)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IMotherNature.Stop(Ant ant)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IMotherNature.TurnRight(Ant ant)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IMotherNature.TurnLeft(Ant ant)
-        {
-            throw new NotImplementedException();
-        }
-
         void IMotherNature.Eat(Ant ant)
         {
             throw new NotImplementedException();
