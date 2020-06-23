@@ -24,6 +24,8 @@ namespace Krohonde
 
         public static Random alea;
         public const int MAX_ENERGY = 1800; // of an ant 
+        public const int PHEROMON_LIFE_DURATION = 30; // seconds
+        
         public enum PheromonTypes { Food, Danger, Build}
 
         private List<Colony> colonies;
@@ -34,7 +36,7 @@ namespace Krohonde
 
         private readonly int width;
         private readonly int height;
-        private Stopwatch bigbangtime;
+        private Stopwatch universaltime;
         private TimeSpan lastupdate;
         Hashtable birthCertificates;
         Hashtable eggCertificates;
@@ -50,8 +52,8 @@ namespace Krohonde
             alea = new Random();
             this.width = width;
             this.height = height;
-            bigbangtime = new Stopwatch();
-            bigbangtime.Start();
+            universaltime = new Stopwatch();
+            universaltime.Start();
             birthCertificates = new Hashtable();
             eggCertificates = new Hashtable();
         }
@@ -129,7 +131,7 @@ namespace Krohonde
 
         public void Live()
         {
-            double deltatime = (bigbangtime.Elapsed - lastupdate).TotalSeconds;
+            double deltatime = (universaltime.Elapsed - lastupdate).TotalSeconds;
             foreach (Colony colony in colonies)
             {
                 List<Ant> deadones = new List<Ant>();
@@ -148,7 +150,13 @@ namespace Krohonde
                 // Remove the dead ones
                 foreach (Ant ant in deadones) colony.Dispose(ant);
             }
-            lastupdate = bigbangtime.Elapsed;
+
+            // Handle stale pheromons
+            List<Pheromon> staleOnes = new List<Pheromon>();
+            foreach (Pheromon phero in pheromons) if (phero.Intensity <= 0) staleOnes.Add(phero);
+            foreach (Pheromon stale in staleOnes) pheromons.Remove(stale);
+
+            lastupdate = universaltime.Elapsed;
         }
 
         /// <summary>
@@ -198,6 +206,8 @@ namespace Krohonde
         {
             get => pheromons;
         }
+
+        public Stopwatch UniversalTime { get => universaltime; }
 
         public double getMaxSpeed (string anttype)
         {

@@ -9,8 +9,8 @@ namespace Krohonde
 {
     public class Resource
     {
-        private Point location; // Where the food is
-        private int value;      // Nutritive value
+        private Point location; // Where the resource is
+        private int value;      // Its value in its domain
 
         public Resource(Point loc, int val)
         {

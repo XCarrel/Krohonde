@@ -105,17 +105,18 @@ namespace FormsApp
             }
 
             // Pheromons
-            Image bf = global::FormsApp.Properties.Resources.pherobuild;
-            Image df = global::FormsApp.Properties.Resources.pherodanger;
-            Image ff = global::FormsApp.Properties.Resources.pherofood;
             foreach (Pheromon phero in myWorld.Pheromons)
             {
+                Image img;
                 switch (phero.PheromonType)
                 {
-                    case MotherNature.PheromonTypes.Build: graphics.DrawImage(bf, (int)phero.Location.X, (int)phero.Location.Y, bf.Width / 2, bf.Height / 2); break;
-                    case MotherNature.PheromonTypes.Food: graphics.DrawImage(ff, (int)phero.Location.X, (int)phero.Location.Y, ff.Width / 2, ff.Height / 2); break;
-                    case MotherNature.PheromonTypes.Danger: graphics.DrawImage(df, (int)phero.Location.X, (int)phero.Location.Y, df.Width / 2, df.Height / 2); break;
+                    case MotherNature.PheromonTypes.Build: img = global::FormsApp.Properties.Resources.pherobuild; break;
+                    case MotherNature.PheromonTypes.Food: img = global::FormsApp.Properties.Resources.pherofood; break;
+                    case MotherNature.PheromonTypes.Danger: img = global::FormsApp.Properties.Resources.pherodanger; break;
+                    default: img = global::FormsApp.Properties.Resources.pherodanger; break;
                 }
+                graphics.DrawImage(img, (int)phero.Location.X, (int)phero.Location.Y, img.Width / 2, img.Height / 2);
+                if (showOrigin) graphics.DrawLine(new Pen(phero.Colony.Color, 6), new System.Drawing.Point((int)phero.Location.X, (int)phero.Location.Y), new System.Drawing.Point((int)(phero.Location.X + 24 * phero.Intensity / MotherNature.PHEROMON_LIFE_DURATION), (int)phero.Location.Y));
             }
 
             chkRenderOnce.Checked = false; // clear that flag for next loop
