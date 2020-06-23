@@ -10,9 +10,7 @@ namespace Krohonde
     public interface IMotherNature
     {
         #region Build the world
-        void Seed();
-        void Sprinkle();
-        void AddRocks();
+        void Initialize();
         void AddColony(Colony colo);
         void Live();
         string GetBirthCertificate(string antname);

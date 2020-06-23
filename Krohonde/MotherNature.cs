@@ -12,10 +12,10 @@ namespace Krohonde
     public class MotherNature : IMotherNature
     {
 
-        private const int FOOD_CLUSTERS = 5;
-        private const int FOOD_CLUSTER_SIZE = 20;
-        private const int BRICK_CLUSTERS = 5;
-        private const int BRICK_CLUSTER_SIZE = 20;
+        private const int FOOD_CLUSTERS = 8;
+        private const int FOOD_CLUSTER_SIZE = 40;
+        private const int BRICK_CLUSTERS = 6;
+        private const int BRICK_CLUSTER_SIZE = 40;
         private const int NB_ROCKS = 10;
 
         private const int MAX_ROCK_WIDTH = 100;
@@ -62,10 +62,16 @@ namespace Krohonde
             eggCertificates = new Hashtable();
         }
 
+        public void Initialize()
+        {
+            AddRocks(); // Rocks
+            Seed();     // Food
+            Sprinkle(); // Bricks
+        }
         /// <summary>
         /// Place food at random in the world
         /// </summary>
-        public void Seed()
+        private void Seed()
         {
             for (int c = 0; c < FOOD_CLUSTERS; c++)
             {
@@ -74,7 +80,8 @@ namespace Krohonde
                 for (int i = 0; i < FOOD_CLUSTER_SIZE; i++)
                 {
                     fc.Add(seed);
-                    seed = new Food(new System.Drawing.Point(seed.Location.X + alea.Next(0, 5) - 2, seed.Location.Y + alea.Next(0, 5) - 2), seed.Value); // re-instantiate to have a new object
+                    System.Drawing.Point delta = Helpers.Rotate(new System.Drawing.Point(i + 5, i + 5), i * 130);
+                    seed = new Food(new System.Drawing.Point(seed.Location.X + delta.X, seed.Location.Y + delta.Y), seed.Value); // re-instantiate to have a new object
                 }
                 food.Add(fc);
             }
@@ -83,7 +90,7 @@ namespace Krohonde
         /// <summary>
         /// Place construction material at random in the world
         /// </summary>
-        public void Sprinkle()
+        private void Sprinkle()
         {
             for (int c = 0; c < BRICK_CLUSTERS; c++)
             {
@@ -92,7 +99,8 @@ namespace Krohonde
                 for (int i = 0; i < BRICK_CLUSTER_SIZE; i++)
                 {
                     bc.Add(seed);
-                    seed = new Brick(new System.Drawing.Point(seed.Location.X + alea.Next(0, 5) - 2, seed.Location.Y + alea.Next(0, 5) - 2), seed.Value); // re-instantiate to have a new object
+                    System.Drawing.Point delta = Helpers.Rotate(new System.Drawing.Point(i + 5, i + 5), i * 150);
+                    seed = new Brick(new System.Drawing.Point(seed.Location.X + delta.X, seed.Location.Y + delta.Y), seed.Value); // re-instantiate to have a new object
                 }
                 bricks.Add(bc);
             }
@@ -101,7 +109,7 @@ namespace Krohonde
         /// <summary>
         /// Place rocks in the landscape
         /// </summary>
-        public void AddRocks()
+        private void AddRocks()
         {
             for (int r = 0; r < NB_ROCKS; r++)
             {
