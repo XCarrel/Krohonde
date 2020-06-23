@@ -26,13 +26,13 @@ namespace FormsApp
             myWorld.Seed(); // put food in the world
             myWorld.Sprinkle(); // put construction material in the world
             myWorld.AddRocks(); // put rocks in the world
-            myWorld.Spray(); // add some smell (for testing)
             RedColony rcolo = new RedColony(new System.Windows.Point(400, 200), myWorld);
             rcolo.Spawn(20);
             myWorld.AddColony(rcolo);
             GreenColony gcolo = new GreenColony(new System.Windows.Point(1200, 600), myWorld);
             gcolo.Spawn(50);
             myWorld.AddColony(gcolo);
+            myWorld.Spray(); // add some smell (for testing)
         }
 
         private void timer_Tick(object sender, EventArgs e)
