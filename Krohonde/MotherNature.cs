@@ -265,11 +265,6 @@ namespace Krohonde
             return res;
         }
 
-        void IMotherNature.LookAroundForObstacles(Ant ant)
-        {
-            throw new NotImplementedException();
-        }
-
         void IMotherNature.LookAroundForEnemies(Ant ant)
         {
             throw new NotImplementedException();

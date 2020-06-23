@@ -88,5 +88,10 @@ namespace Krohonde
             // If they are not collinear, they must intersect in exactly one point.
             return true;
         }
+
+        public static double Distance(Point a, Point b)
+        {
+            return new Vector(b.X - a.X, b.Y - a.Y).Length;
+        }
     }
 }
