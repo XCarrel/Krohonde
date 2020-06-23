@@ -27,10 +27,10 @@ namespace FormsApp
             myWorld.Sprinkle(); // put construction material in the world
             myWorld.AddRocks(); // put rocks in the world
             RedColony rcolo = new RedColony(new System.Windows.Point(400, 200), myWorld);
-            rcolo.Spawn(20);
+            rcolo.Spawn(4);
             myWorld.AddColony(rcolo);
             GreenColony gcolo = new GreenColony(new System.Windows.Point(1200, 600), myWorld);
-            gcolo.Spawn(50);
+            gcolo.Spawn(4);
             myWorld.AddColony(gcolo);
         }
 

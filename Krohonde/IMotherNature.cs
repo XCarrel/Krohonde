@@ -20,15 +20,14 @@ namespace Krohonde
         int width { get; }
         int height { get; }
         Stopwatch universaltime { get; }
-        #endregion
-        #region Probing the world
         List<Colony> Colonies();
         List<FoodCluster> FoodStock();
         List<BrickCluster> BrickStock();
         List<Pheromon> Pheromons();
         List<Rock> Rocks();
-
-        void LookAroundForFood(Ant ant);
+        #endregion
+        #region Probing the world
+        List<Food> LookForFoodAround(Ant ant);
         void LookAroundForObstacles(Ant ant);
         void LookAroundForEnemies(Ant ant);
         void SmellAround(Ant ant);

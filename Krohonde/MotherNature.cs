@@ -23,6 +23,8 @@ namespace Krohonde
         private const int MAX_ROCK_HEIGHT = 100;
         private const int MIN_ROCK_HEIGHT = 10;
 
+        private const int ANT_VIEW_RANGE = 100; // How far ants can see
+
         public static Random alea;
         public const int MAX_ENERGY = 1800; // of an ant 
         public const int PHEROMON_LIFE_DURATION = 30; // seconds
@@ -207,9 +209,12 @@ namespace Krohonde
         }
         #region IMotherNature methods
 
-        void IMotherNature.LookAroundForFood(Ant ant)
+        List<Food> IMotherNature.LookForFoodAround(Ant ant)
         {
-            throw new NotImplementedException();
+            List<Food> res = new List<Food>();
+            foreach (FoodCluster cluster in food)
+                res.AddRange(cluster.Content.Where(f => new Vector(f.Location.X - ant.X, f.Location.Y - ant.Y).Length < ANT_VIEW_RANGE));
+            return res;
         }
 
         void IMotherNature.LookAroundForObstacles(Ant ant)
