@@ -26,6 +26,7 @@ namespace Krohonde
         public static Random alea;
         public const int MAX_ENERGY = 1800; // of an ant 
         public const int PHEROMON_LIFE_DURATION = 30; // seconds
+        public const int PHEROMON_DROPPING_COST = 30; // units of energy
 
         public enum PheromonTypes { Food, Danger, Build }
 

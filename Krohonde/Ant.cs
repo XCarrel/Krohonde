@@ -108,11 +108,13 @@ namespace Krohonde
         protected void DropPheromon()
         {
             ((IMotherNature)MyColony.World).DropPheromon(this);
+            energy -= MotherNature.PHEROMON_DROPPING_COST;
         }
 
         protected void DropPheromon(MotherNature.PheromonTypes pherotype)
         {
             ((IMotherNature)MyColony.World).DropPheromon(this, pherotype);
+            energy -= MotherNature.PHEROMON_DROPPING_COST;
         }
 
         public double X { get => Location.X; }
