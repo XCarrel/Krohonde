@@ -32,7 +32,6 @@ namespace FormsApp
             GreenColony gcolo = new GreenColony(new System.Windows.Point(1200, 600), myWorld);
             gcolo.Spawn(50);
             myWorld.AddColony(gcolo);
-            myWorld.Spray(); // add some smell (for testing)
         }
 
         private void timer_Tick(object sender, EventArgs e)

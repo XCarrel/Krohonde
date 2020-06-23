@@ -14,7 +14,7 @@ namespace Krohonde
         protected readonly Colony colony;
         protected readonly TimeSpan birthday;
 
-        public Pheromon(Point loc, int val, MotherNature.PheromonTypes pherotype, Colony col)
+        public Pheromon(Point loc, MotherNature.PheromonTypes pherotype, Colony col)
         {
             location = loc;
             pheromontype = pherotype;
@@ -29,7 +29,7 @@ namespace Krohonde
         /// <summary>
         /// The intensity of the smell decreases linearly with time
         /// </summary>
-        public int Intensity { get => (int)(MotherNature.PHEROMON_LIFE_DURATION - colony.World.UniversalTime.Elapsed.TotalSeconds - birthday.TotalSeconds); }
+        public int Intensity { get => (int)(MotherNature.PHEROMON_LIFE_DURATION - (colony.World.UniversalTime.Elapsed.TotalSeconds - birthday.TotalSeconds)); }
 
         public Colony Colony { get => colony; }
     }
