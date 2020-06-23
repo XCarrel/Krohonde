@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Collections;
+using System.Net.Configuration;
 
 namespace Krohonde
 {
@@ -22,7 +23,7 @@ namespace Krohonde
         private const int MIN_ROCK_WIDTH = 10;
         private const int MAX_ROCK_HEIGHT = 100;
         private const int MIN_ROCK_HEIGHT = 10;
-
+        private const int CLEAR_ZONE_RADIUS = 200; // Empty zone around anthills
         private const int ANT_VIEW_RANGE = 100; // How far ants can see
 
         public static Random alea;
@@ -68,6 +69,34 @@ namespace Krohonde
             Seed();     // Food
             Sprinkle(); // Bricks
         }
+
+        private System.Drawing.Point PickAPoint()
+        {
+            double distmin;
+            System.Drawing.Point res;
+            do
+            {
+                distmin = width;
+                res = new System.Drawing.Point(alea.Next(width / 20, 19 * width / 20), alea.Next(height / 20, 19 * height / 20)); // keep 1/20th padding
+                foreach (Colony colo in colonies)
+                {
+                    double dist = Helpers.Distance(res, new System.Drawing.Point((int)colo.Location.X, (int)colo.Location.Y));
+                    if (dist < distmin) distmin = dist;
+                }
+                if (inARock(res)) distmin = 0;
+            } while (distmin < CLEAR_ZONE_RADIUS);
+            return res;
+        }
+
+        private bool inARock(System.Drawing.Point p)
+        {
+            foreach (Rock rock in rocks)
+            {
+                if (Helpers.IsInPolygon(rock.Shape, p)) return true;
+            }
+            return false;
+        }
+
         /// <summary>
         /// Place food at random in the world
         /// </summary>
@@ -75,13 +104,14 @@ namespace Krohonde
         {
             for (int c = 0; c < FOOD_CLUSTERS; c++)
             {
-                Food seed = new Food(new System.Drawing.Point(alea.Next(width / 20, 19 * width / 20), alea.Next(height / 20, 19 * height / 20)), 10);
+                Food seed = new Food(PickAPoint(), 10);
                 FoodCluster fc = new FoodCluster();
                 for (int i = 0; i < FOOD_CLUSTER_SIZE; i++)
                 {
                     fc.Add(seed);
                     System.Drawing.Point delta = Helpers.Rotate(new System.Drawing.Point(i + 5, i + 5), i * 130);
                     seed = new Food(new System.Drawing.Point(seed.Location.X + delta.X, seed.Location.Y + delta.Y), seed.Value); // re-instantiate to have a new object
+                    if (inARock(seed.Location)) break; // don't put food under a rock: it won't be reachable
                 }
                 food.Add(fc);
             }
@@ -94,13 +124,14 @@ namespace Krohonde
         {
             for (int c = 0; c < BRICK_CLUSTERS; c++)
             {
-                Brick seed = new Brick(new System.Drawing.Point(alea.Next(width / 20, 19 * width / 20), alea.Next(height / 20, 19 * height / 20)), 10);
+                Brick seed = new Brick(PickAPoint(), 10);
                 BrickCluster bc = new BrickCluster();
                 for (int i = 0; i < BRICK_CLUSTER_SIZE; i++)
                 {
                     bc.Add(seed);
                     System.Drawing.Point delta = Helpers.Rotate(new System.Drawing.Point(i + 5, i + 5), i * 150);
                     seed = new Brick(new System.Drawing.Point(seed.Location.X + delta.X, seed.Location.Y + delta.Y), seed.Value); // re-instantiate to have a new object
+                    if (inARock(seed.Location)) break; // don't put bricks under a rock: it won't be reachable
                 }
                 bricks.Add(bc);
             }
@@ -113,7 +144,7 @@ namespace Krohonde
         {
             for (int r = 0; r < NB_ROCKS; r++)
             {
-                Point loc = new Point(alea.Next(width / 20, 19 * width / 20), alea.Next(height / 20, 19 * height / 20));
+                System.Drawing.Point loc = PickAPoint();
                 int w = MotherNature.alea.Next(MIN_ROCK_WIDTH, MAX_ROCK_WIDTH);
                 int h = MotherNature.alea.Next(MIN_ROCK_HEIGHT, MAX_ROCK_HEIGHT);
                 rocks.Add(new Rock(loc, w, h));

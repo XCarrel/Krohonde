@@ -25,7 +25,7 @@ namespace Krohonde
         /// <param name="location"></param>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        public Rock(System.Windows.Point location, int width, int height)
+        public Rock(Point location, int width, int height)
         {
             shape = new List<Point>();
             int deg = 0;
