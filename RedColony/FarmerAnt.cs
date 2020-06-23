@@ -15,6 +15,8 @@ namespace Krohonde.RedColony
 
         public override void Live(double deltatime)
         {
+            List<Food> miam = FoodAroundMe();
+            if (miam.Count() > 0) Console.WriteLine(string.Format("{0} sees {1} food chunks", this.Fullname, miam.Count()));
             Move(deltatime);
         }
     }

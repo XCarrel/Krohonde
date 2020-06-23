@@ -15,7 +15,6 @@ namespace Krohonde.RedColony
 
         public override void Live(double deltatime)
         {
-            if (MotherNature.alea.Next(0, 20) == 0) DropPheromon();
             Move(deltatime);
         }
     }

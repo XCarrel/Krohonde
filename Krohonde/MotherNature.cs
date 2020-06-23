@@ -28,7 +28,8 @@ namespace Krohonde
         public static Random alea;
         public const int MAX_ENERGY = 1800; // of an ant 
         public const int PHEROMON_LIFE_DURATION = 30; // seconds
-        public const int PHEROMON_DROPPING_COST = 30; // units of energy
+        public const int COST_OF_DROPPING_PHEROMON = 30; // units of energy
+        public const int COST_OF_LOOKING_AROUND = 10; // units of energy
 
         public enum PheromonTypes { Food, Danger, Build }
 
@@ -214,6 +215,14 @@ namespace Krohonde
             List<Food> res = new List<Food>();
             foreach (FoodCluster cluster in food)
                 res.AddRange(cluster.Content.Where(f => new Vector(f.Location.X - ant.X, f.Location.Y - ant.Y).Length < ANT_VIEW_RANGE));
+            return res;
+        }
+
+        List<Brick> IMotherNature.LookForBricksAround(Ant ant)
+        {
+            List<Brick> res = new List<Brick>();
+            foreach (BrickCluster cluster in bricks)
+                res.AddRange(cluster.Content.Where(b => new Vector(b.Location.X - ant.X, b.Location.Y - ant.Y).Length < ANT_VIEW_RANGE));
             return res;
         }
 

@@ -108,13 +108,25 @@ namespace Krohonde
         protected void DropPheromon()
         {
             MyColony.World().DropPheromon(this);
-            energy -= MotherNature.PHEROMON_DROPPING_COST;
+            energy -= MotherNature.COST_OF_DROPPING_PHEROMON;
         }
 
         protected void DropPheromon(MotherNature.PheromonTypes pherotype)
         {
             MyColony.World().DropPheromon(this, pherotype);
-            energy -= MotherNature.PHEROMON_DROPPING_COST;
+            energy -= MotherNature.COST_OF_DROPPING_PHEROMON;
+        }
+
+        protected List<Food> FoodAroundMe()
+        {
+            energy -= MotherNature.COST_OF_LOOKING_AROUND;
+            return Colony.World().LookForFoodAround(this);
+        }
+
+        protected List<Brick> BricksAroundMe()
+        {
+            energy -= MotherNature.COST_OF_LOOKING_AROUND;
+            return Colony.World().LookForBricksAround(this);
         }
 
         public double X { get => Location.X; }
