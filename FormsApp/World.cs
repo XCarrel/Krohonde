@@ -141,5 +141,19 @@ namespace FormsApp
             chkRenderOnce.Checked = false; // clear that flag for next loop
         }
 
+        private void pctWorld_Click(object sender, EventArgs e)
+        {
+            int distmin = Width;
+            Ant chosen = null;
+            System.Drawing.Point mouse = new System.Drawing.Point(MousePosition.X, MousePosition.Y);
+            foreach (Colony colo in myWorld.Colonies())
+                foreach (Ant ant in colo.Population)
+                    if (Helpers.Distance(new System.Drawing.Point((int)ant.HeadPosition.X, (int)ant.HeadPosition.Y), mouse) < distmin)
+                    {
+                        distmin = (int)Helpers.Distance(ant.SDLocation, mouse);
+                        chosen = ant;
+                    }
+            chosen.Selected = !chosen.Selected;
+        }
     }
 }

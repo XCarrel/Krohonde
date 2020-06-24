@@ -52,6 +52,7 @@
             this.pctWorld.Size = new System.Drawing.Size(1800, 1000);
             this.pctWorld.TabIndex = 0;
             this.pctWorld.TabStop = false;
+            this.pctWorld.Click += new System.EventHandler(this.pctWorld_Click);
             this.pctWorld.Paint += new System.Windows.Forms.PaintEventHandler(this.pctWorld_Paint);
             // 
             // chkShowColonies
