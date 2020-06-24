@@ -14,7 +14,7 @@ namespace Krohonde
         void AddColony(Colony colo);
         void Live();
         string GetBirthCertificate(string antname);
-        double getMaxSpeed(string anttype);
+        double getMaxSpeed(Ant ant);
         int width { get; }
         int height { get; }
         Stopwatch universaltime { get; }

@@ -238,9 +238,9 @@ namespace Krohonde
 
         int IMotherNature.height => height;
 
-        public double getMaxSpeed(string anttype)
+        public double getMaxSpeed(Ant ant)
         {
-            switch (anttype)
+            switch (ant.GetType().Name)
             {
                 case "FarmerAnt": return 10;
                 case "WorkerAnt": return 10;

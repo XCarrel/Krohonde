@@ -68,7 +68,7 @@ namespace Krohonde
             roam();
 
             if (!ActionAllowed()) return; // ignore multiple actions by same ant
-            double maxSpeed = MyColony.World().getMaxSpeed(this.GetType().Name);
+            double maxSpeed = MyColony.World().getMaxSpeed(this);
             // Linear speed
             double linspeed = (new Vector(Speed.X, Speed.Y)).Length;
             if (linspeed > maxSpeed) // Too big, let's adjust to max 
