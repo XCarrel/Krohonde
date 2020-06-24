@@ -34,7 +34,6 @@
             this.chkShowColonies = new System.Windows.Forms.CheckBox();
             this.chkRenderOnce = new System.Windows.Forms.CheckBox();
             this.chkRender = new System.Windows.Forms.CheckBox();
-            this.cmdScore = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pctWorld)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,9 +48,8 @@
             this.pctWorld.BackColor = System.Drawing.Color.White;
             this.pctWorld.BackgroundImage = global::FormsApp.Properties.Resources.grass;
             this.pctWorld.Location = new System.Drawing.Point(0, 0);
-            this.pctWorld.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pctWorld.Name = "pctWorld";
-            this.pctWorld.Size = new System.Drawing.Size(2400, 1231);
+            this.pctWorld.Size = new System.Drawing.Size(1800, 1000);
             this.pctWorld.TabIndex = 0;
             this.pctWorld.TabStop = false;
             this.pctWorld.Paint += new System.Windows.Forms.PaintEventHandler(this.pctWorld_Paint);
@@ -61,10 +59,9 @@
             this.chkShowColonies.AutoSize = true;
             this.chkShowColonies.BackColor = System.Drawing.Color.Transparent;
             this.chkShowColonies.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkShowColonies.Location = new System.Drawing.Point(11, 10);
-            this.chkShowColonies.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkShowColonies.Location = new System.Drawing.Point(8, 8);
             this.chkShowColonies.Name = "chkShowColonies";
-            this.chkShowColonies.Size = new System.Drawing.Size(199, 21);
+            this.chkShowColonies.Size = new System.Drawing.Size(157, 17);
             this.chkShowColonies.TabIndex = 1;
             this.chkShowColonies.Text = "Montrer l\'appartenance";
             this.chkShowColonies.UseVisualStyleBackColor = false;
@@ -74,10 +71,9 @@
             this.chkRenderOnce.AutoSize = true;
             this.chkRenderOnce.BackColor = System.Drawing.Color.Transparent;
             this.chkRenderOnce.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkRenderOnce.Location = new System.Drawing.Point(11, 66);
-            this.chkRenderOnce.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkRenderOnce.Location = new System.Drawing.Point(8, 54);
             this.chkRenderOnce.Name = "chkRenderOnce";
-            this.chkRenderOnce.Size = new System.Drawing.Size(186, 21);
+            this.chkRenderOnce.Size = new System.Drawing.Size(147, 17);
             this.chkRenderOnce.TabIndex = 2;
             this.chkRenderOnce.Text = "Mettre à jour une fois";
             this.chkRenderOnce.UseVisualStyleBackColor = false;
@@ -89,36 +85,23 @@
             this.chkRender.Checked = true;
             this.chkRender.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRender.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkRender.Location = new System.Drawing.Point(11, 38);
-            this.chkRender.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkRender.Location = new System.Drawing.Point(8, 31);
             this.chkRender.Name = "chkRender";
-            this.chkRender.Size = new System.Drawing.Size(204, 21);
+            this.chkRender.Size = new System.Drawing.Size(162, 17);
             this.chkRender.TabIndex = 3;
             this.chkRender.Text = "Mettre à jour en continu";
             this.chkRender.UseVisualStyleBackColor = false;
             // 
-            // cmdScore
-            // 
-            this.cmdScore.Location = new System.Drawing.Point(12, 115);
-            this.cmdScore.Name = "cmdScore";
-            this.cmdScore.Size = new System.Drawing.Size(121, 25);
-            this.cmdScore.TabIndex = 4;
-            this.cmdScore.Text = "Afficher score";
-            this.cmdScore.UseVisualStyleBackColor = true;
-            this.cmdScore.Click += new System.EventHandler(this.cmdScore_Click);
-            // 
             // World
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1601, 711);
-            this.Controls.Add(this.cmdScore);
+            this.ClientSize = new System.Drawing.Size(1218, 595);
             this.Controls.Add(this.chkRender);
             this.Controls.Add(this.chkRenderOnce);
             this.Controls.Add(this.chkShowColonies);
             this.Controls.Add(this.pctWorld);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "World";
             this.Text = "Krohonde";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -134,7 +117,6 @@
         private System.Windows.Forms.CheckBox chkShowColonies;
         private System.Windows.Forms.CheckBox chkRenderOnce;
         private System.Windows.Forms.CheckBox chkRender;
-        private System.Windows.Forms.Button cmdScore;
     }
 }
 

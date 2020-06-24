@@ -17,20 +17,22 @@ namespace FormsApp
 {
     public partial class World : Form
     {
-        private IMotherNature myWorld;
-
+        public IMotherNature myWorld;
+        private Score score;
         public World()
         {
             InitializeComponent();
             myWorld = new MotherNature(pctWorld.ClientSize.Width, pctWorld.ClientSize.Height);
 
             RedColony rcolo = new RedColony(new System.Windows.Point(400, 200), myWorld);
-            rcolo.Spawn(4);
+            rcolo.Spawn(400);
             myWorld.AddColony(rcolo);
             GreenColony gcolo = new GreenColony(new System.Windows.Point(1200, 600), myWorld);
-            gcolo.Spawn(4);
+            gcolo.Spawn(400);
             myWorld.AddColony(gcolo);
             myWorld.Initialize();
+            score = new Score(this);
+            score.Show();
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -138,12 +140,5 @@ namespace FormsApp
             chkRenderOnce.Checked = false; // clear that flag for next loop
         }
 
-        private void cmdScore_Click(object sender, EventArgs e)
-        {
-            Score score = new Score();
-            score.Colonies = myWorld.Colonies();
-            score.StopWatch = myWorld.universaltime;
-            score.ShowDialog();
-        }
     }
 }

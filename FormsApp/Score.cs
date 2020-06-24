@@ -21,6 +21,7 @@ namespace FormsApp
         private const int SCORE_GRP_WIDTH = 200;
         private const int SCORE_GRP_HEIGHT = 75;
 
+        private World world;
         private List<Colony> colonies;
         private Stopwatch stopWatch;
         private System.Windows.Forms.GroupBox grpColonie;
@@ -50,8 +51,9 @@ namespace FormsApp
             }
         }
 
-        public Score()
+        public Score(World w)
         {
+            world = w;
             InitializeComponent();
         }
 
@@ -60,7 +62,7 @@ namespace FormsApp
         {
             int nbColony = 0;
 
-            TimeSpan ts = stopWatch.Elapsed;
+            TimeSpan ts = world.myWorld.universaltime.Elapsed;
 
             // Format and display the TimeSpan value.
             string elapsedTime = "";
@@ -89,7 +91,7 @@ namespace FormsApp
 
             lblElapsedTime.Text = lblElapsedTime.Text + " : " + elapsedTime;
 
-            foreach (Colony colony in colonies)
+            foreach (Colony colony in world.myWorld.Colonies())
             {
                 this.grpColonie = new System.Windows.Forms.GroupBox();
                 this.lblAntNb = new System.Windows.Forms.Label();
