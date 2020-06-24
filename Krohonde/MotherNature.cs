@@ -298,7 +298,7 @@ namespace Krohonde
 
         int IMotherNature.Collect(Ant ant, Resource resource)
         {
-            if (Helpers.Distance(new System.Drawing.Point((int)ant.X, (int)ant.Y), resource.Location) > ANT_REACH) return 0; // resource is too far
+            if (Helpers.Distance(ant.SDLocation, resource.Location) > ANT_REACH) return 0; // resource is too far
 
             bool gotcha = false;
             if (resource.GetType() == typeof(Food))
@@ -395,7 +395,7 @@ namespace Krohonde
                 default:
                     return;
             }
-            pheromons.Add(new Pheromon(new System.Drawing.Point((int)ant.X, (int)ant.Y), pherotype, ant.Colony));
+            pheromons.Add(new Pheromon(ant.SDLocation, pherotype, ant.Colony));
         }
 
         void IMotherNature.Build(Ant ant)

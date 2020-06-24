@@ -8,7 +8,7 @@ using Point = System.Drawing.Point;
 
 namespace Krohonde
 {
-    class Helpers
+    public class Helpers
     {
         public static Point Rotate(Point v, int degrees)
         {
