@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Configuration;
 using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,9 @@ namespace Krohonde
         private int strength;   // With more strength, Farmer and Worker can carry more, Soldier hit harder, Scouts go faster. All get tired more slowly.
         private int toughness;  // Resistance to enemy's hits
 
+        private int foodbag;
+        private int brickbag;
+
         private Point Location;
         protected Point Speed;
         protected Object BlockedBy; // if defined: the object that prevented the ant from moving
@@ -35,8 +39,6 @@ namespace Krohonde
             fullname = colony.GetType().Name+this.GetType().Name+id;
             certificate = colony.World().GetBirthCertificate(fullname);
             energy = MotherNature.MAX_ENERGY;
-            strength = 0;
-            toughness = 0;
         }
 
         /// <summary>
@@ -120,6 +122,23 @@ namespace Krohonde
             }
         }
 
+        protected bool Pickup(Resource resource)
+        {
+            int max = MyColony.World().BagSize(this,resource); // How much can I carry of that resource ?
+            int val = MyColony.World().Collect(this,resource); // pick it up
+            energy -= MotherNature.COST_OF_COLLECTING_RESOURCE;
+            if (val == 0) return false; // waste of energy !!!!
+
+            if (resource.GetType() == typeof(Food))
+            {
+                foodbag = Math.Min(max, foodbag + val); // store it without exceeding max
+            }
+            else if (resource.GetType() == typeof(Brick))
+            {
+                brickbag = Math.Min(max, brickbag + val); // store it without exceeding max
+            }
+            return true;
+        }
         protected void DropPheromon()
         {
             MyColony.World().DropPheromon(this);
