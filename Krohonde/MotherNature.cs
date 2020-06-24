@@ -39,8 +39,11 @@ namespace Krohonde
         public const int COST_OF_COLLECTING_RESOURCE = 50; // units of energy
         public const int MAX_BITE_SIZE = 2; // how much food an ant can eat in one action
         public const int FOOD_TO_ENERGY = 500; // how much energy an ant get when it eats food
+        public const int FOOD_TO_STRENGTH = 500; // how much strength an ant get when it eats food
+        public const int FOOD_TO_TOUGHNESS = 500; // how much touhness an ant get when it eats food
 
         public enum PheromonTypes { Food, Danger, Build }
+        public enum DigestionFor { Energy, Strength, Toughness }
 
         private List<Colony> colonies;
         private List<FoodCluster> food;

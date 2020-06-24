@@ -103,15 +103,26 @@ namespace Krohonde
         }
 
         /// <summary>
-        /// Eat some food from my own bag
+        /// Eat some food from my own bag, to build up energy, strength or toughness
         /// </summary>
         /// <param name="amount"></param>
         /// <returns></returns>
-        protected bool EatFromBag(int amount)
+        protected bool EatFromBag(int amount, MotherNature.DigestionFor purpose)
         {
             if (!ActionAllowed()) return false; // ignore multiple actions by same ant
             int val = Math.Min(Math.Min(amount,foodbag), MotherNature.MAX_BITE_SIZE);
-            energy += val * MotherNature.FOOD_TO_ENERGY;
+            switch (purpose)
+            {
+                case MotherNature.DigestionFor.Energy:
+                    energy += val * MotherNature.FOOD_TO_ENERGY;
+                    break;
+                case MotherNature.DigestionFor.Strength:
+                    strength += val * MotherNature.FOOD_TO_STRENGTH;
+                    break;
+                case MotherNature.DigestionFor.Toughness:
+                    toughness += val * MotherNature.FOOD_TO_TOUGHNESS;
+                    break;
+            }
             foodbag -= val;
             return true;
         }
