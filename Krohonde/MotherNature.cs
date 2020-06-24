@@ -25,12 +25,14 @@ namespace Krohonde
         private const int MIN_ROCK_HEIGHT = 10;
         private const int CLEAR_ZONE_RADIUS = 200; // Empty zone around anthills
         private const int ANT_VIEW_RANGE = 100; // How far ants can see
+        private const int ANT_SMELL_RANGE = 1000; // How far ants can smell a full-intensity pheromon
 
         public static Random alea;
-        public const int MAX_ENERGY = 1800; // of an ant 
+        public const int MAX_ENERGY = 30000; // of an ant 
         public const int PHEROMON_LIFE_DURATION = 30; // seconds
         public const int COST_OF_DROPPING_PHEROMON = 30; // units of energy
         public const int COST_OF_LOOKING_AROUND = 10; // units of energy
+        public const int COST_OF_SMELLING_AROUND = 20; // units of energy
 
         public enum PheromonTypes { Food, Danger, Build }
 
@@ -274,9 +276,9 @@ namespace Krohonde
             return res;
         }
 
-        void IMotherNature.SmellAround(Ant ant)
+        List<Pheromon> IMotherNature.SmellAround(Ant ant)
         {
-            throw new NotImplementedException();
+            return pheromons.Where(phero => new Vector(phero.Location.X - ant.X, phero.Location.Y - ant.Y).Length < ANT_SMELL_RANGE * phero.Intensity && ant.Colony == phero.Colony).ToList();
         }
 
         void IMotherNature.Eat(Ant ant)

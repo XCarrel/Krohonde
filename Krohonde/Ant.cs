@@ -50,8 +50,23 @@ namespace Krohonde
             return res;
         }
 
+        /// <summary>
+        /// Just for testing
+        /// </summary>
+        private void roam()
+        {
+            if (MotherNature.alea.Next(0, 5) == 0)
+                if (MotherNature.alea.Next(0, 2) == 0)
+                    Speed.X = MotherNature.alea.Next(0, 30) - 14;
+                else
+                    Speed.Y = MotherNature.alea.Next(0, 39) - 14;
+        }
+
         protected void Move(double deltatime)
         {
+            // Temporary
+            roam();
+
             if (!ActionAllowed()) return; // ignore multiple actions by same ant
             double maxSpeed = MyColony.World().getMaxSpeed(this.GetType().Name);
             // Linear speed
@@ -134,6 +149,13 @@ namespace Krohonde
             energy -= MotherNature.COST_OF_LOOKING_AROUND;
             return Colony.World().LookForEnemiesAround(this);
         }
+
+        protected List<Pheromon> SmellsAroundMe()
+        {
+            energy -= MotherNature.COST_OF_SMELLING_AROUND;
+            return Colony.World().SmellAround(this);
+        }
+
         public double X { get => Location.X; }
         public double Y { get => Location.Y; }
 

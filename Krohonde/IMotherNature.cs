@@ -28,7 +28,7 @@ namespace Krohonde
         List<Food> LookForFoodAround(Ant ant);
         List<Brick> LookForBricksAround(Ant ant);
         List<Ant> LookForEnemiesAround(Ant ant);
-        void SmellAround(Ant ant);
+        List<Pheromon> SmellAround(Ant ant);
         #endregion
         #region General actions
         void Eat(Ant ant);

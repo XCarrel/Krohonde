@@ -132,7 +132,7 @@ namespace FormsApp
                     default: img = global::FormsApp.Properties.Resources.pherodanger; break;
                 }
                 graphics.DrawImage(img, (int)phero.Location.X, (int)phero.Location.Y, img.Width / 2, img.Height / 2);
-                if (showOrigin) graphics.DrawLine(new Pen(phero.Colony.Color, 6), new System.Drawing.Point((int)phero.Location.X, (int)phero.Location.Y), new System.Drawing.Point((int)(phero.Location.X + 24 * phero.Intensity / MotherNature.PHEROMON_LIFE_DURATION), (int)phero.Location.Y));
+                if (showOrigin) graphics.DrawLine(new Pen(phero.Colony.Color, 6), new System.Drawing.Point((int)phero.Location.X, (int)phero.Location.Y), new System.Drawing.Point((int)(phero.Location.X + 24 * phero.Intensity), (int)phero.Location.Y));
             }
 
             chkRenderOnce.Checked = false; // clear that flag for next loop
