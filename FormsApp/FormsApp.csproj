@@ -52,6 +52,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Score.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Score.designer.cs">
+      <DependentUpon>Score.cs</DependentUpon>
+    </Compile>
     <Compile Include="World.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,6 +66,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Score.resx">
+      <DependentUpon>Score.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="World.resx">
       <DependentUpon>World.cs</DependentUpon>
     </EmbeddedResource>

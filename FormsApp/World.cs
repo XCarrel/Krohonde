@@ -138,5 +138,12 @@ namespace FormsApp
             chkRenderOnce.Checked = false; // clear that flag for next loop
         }
 
+        private void cmdScore_Click(object sender, EventArgs e)
+        {
+            Score score = new Score();
+            score.Colonies = myWorld.Colonies();
+            score.StopWatch = myWorld.universaltime;
+            score.ShowDialog();
+        }
     }
 }
