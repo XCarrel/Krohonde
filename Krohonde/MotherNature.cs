@@ -24,7 +24,7 @@ namespace Krohonde
         private const int MAX_ROCK_HEIGHT = 100;
         private const int MIN_ROCK_HEIGHT = 10;
         private const int CLEAR_ZONE_RADIUS = 200; // Empty zone around anthills
-        private const int ANT_VIEW_RANGE = 100; // How far ants can see
+        private const int ANT_SIGHT_RANGE = 100; // How far ants can see
         private const int ANT_SMELL_RANGE = 1000; // How far ants can smell a full-intensity pheromon
 
         public static Random alea;
@@ -249,13 +249,24 @@ namespace Krohonde
                 default: return 0;
             }
         }
+        public double SightRange(Ant ant)
+        {
+            switch (ant.GetType().Name)
+            {
+                case "FarmerAnt": return ANT_SIGHT_RANGE;
+                case "WorkerAnt": return ANT_SIGHT_RANGE;
+                case "ScoutAnt": return ANT_SIGHT_RANGE * 2;
+                case "SoldierAnt": return ANT_SIGHT_RANGE * 1.5;
+                default: return 0;
+            }
+        }
         #region IMotherNature methods
 
         List<Food> IMotherNature.LookForFoodAround(Ant ant)
         {
             List<Food> res = new List<Food>();
             foreach (FoodCluster cluster in food)
-                res.AddRange(cluster.Content.Where(f => new Vector(f.Location.X - ant.X, f.Location.Y - ant.Y).Length < ANT_VIEW_RANGE));
+                res.AddRange(cluster.Content.Where(f => new Vector(f.Location.X - ant.X, f.Location.Y - ant.Y).Length < SightRange(ant)));
             return res;
         }
 
@@ -263,7 +274,7 @@ namespace Krohonde
         {
             List<Brick> res = new List<Brick>();
             foreach (BrickCluster cluster in bricks)
-                res.AddRange(cluster.Content.Where(b => new Vector(b.Location.X - ant.X, b.Location.Y - ant.Y).Length < ANT_VIEW_RANGE));
+                res.AddRange(cluster.Content.Where(b => new Vector(b.Location.X - ant.X, b.Location.Y - ant.Y).Length < SightRange(ant)));
             return res;
         }
 
@@ -272,7 +283,7 @@ namespace Krohonde
             List<Ant> res = new List<Ant>();
             foreach (Colony colo in colonies)
                 if (colo != ant.Colony)
-                    res.AddRange(colo.Population.Where(b => new Vector(b.X - ant.X, b.Y - ant.Y).Length < ANT_VIEW_RANGE));
+                    res.AddRange(colo.Population.Where(b => new Vector(b.X - ant.X, b.Y - ant.Y).Length < SightRange(ant)));
             return res;
         }
 
