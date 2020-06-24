@@ -15,6 +15,7 @@ namespace Krohonde
         protected System.Drawing.Point[] hill;
         protected List<Ant> ants;
         private readonly Color color;
+        private int foodstore;
 
         public Colony(Color col, System.Windows.Point loc, IMotherNature world)
         {
@@ -42,6 +43,19 @@ namespace Krohonde
             ants.Remove(ant);
         }
 
+        /// <summary>
+        /// An ant intends to dump its food bag into the colony's foodstore
+        /// </summary>
+        /// <param name="ant"></param>
+        /// <returns></returns>
+        public bool DumpFood(Ant ant)
+        {
+            if (!Helpers.IsInPolygon(hill, ant.SDLocation)) return false; // can't dump from outside
+            foodstore += ant.FoodBag;
+            ant.EmptyFoodBag();
+            return true;
+        }
+
         public abstract void Spawn(int nbAnts);
 
         public System.Drawing.Point[] Hill { get => hill; }
@@ -49,6 +63,8 @@ namespace Krohonde
         public List<Ant> Population { get => ants; }
 
         public Color Color { get => color; }
+
+        public int FoodStore { get => foodstore; }
 
         public System.Windows.Point Location { get => location; }
 

@@ -139,6 +139,12 @@ namespace Krohonde
             }
             return true;
         }
+
+        public void EmptyFoodBag()
+        {
+            foodbag = 0;
+        }
+
         protected void DropPheromon()
         {
             MyColony.World().DropPheromon(this);
@@ -184,6 +190,10 @@ namespace Krohonde
 
         public string Certificate { get => certificate; }
 
+        public System.Drawing.Point SDLocation { get => new System.Drawing.Point((int)X,(int)Y); }
+
         public int Energy { get => energy; }
+
+        public int FoodBag { get => foodbag; }
     }
 }
