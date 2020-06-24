@@ -103,6 +103,20 @@ namespace Krohonde
         }
 
         /// <summary>
+        /// Eat some food from my own bag
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        protected bool EatFromBag(int amount)
+        {
+            if (!ActionAllowed()) return false; // ignore multiple actions by same ant
+            int val = Math.Min(Math.Min(amount,foodbag), MotherNature.MAX_BITE_SIZE);
+            energy += val * MotherNature.FOOD_TO_ENERGY;
+            foodbag -= val;
+            return true;
+        }
+
+        /// <summary>
         /// Updates the ant's state according to the time it has lived since last update
         /// </summary>
         /// <param name="deltatime"></param>
@@ -124,6 +138,8 @@ namespace Krohonde
 
         protected bool Pickup(Resource resource)
         {
+            if (!ActionAllowed()) return false; // ignore multiple actions by same ant
+
             int max = MyColony.World().BagSize(this,resource); // How much can I carry of that resource ?
             int val = MyColony.World().Collect(this,resource); // pick it up
             energy -= MotherNature.COST_OF_COLLECTING_RESOURCE;
@@ -147,12 +163,14 @@ namespace Krohonde
 
         protected void DropPheromon()
         {
+            if (!ActionAllowed()) return; // ignore multiple actions by same ant
             MyColony.World().DropPheromon(this);
             energy -= MotherNature.COST_OF_DROPPING_PHEROMON;
         }
 
         protected void DropPheromon(MotherNature.PheromonTypes pherotype)
         {
+            if (!ActionAllowed()) return; // ignore multiple actions by same ant
             MyColony.World().DropPheromon(this, pherotype);
             energy -= MotherNature.COST_OF_DROPPING_PHEROMON;
         }
@@ -195,5 +213,6 @@ namespace Krohonde
         public int Energy { get => energy; }
 
         public int FoodBag { get => foodbag; }
+        public int BrickBag { get => brickbag; }
     }
 }
