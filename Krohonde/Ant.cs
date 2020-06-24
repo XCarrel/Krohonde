@@ -225,5 +225,6 @@ namespace Krohonde
 
         public int FoodBag { get => foodbag; }
         public int BrickBag { get => brickbag; }
+        public bool Selected { get; set; }
     }
 }

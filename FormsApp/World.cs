@@ -25,10 +25,10 @@ namespace FormsApp
             myWorld = new MotherNature(pctWorld.ClientSize.Width, pctWorld.ClientSize.Height);
 
             RedColony rcolo = new RedColony(new System.Windows.Point(400, 200), myWorld);
-            rcolo.Spawn(400);
+            rcolo.Spawn(40);
             myWorld.AddColony(rcolo);
             GreenColony gcolo = new GreenColony(new System.Windows.Point(1200, 600), myWorld);
-            gcolo.Spawn(400);
+            gcolo.Spawn(40);
             myWorld.AddColony(gcolo);
             myWorld.Initialize();
             score = new Score(this);
@@ -97,6 +97,7 @@ namespace FormsApp
                     }
                     sourceImage = RotateImage(sourceImage, ant.Heading + 90);
                     if (showOrigin) graphics.DrawLine(new Pen(colony.Color, 6), new System.Drawing.Point((int)ant.X, (int)ant.Y), new System.Drawing.Point((int)(ant.X + 24 * ant.Energy / MotherNature.MAX_ENERGY), (int)ant.Y));
+                    if (ant.Selected) graphics.DrawEllipse(new Pen(colony.Color, 4), ant.SDLocation.X, ant.SDLocation.Y, 24, 24);
                     graphics.DrawImage(sourceImage, (int)ant.X, (int)ant.Y, sourceImage.Width, sourceImage.Height);
                 }
                 graphics.FillClosedCurve(new TextureBrush(Properties.Resources.anthill), colony.Hill);
