@@ -58,6 +58,8 @@ namespace FormsApp
          
         private void Score_Load(object sender, EventArgs e)
         {
+            Logger.WriteLogFile(Logger.LogLevel.INFO, @"C:\Temp", "LogKrohonde.txt", "Ouverture score");
+
             int nbColony = 0;
 
             TimeSpan ts = stopWatch.Elapsed;
@@ -106,8 +108,10 @@ namespace FormsApp
                     this.grpColonie.Location = new System.Drawing.Point(SCORE_GRP_X, SCORE_GRP_Y);
                 }
                 this.grpColonie.Name = "grpColonie";
+                this.grpColonie.BackColor = System.Drawing.Color.Transparent;
                 this.grpColonie.Size = new System.Drawing.Size(SCORE_GRP_WIDTH, SCORE_GRP_HEIGHT);
                 this.grpColonie.TabIndex = 1;
+                this.grpColonie.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
                 this.grpColonie.TabStop = false;
                 this.grpColonie.Text = "Colonie " + colony.Color.ToKnownColor().ToString();
                 // 
@@ -118,6 +122,7 @@ namespace FormsApp
                 this.lblAntNb.Name = "lblAntNb";
                 this.lblAntNb.Size = new System.Drawing.Size(128, 17);
                 this.lblAntNb.TabIndex = 0;
+                this.lblAntNb.BackColor = System.Drawing.Color.Transparent;
                 this.lblAntNb.Text = "Nombre de fourmis : " + colony.Population.Count;
 
                 this.Controls.Add(this.grpColonie);
