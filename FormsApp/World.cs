@@ -17,20 +17,22 @@ namespace FormsApp
 {
     public partial class World : Form
     {
-        private IMotherNature myWorld;
-
+        public IMotherNature myWorld;
+        private Score score;
         public World()
         {
             InitializeComponent();
             myWorld = new MotherNature(pctWorld.ClientSize.Width, pctWorld.ClientSize.Height);
 
             RedColony rcolo = new RedColony(new System.Windows.Point(400, 200), myWorld);
-            rcolo.Spawn(4);
+            rcolo.Spawn(40);
             myWorld.AddColony(rcolo);
             GreenColony gcolo = new GreenColony(new System.Windows.Point(1200, 600), myWorld);
-            gcolo.Spawn(4);
+            gcolo.Spawn(40);
             myWorld.AddColony(gcolo);
             myWorld.Initialize();
+            score = new Score(this);
+            score.Show();
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -95,6 +97,7 @@ namespace FormsApp
                     }
                     sourceImage = RotateImage(sourceImage, ant.Heading + 90);
                     if (showOrigin) graphics.DrawLine(new Pen(colony.Color, 6), new System.Drawing.Point((int)ant.X, (int)ant.Y), new System.Drawing.Point((int)(ant.X + 24 * ant.Energy / MotherNature.MAX_ENERGY), (int)ant.Y));
+                    if (ant.Selected) graphics.DrawEllipse(new Pen(colony.Color, 4), ant.SDLocation.X, ant.SDLocation.Y, 24, 24);
                     graphics.DrawImage(sourceImage, (int)ant.X, (int)ant.Y, sourceImage.Width, sourceImage.Height);
                 }
                 graphics.FillClosedCurve(new TextureBrush(Properties.Resources.anthill), colony.Hill);
@@ -132,18 +135,25 @@ namespace FormsApp
                     default: img = global::FormsApp.Properties.Resources.pherodanger; break;
                 }
                 graphics.DrawImage(img, (int)phero.Location.X, (int)phero.Location.Y, img.Width / 2, img.Height / 2);
-                if (showOrigin) graphics.DrawLine(new Pen(phero.Colony.Color, 6), new System.Drawing.Point((int)phero.Location.X, (int)phero.Location.Y), new System.Drawing.Point((int)(phero.Location.X + 24 * phero.Intensity / MotherNature.PHEROMON_LIFE_DURATION), (int)phero.Location.Y));
+                if (showOrigin) graphics.DrawLine(new Pen(phero.Colony.Color, 6), new System.Drawing.Point((int)phero.Location.X, (int)phero.Location.Y), new System.Drawing.Point((int)(phero.Location.X + 24 * phero.Intensity), (int)phero.Location.Y));
             }
 
             chkRenderOnce.Checked = false; // clear that flag for next loop
         }
 
-        private void cmdScore_Click(object sender, EventArgs e)
+        private void pctWorld_Click(object sender, EventArgs e)
         {
-            Score score = new Score();
-            score.Colonies = myWorld.Colonies();
-            score.StopWatch = myWorld.universaltime;
-            score.ShowDialog();
+            int distmin = Width;
+            Ant chosen = null;
+            System.Drawing.Point mouse = new System.Drawing.Point(MousePosition.X, MousePosition.Y);
+            foreach (Colony colo in myWorld.Colonies())
+                foreach (Ant ant in colo.Population)
+                    if (Helpers.Distance(new System.Drawing.Point((int)ant.HeadPosition.X, (int)ant.HeadPosition.Y), mouse) < distmin)
+                    {
+                        distmin = (int)Helpers.Distance(ant.SDLocation, mouse);
+                        chosen = ant;
+                    }
+            chosen.Selected = !chosen.Selected;
         }
     }
 }

@@ -24,15 +24,26 @@ namespace Krohonde
         private const int MAX_ROCK_HEIGHT = 100;
         private const int MIN_ROCK_HEIGHT = 10;
         private const int CLEAR_ZONE_RADIUS = 200; // Empty zone around anthills
-        private const int ANT_VIEW_RANGE = 100; // How far ants can see
+        private const int ANT_SIGHT_RANGE = 100; // How far ants can see
+        private const int ANT_SMELL_RANGE = 1000; // How far ants can smell a full-intensity pheromon
+        private const int ANT_FOOD_BAG_SIZE = 5; // The basic size of the food bag of all ants
+        private const int ANT_BRICK_BAG_SIZE = 5; // The basic size of the brick bag of all ants
+        private const int ANT_REACH = 10; // From how far can an ant pickup a resource
 
         public static Random alea;
-        public const int MAX_ENERGY = 1800; // of an ant 
+        public const int MAX_ENERGY = 30000; // of an ant 
         public const int PHEROMON_LIFE_DURATION = 30; // seconds
         public const int COST_OF_DROPPING_PHEROMON = 30; // units of energy
         public const int COST_OF_LOOKING_AROUND = 10; // units of energy
+        public const int COST_OF_SMELLING_AROUND = 20; // units of energy
+        public const int COST_OF_COLLECTING_RESOURCE = 50; // units of energy
+        public const int MAX_BITE_SIZE = 2; // how much food an ant can eat in one action
+        public const int FOOD_TO_ENERGY = 500; // how much energy an ant get when it eats food
+        public const int FOOD_TO_STRENGTH = 500; // how much strength an ant get when it eats food
+        public const int FOOD_TO_TOUGHNESS = 500; // how much touhness an ant get when it eats food
 
         public enum PheromonTypes { Food, Danger, Build }
+        public enum DigestionFor { Energy, Strength, Toughness }
 
         private List<Colony> colonies;
         private List<FoodCluster> food;
@@ -230,20 +241,31 @@ namespace Krohonde
             return pheromons;
         }
 
-        public Stopwatch universaltime { get ; }
+        public Stopwatch universaltime { get; }
 
         int IMotherNature.width => width;
 
         int IMotherNature.height => height;
 
-        public double getMaxSpeed(string anttype)
+        public double getMaxSpeed(Ant ant)
         {
-            switch (anttype)
+            switch (ant.GetType().Name)
             {
                 case "FarmerAnt": return 10;
                 case "WorkerAnt": return 10;
                 case "ScoutAnt": return 20;
                 case "SoldierAnt": return 15;
+                default: return 0;
+            }
+        }
+        public double SightRange(Ant ant)
+        {
+            switch (ant.GetType().Name)
+            {
+                case "FarmerAnt": return ANT_SIGHT_RANGE;
+                case "WorkerAnt": return ANT_SIGHT_RANGE;
+                case "ScoutAnt": return ANT_SIGHT_RANGE * 2;
+                case "SoldierAnt": return ANT_SIGHT_RANGE * 1.5;
                 default: return 0;
             }
         }
@@ -253,7 +275,7 @@ namespace Krohonde
         {
             List<Food> res = new List<Food>();
             foreach (FoodCluster cluster in food)
-                res.AddRange(cluster.Content.Where(f => new Vector(f.Location.X - ant.X, f.Location.Y - ant.Y).Length < ANT_VIEW_RANGE));
+                res.AddRange(cluster.Content.Where(f => new Vector(f.Location.X - ant.X, f.Location.Y - ant.Y).Length < SightRange(ant)));
             return res;
         }
 
@@ -261,7 +283,7 @@ namespace Krohonde
         {
             List<Brick> res = new List<Brick>();
             foreach (BrickCluster cluster in bricks)
-                res.AddRange(cluster.Content.Where(b => new Vector(b.Location.X - ant.X, b.Location.Y - ant.Y).Length < ANT_VIEW_RANGE));
+                res.AddRange(cluster.Content.Where(b => new Vector(b.Location.X - ant.X, b.Location.Y - ant.Y).Length < SightRange(ant)));
             return res;
         }
 
@@ -270,20 +292,62 @@ namespace Krohonde
             List<Ant> res = new List<Ant>();
             foreach (Colony colo in colonies)
                 if (colo != ant.Colony)
-                    res.AddRange(colo.Population.Where(b => new Vector(b.X - ant.X, b.Y - ant.Y).Length < ANT_VIEW_RANGE));
+                    res.AddRange(colo.Population.Where(b => new Vector(b.X - ant.X, b.Y - ant.Y).Length < SightRange(ant)));
             return res;
         }
 
-        void IMotherNature.SmellAround(Ant ant)
+        List<Pheromon> IMotherNature.SmellAround(Ant ant)
         {
-            throw new NotImplementedException();
+            return pheromons.Where(phero => new Vector(phero.Location.X - ant.X, phero.Location.Y - ant.Y).Length < ANT_SMELL_RANGE * phero.Intensity && ant.Colony == phero.Colony).ToList();
         }
 
-        void IMotherNature.Eat(Ant ant)
+        int IMotherNature.Collect(Ant ant, Resource resource)
         {
-            throw new NotImplementedException();
+            if (Helpers.Distance(ant.SDLocation, resource.Location) > ANT_REACH) return 0; // resource is too far
+
+            bool gotcha = false;
+            if (resource.GetType() == typeof(Food))
+            {
+                List<FoodCluster> emptyfood = new List<FoodCluster>();
+                foreach (FoodCluster fc in food)
+                    if (fc.Content.Remove((Food)resource))
+                    {
+                        gotcha = true;
+                        if (fc.Content.Count() < 2) emptyfood.Add(fc);
+                    }
+                foreach (FoodCluster empty in emptyfood) food.Remove(empty); // Housekeeping: delete empty clusters
+            }
+            else if (resource.GetType() == typeof(Brick))
+            {
+                List<BrickCluster> emptybrick = new List<BrickCluster>();
+                foreach (BrickCluster bc in bricks)
+                    if (bc.Content.Remove((Brick)resource))
+                    {
+                        gotcha = true;
+                        if (bc.Content.Count() < 2) emptybrick.Add(bc);
+                    }
+                foreach (BrickCluster empty in emptybrick) bricks.Remove(empty);
+            }
+            if (gotcha)
+                return resource.Value;
+            else
+                return 0;
         }
 
+        int IMotherNature.BagSize(Ant ant, Resource resource)
+        {
+            int res = 0;
+            if (resource.GetType() == typeof(Food))
+            {
+                res = ANT_FOOD_BAG_SIZE;
+                if (ant.GetType().Name == "FarmerAnt") res *= 20; // farmers can carry 20 times more food
+            } else if (resource.GetType() == typeof(Brick))
+            {
+                res = ANT_BRICK_BAG_SIZE;
+                if (ant.GetType().Name == "WorkerAnt") res *= 20; // workers can carry 20 times more bricks
+            }
+            return res;
+        }
         /// <summary>
         /// Explicit pheromone dropping
         /// The pheromone will NOT be dropped if it is not allowed for the ant type
@@ -292,7 +356,7 @@ namespace Krohonde
         /// <param name="pherotype"></param>
         void IMotherNature.DropPheromon(Ant ant, MotherNature.PheromonTypes pherotype)
         {
-            switch (ant.GetType().Name)
+            switch (ant.GetType().Name) // Must use name and not full type, because Ants have the same class names in different colonies
             {
                 case "FarmerAnt":
                     if (pherotype != MotherNature.PheromonTypes.Food) return;
@@ -336,7 +400,7 @@ namespace Krohonde
                 default:
                     return;
             }
-            pheromons.Add(new Pheromon(new System.Drawing.Point((int)ant.X, (int)ant.Y), pherotype, ant.Colony));
+            pheromons.Add(new Pheromon(ant.SDLocation, pherotype, ant.Colony));
         }
 
         void IMotherNature.Build(Ant ant)

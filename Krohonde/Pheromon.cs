@@ -27,9 +27,9 @@ namespace Krohonde
         public Point Location { get => location; }
 
         /// <summary>
-        /// The intensity of the smell decreases linearly with time
+        /// The intensity of the smell decreases linearly with time from 1.0 to 0.0
         /// </summary>
-        public int Intensity { get => (int)(MotherNature.PHEROMON_LIFE_DURATION - (colony.World().universaltime.Elapsed.TotalSeconds - birthday.TotalSeconds)); }
+        public double Intensity { get => (MotherNature.PHEROMON_LIFE_DURATION - (colony.World().universaltime.Elapsed.TotalSeconds - birthday.TotalSeconds)) / MotherNature.PHEROMON_LIFE_DURATION; }
 
         public Colony Colony { get => colony; }
     }

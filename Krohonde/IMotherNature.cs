@@ -14,7 +14,7 @@ namespace Krohonde
         void AddColony(Colony colo);
         void Live();
         string GetBirthCertificate(string antname);
-        double getMaxSpeed(string anttype);
+        double getMaxSpeed(Ant ant);
         int width { get; }
         int height { get; }
         Stopwatch universaltime { get; }
@@ -28,10 +28,25 @@ namespace Krohonde
         List<Food> LookForFoodAround(Ant ant);
         List<Brick> LookForBricksAround(Ant ant);
         List<Ant> LookForEnemiesAround(Ant ant);
-        void SmellAround(Ant ant);
+        List<Pheromon> SmellAround(Ant ant);
         #endregion
         #region General actions
-        void Eat(Ant ant);
+        /// <summary>
+        /// Pick a resource from the world
+        /// </summary>
+        /// <param name="resource"></param>
+        /// <returns>The value of the resource</returns>
+        int Collect(Ant ant, Resource resource);
+
+
+        /// <summary>
+        /// Returns the size of the bag of a specific type of ant for a specific type of resource
+        /// Example: How much food can a SoldierAnt carry ?
+        /// </summary>
+        /// <param name="ant"></param>
+        /// <param name="resource"></param>
+        /// <returns></returns>
+        int BagSize(Ant ant, Resource resource);
         void DropPheromon(Ant ant, MotherNature.PheromonTypes pherotype);
         void DropPheromon(Ant ant);
 
