@@ -27,6 +27,7 @@ namespace Krohonde
         private Point Location;
         protected Point Speed;
         protected Object BlockedBy; // if defined: the object that prevented the ant from moving
+        protected Ant hitBy; // if defined: the ant that just hit me
 
         protected Colony MyColony;
 
@@ -139,6 +140,21 @@ namespace Krohonde
             }
             return false;
         }
+
+        protected bool Hit(Ant ant)
+        {
+            if (!ActionAllowed()) return false; // ignore multiple actions by same ant
+            if (Helpers.Distance(SDLocation, ant.SDLocation) > MotherNature.ANT_HIT_REACH) return false;
+            if (ant.Colony == MyColony) return false; // don't hit a friend !!!!
+
+            // Ok, we have a fight...
+            int damage = energy / 10;
+            ant.energy -= damage;
+            ant.hitBy = this;
+
+            return true;
+        }
+
         /// <summary>
         /// Updates the ant's state according to the time it has lived since last update
         /// </summary>
@@ -238,5 +254,7 @@ namespace Krohonde
         public int FoodBag { get => foodbag; }
         public int BrickBag { get => brickbag; }
         public bool Selected { get; set; }
+
+        public Ant HitBy { get => hitBy; }
     }
 }
