@@ -130,6 +130,7 @@ namespace Krohonde
 
         protected bool Build()
         {
+            if (!ActionAllowed()) return false; // ignore multiple actions by same ant
             if (MyColony.BuildExtension(this))
             {
                 energy -= MotherNature.COST_OF_BUILDING;
