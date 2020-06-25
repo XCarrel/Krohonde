@@ -121,4 +121,40 @@
   <data name="ant" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ant.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="anthill" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\anthill.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="brick" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\brick.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="farmer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\farmer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="grass" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\grass.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pherobuild" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pherobuild.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pherodanger" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pherodanger.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pherofood" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pherofood.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pollen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pollen.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rock.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="scout" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\scout.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="soldier" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\soldier.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="worker" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\worker.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
