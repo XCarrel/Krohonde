@@ -15,9 +15,6 @@ namespace Krohonde.RedColony
 
         public override void Live(double deltatime)
         {
-            List<Ant> foes = EnemiesAroundMe();
-            foreach (Ant foe in foes) Console.WriteLine(string.Format("{0} sees enemy {1}", this.Fullname, foe.Fullname));
-
             Move(deltatime);
         }
     }

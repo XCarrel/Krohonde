@@ -16,8 +16,9 @@ namespace Krohonde.GreenColony
         public override void Live(double deltatime)
         {
             List<Ant> foes = EnemiesAroundMe();
-            foreach (Ant foe in foes) Console.WriteLine(string.Format("{0} sees enemy {1}", this.Fullname, foe.Fullname));
-
+                foreach(Ant foe in foes)
+                if (Helpers.Distance(SDLocation,foe.SDLocation) < MotherNature.ANT_HIT_REACH)
+                    Hit(foes[0]);
             Move(deltatime);
         }
     }
