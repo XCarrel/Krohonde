@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,9 +26,9 @@ namespace Krohonde
             int nbIntersections = 0;
             for (int i = 1; i < poly.Count(); i++)
             {
-                if (areIntersecting(0,0,point.X,point.Y,poly[i-1].X,poly[i-1].Y,poly[i].X,poly[i].Y)) nbIntersections++;
+                if (areIntersecting(0, 0, point.X, point.Y, poly[i - 1].X, poly[i - 1].Y, poly[i].X, poly[i].Y)) nbIntersections++;
             }
-            if (areIntersecting(0, 0, point.X, point.Y, poly[poly.Count()-1].X, poly[poly.Count() - 1].Y, poly[0].X, poly[0].Y)) nbIntersections++;
+            if (areIntersecting(0, 0, point.X, point.Y, poly[poly.Count() - 1].X, poly[poly.Count() - 1].Y, poly[0].X, poly[0].Y)) nbIntersections++;
             return nbIntersections % 2 == 1;
         }
 
@@ -92,6 +93,60 @@ namespace Krohonde
         public static double Distance(Point a, Point b)
         {
             return new Vector(b.X - a.X, b.Y - a.Y).Length;
+        }
+
+        /// <summary>
+        /// Calculate the distance between point p and the line p1 --> p2.
+        /// Source: http://csharphelper.com/blog/2016/09/find-the-shortest-distance-between-a-point-and-a-line-segment-in-c/
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        public static double DistanceToLine(Point p, Point a, Point b, out bool inside)
+        {
+            double dx = a.X - b.X;
+            double dy = a.Y - b.Y;
+            // Calculate the t that minimizes the distance.
+            double t = ((p.X - a.X) * dx + (p.Y - a.Y) * dy) / (dx * dx + dy * dy);
+
+            // See if this represents one of the segment's
+            // end points or a point in the middle.
+            if (t < 0)
+            {
+                dx = p.X - a.X;
+                dy = p.Y - a.Y;
+                inside = false;
+            }
+            else if (t > 1)
+            {
+                dx = p.X - b.X;
+                dy = p.Y - b.Y;
+                inside = false;
+            }
+            else
+            {
+                PointF closest = new PointF((float)(a.X + t * dx), (float)(a.Y + t * dy));
+                dx = p.X - closest.X;
+                dy = p.Y - closest.Y;
+                inside = true;
+            }
+
+            return Math.Sqrt(dx * dx + dy * dy);
+        }
+
+        // Return the polygon's area in "square units."
+        // based on : http://csharphelper.com/blog/2014/07/calculate-the-area-of-a-polygon-in-c/
+        public static float PolygonArea(Point[] poly)
+        {
+            // Get the areas.
+            float area = 0;
+            int n = poly.Length;
+            for (int i = 0; i < n; i++)
+            {
+                area += (poly[(i + 1) % n].X - poly[i].X) * (poly[(i + 1) % n].Y + poly[i].Y) / 2;
+            }
+            return Math.Abs(area);
         }
     }
 }

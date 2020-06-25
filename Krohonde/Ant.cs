@@ -39,6 +39,7 @@ namespace Krohonde
             fullname = colony.GetType().Name+this.GetType().Name+id;
             certificate = colony.World().GetBirthCertificate(fullname);
             energy = MotherNature.MAX_ENERGY;
+            brickbag = 500;
         }
 
         /// <summary>
@@ -127,6 +128,16 @@ namespace Krohonde
             return true;
         }
 
+        protected bool Build()
+        {
+            if (MyColony.BuildExtension(this))
+            {
+                energy -= MotherNature.COST_OF_BUILDING;
+                brickbag -= MotherNature.BRICKS_TO_BUILD;
+                return true;
+            }
+            return false;
+        }
         /// <summary>
         /// Updates the ant's state according to the time it has lived since last update
         /// </summary>
