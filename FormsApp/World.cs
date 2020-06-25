@@ -27,7 +27,7 @@ namespace FormsApp
             RedColony rcolo = new RedColony(new System.Windows.Point(400, 200), myWorld);
             rcolo.Spawn(40);
             myWorld.AddColony(rcolo);
-            GreenColony gcolo = new GreenColony(new System.Windows.Point(400, 600), myWorld);
+            GreenColony gcolo = new GreenColony(new System.Windows.Point(400, 500), myWorld);
             gcolo.Spawn(40);
             myWorld.AddColony(gcolo);
             myWorld.Initialize();
