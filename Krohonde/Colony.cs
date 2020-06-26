@@ -78,23 +78,23 @@ namespace Krohonde
             double distmin = myWorld.width;
             int closest = 0;
             for (int idx = 0; idx < hill.Count(); idx++)
-                if (Helpers.Distance(hill[idx], ant.SDLocation) < distmin)
+                if (Helpers.Distance(hill[idx], p) < distmin)
                 {
-                    distmin = Helpers.Distance(hill[idx], ant.SDLocation);
+                    distmin = Helpers.Distance(hill[idx], p);
                     closest = idx;
                 }
-            int insertat;
-            // find the points before and after the closest
-            int before = (closest == 0 ? hill.Count() - 1 : closest - 1);
-            int after = (closest == hill.Count() - 1 ? 0 : closest + 1);
-            if (Helpers.Distance(hill[before], ant.SDLocation) < Helpers.Distance(hill[after], ant.SDLocation))
-                insertat = closest;
-            else
-                insertat = after;
 
-            hill.Insert(insertat, ant.SDLocation);
+            int before = (closest + hill.Count() - 1) % hill.Count();
+            int after = (closest + 1) % hill.Count();
+            if (Helpers.ProjectsOnSegment(p, hill[closest], hill[before]))
+                hill.Insert(closest, p);
+            else if (Helpers.ProjectsOnSegment(p, hill[after], hill[closest]))
+                hill.Insert(after, p);
+            else
+                hill[closest] = p;
             return true;
         }
+
         public abstract void Spawn(int nbAnts);
 
         public System.Drawing.Point[] Hill { get => hill.ToArray(); }

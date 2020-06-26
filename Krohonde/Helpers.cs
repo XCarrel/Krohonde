@@ -105,8 +105,8 @@ namespace Krohonde
         /// <returns></returns>
         public static double DistanceToLine(Point p, Point a, Point b, out bool inside)
         {
-            double dx = a.X - b.X;
-            double dy = a.Y - b.Y;
+            double dx = b.X - a.X;
+            double dy = b.Y - a.Y;
             // Calculate the t that minimizes the distance.
             double t = ((p.X - a.X) * dx + (p.Y - a.Y) * dy) / (dx * dx + dy * dy);
 
@@ -133,6 +133,13 @@ namespace Krohonde
             }
 
             return Math.Sqrt(dx * dx + dy * dy);
+        }
+
+        public static bool ProjectsOnSegment(Point p, Point a, Point b)
+        {
+            bool res;
+            DistanceToLine(p, a, b, out res);
+            return res;
         }
 
         // Return the polygon's area in "square units."

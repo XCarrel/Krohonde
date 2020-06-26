@@ -154,7 +154,8 @@ namespace FormsApp
         {
             int distmin = Width;
             Ant chosen = null;
-            System.Drawing.Point mouse = new System.Drawing.Point(MousePosition.X, MousePosition.Y);
+            MouseEventArgs m = (MouseEventArgs)e;
+            System.Drawing.Point mouse = new System.Drawing.Point(m.X, m.Y);
             foreach (Colony colo in myWorld.Colonies())
                 foreach (Ant ant in colo.Population)
                     if (Helpers.Distance(new System.Drawing.Point((int)ant.HeadPosition.X, (int)ant.HeadPosition.Y), mouse) < distmin)
