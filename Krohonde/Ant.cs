@@ -28,6 +28,7 @@ namespace Krohonde
         private Point Location;
         protected Point Speed;
         protected Object BlockedBy; // if defined: the object that prevented the ant from moving
+        protected Ant hitBy; // if defined: the ant that just hit me
 
         protected Colony MyColony;
 
@@ -40,6 +41,7 @@ namespace Krohonde
             fullname = colony.GetType().Name+this.GetType().Name+id;
             certificate = colony.World().GetBirthCertificate(fullname);
             energy = MotherNature.MAX_ENERGY;
+            brickbag = 500;
         }
 
         /// <summary>
@@ -125,6 +127,32 @@ namespace Krohonde
                     break;
             }
             foodbag -= val;
+            return true;
+        }
+
+        protected bool Build()
+        {
+            if (!ActionAllowed()) return false; // ignore multiple actions by same ant
+            if (MyColony.BuildExtension(this))
+            {
+                energy -= MotherNature.COST_OF_BUILDING;
+                brickbag -= MotherNature.BRICKS_TO_BUILD;
+                return true;
+            }
+            return false;
+        }
+
+        protected bool Hit(Ant ant)
+        {
+            if (!ActionAllowed()) return false; // ignore multiple actions by same ant
+            if (Helpers.Distance(SDLocation, ant.SDLocation) > MotherNature.ANT_HIT_REACH) return false;
+            if (ant.Colony == MyColony) return false; // don't hit a friend !!!!
+
+            // Ok, we have a fight...
+            int damage = energy / 10;
+            ant.energy -= damage;
+            ant.hitBy = this;
+
             return true;
         }
 
@@ -248,5 +276,7 @@ namespace Krohonde
 
         [Browsable(false)]
         public bool Selected { get; set; }
+
+        public Ant HitBy { get => hitBy; }
     }
 }

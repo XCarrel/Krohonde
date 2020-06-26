@@ -27,7 +27,7 @@ namespace FormsApp
             RedColony rcolo = new RedColony(new System.Windows.Point(400, 200), myWorld);
             rcolo.Spawn(40);
             myWorld.AddColony(rcolo);
-            GreenColony gcolo = new GreenColony(new System.Windows.Point(1200, 600), myWorld);
+            GreenColony gcolo = new GreenColony(new System.Windows.Point(400, 500), myWorld);
             gcolo.Spawn(40);
             myWorld.AddColony(gcolo);
             myWorld.Initialize();
@@ -97,9 +97,17 @@ namespace FormsApp
                             break;
                     }
                     sourceImage = RotateImage(sourceImage, ant.Heading + 90);
-                    if (showOrigin) graphics.DrawLine(new Pen(colony.Color, 6), new System.Drawing.Point((int)ant.X, (int)ant.Y), new System.Drawing.Point((int)(ant.X + 24 * ant.Energy / MotherNature.MAX_ENERGY), (int)ant.Y));
-                    if (ant.Selected) graphics.DrawEllipse(new Pen(colony.Color, 4), ant.SDLocation.X, ant.SDLocation.Y, 24, 24);
                     graphics.DrawImage(sourceImage, (int)ant.X, (int)ant.Y, sourceImage.Width, sourceImage.Height);
+                    
+                    // Origin
+                    if (showOrigin) graphics.DrawLine(new Pen(colony.Color, 6), new System.Drawing.Point((int)ant.X, (int)ant.Y), new System.Drawing.Point((int)(ant.X + 24 * ant.Energy / MotherNature.MAX_ENERGY), (int)ant.Y));
+                    
+                    // Selection
+                    if (ant.Selected) graphics.DrawEllipse(new Pen(colony.Color, 4), ant.SDLocation.X, ant.SDLocation.Y, 24, 24);
+
+                    /*/ Show fights
+                    if (ant.HitBy != null) graphics.DrawLine(new Pen(Color.OrangeRed, 10), new System.Drawing.Point((int)(ant.X+12), (int)(ant.Y+12)), new System.Drawing.Point((int)(ant.HitBy.X + 12), (int)(ant.HitBy.Y + 12)));
+                    //*/
                 }
                 graphics.FillClosedCurve(new TextureBrush(Properties.Resources.anthill), colony.Hill);
                 graphics.FillEllipse(new SolidBrush(colony.Color), (float)colony.Location.X - 15, (float)colony.Location.Y - 15, 30, 30); // Colony "flag"

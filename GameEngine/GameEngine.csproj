@@ -36,6 +36,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,8 +44,10 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine\Background.cs" />
     <Compile Include="Engine\GameEngine.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +75,60 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ant.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FormsApp\FormsApp.csproj">
+      <Project>{accfd555-44aa-4050-b93a-fdb268791aa0}</Project>
+      <Name>FormsApp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GreenColony\GreenColony.csproj">
+      <Project>{b43d3c2d-9f06-4cb1-a987-80abc076f764}</Project>
+      <Name>GreenColony</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Krohonde\Krohonde.csproj">
+      <Project>{3715227d-5762-432b-993e-5d6b2a2a3384}</Project>
+      <Name>Krohonde</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RedColony\RedColony.csproj">
+      <Project>{065cf529-605e-4afe-9854-d2f1ca1cf10a}</Project>
+      <Name>RedColony</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\anthill.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\brick.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\farmer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\grass.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pherobuild.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pherodanger.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pherofood.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pollen.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rock.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scout.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\soldier.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\worker.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

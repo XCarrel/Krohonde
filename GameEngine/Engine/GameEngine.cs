@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Threading;
+using System.Runtime.CompilerServices;
 
 namespace GameEngine.Engine
 {
@@ -47,37 +48,47 @@ namespace GameEngine.Engine
         private Canvas Window = null;
         private Canvas LogWindow = null;
         private Thread GameLoopThread = null;
+        private Background BackImage = null;
         private static List<Shape2D> AllShapes = new List<Shape2D>();
         private static List<Sprite2D> AllSprites = new List<Sprite2D>();
+        
 
 
 
         public Color BackgroundColor = Color.Beige;
         public Vector2 CameraPosition = Vector2.Zero();
         public float CameraAngle = 0f;
-        public GameEngine(Vector2 ScrennSize, string Title)
+
+        public bool AllObjReady ;
+        public GameEngine(Vector2 ScrennSize, string Title, Background TheBackground)
         {
             Log.Info("Game is starting");
             this.ScreenSize = ScrennSize;
             this.Title = Title;
+            this.BackImage = TheBackground;
+            this.AllObjReady = false;
             Window = new Canvas();
             Window.Size = new Size((int)this.ScreenSize.X, (int)this.ScreenSize.Y);
             Window.Text = this.Title;
             Window.Paint += Renderer;
             Window.KeyDown += Window_KeyDown;
             Window.KeyUp += Window_KeyUp;
-
+            Window.WindowState = FormWindowState.Maximized;
+           // Window.BackgroundImage = this.BackImage.BackgroundIamge;
             LogWindow = new Canvas();
             LogWindow.Size = new Size(400, 400);
             LogWindow.Text = "Log";
-
+            OnceLoad();
             GameLoopThread = new Thread(GameLoop);
             GameLoopThread.Start();
 
             //Application.Run(Window);
             Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MultiFormContext( Window, LogWindow));
+            Application.Run(Window);
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+            // Application.Run(new MultiFormContext( Window, LogWindow));
         }
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
@@ -111,6 +122,7 @@ namespace GameEngine.Engine
 
         void GameLoop()
         {
+           
             OnLoad();
             while (GameLoopThread.IsAlive)
             {
@@ -119,33 +131,18 @@ namespace GameEngine.Engine
                     OnDraw();
                     Window.BeginInvoke((MethodInvoker)delegate { Window.Refresh(); });
                     OnUpdate();
-                    Thread.Sleep(1);
+                    Thread.Sleep(10);
                 }
                 catch
                 {
                     Log.Error("Game has not been found, waiting ...");
                 }
             }
+       
 
         }
-        private void Renderer(object sender, PaintEventArgs e)
-        {
-            Graphics g = e.Graphics;
-            g.Clear(BackgroundColor);
-
-            g.TranslateTransform(CameraPosition.X, CameraPosition.Y);
-            g.RotateTransform(CameraAngle);
-
-            foreach (Shape2D shap in AllShapes)
-            {
-                g.FillRectangle(new SolidBrush(Color.Red), shap.Position.X, shap.Position.Y, shap.Scale.X, shap.Scale.Y);
-            }
-
-            foreach (Sprite2D sprite in AllSprites)
-            {
-                g.DrawImage(sprite.Sprite, sprite.Position.X, sprite.Position.Y, sprite.Scale.X, sprite.Scale.Y);
-            }
-        }
+        public abstract void Renderer(object sender, PaintEventArgs e);
+        public abstract void OnceLoad();
 
         public abstract void OnLoad();
         /// <summary>

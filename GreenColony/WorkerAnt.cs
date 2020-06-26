@@ -15,8 +15,6 @@ namespace Krohonde.GreenColony
 
         public override void Live(double deltatime)
         {
-            List<Brick> stuff = BricksAroundMe();
-            if (stuff.Count() > 0) Console.WriteLine(string.Format("{0} sees {1} bricks", this.Fullname, stuff.Count()));
             Move(deltatime);
         }
     }
