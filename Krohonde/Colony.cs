@@ -78,20 +78,20 @@ namespace Krohonde
             double distmin = myWorld.width;
             int closest = 0;
             for (int idx = 0; idx < hill.Count(); idx++)
-                if (Helpers.Distance(hill[idx], p) < distmin)
+                if (Helpers.Distance(hill[idx], ant.SDLocation) < distmin)
                 {
-                    distmin = Helpers.Distance(hill[idx], p);
+                    distmin = Helpers.Distance(hill[idx], ant.SDLocation);
                     closest = idx;
                 }
 
             int before = (closest + hill.Count() - 1) % hill.Count();
             int after = (closest + 1) % hill.Count();
-            if (Helpers.ProjectsOnSegment(p, hill[closest], hill[before]))
-                hill.Insert(closest, p);
-            else if (Helpers.ProjectsOnSegment(p, hill[after], hill[closest]))
-                hill.Insert(after, p);
+            if (Helpers.ProjectsOnSegment(ant.SDLocation, hill[closest], hill[before]))
+                hill.Insert(closest, ant.SDLocation);
+            else if (Helpers.ProjectsOnSegment(ant.SDLocation, hill[after], hill[closest]))
+                hill.Insert(after, ant.SDLocation);
             else
-                hill[closest] = p;
+                hill[closest] = ant.SDLocation;
             return true;
         }
 
