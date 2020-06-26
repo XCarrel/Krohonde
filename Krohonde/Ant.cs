@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Net.Configuration;
 using System.Runtime.ConstrainedExecution;
@@ -133,11 +134,13 @@ namespace Krohonde
         /// <param name="deltatime"></param>
         public abstract void Live(double deltatime);
 
+        [Browsable(false)]
         public int Heading
         {
             get => (int)(Math.Atan2(Speed.Y , Speed.X -1)*180/Math.PI);
         }
 
+        [Browsable(false)]
         public Point HeadPosition
         {
             get
@@ -210,21 +213,40 @@ namespace Krohonde
             return Colony.World().SmellAround(this);
         }
 
+        [Browsable(false)]
         public double X { get => Location.X; }
+
+        [Browsable(false)]
         public double Y { get => Location.Y; }
 
+
+        [Browsable(false)]
         public Colony Colony { get => MyColony; }
         
         public string Fullname { get => fullname; }
 
+        [Browsable(false)]
         public string Certificate { get => certificate; }
 
+        [Browsable(false)]
         public System.Drawing.Point SDLocation { get => new System.Drawing.Point((int)X,(int)Y); }
 
         public int Energy { get => energy; }
+        
+        public int Strength { get => strength; }
 
+        public int Toughness { get => toughness; }
+
+        [Browsable(false)]
+        public Object BlockedByScore { get => BlockedBy; }
+
+        [Browsable(false)]
         public int FoodBag { get => foodbag; }
+
+        [Browsable(false)]
         public int BrickBag { get => brickbag; }
+
+        [Browsable(false)]
         public bool Selected { get; set; }
     }
 }

@@ -51,6 +51,7 @@
     <Compile Include="FoodCluster.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="IMotherNature.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="MotherNature.cs" />
     <Compile Include="Pheromon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

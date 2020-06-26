@@ -58,6 +58,9 @@
     <Compile Include="Score.designer.cs">
       <DependentUpon>Score.cs</DependentUpon>
     </Compile>
+    <Compile Include="ScoreGroupBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="World.cs">
       <SubType>Form</SubType>
     </Compile>

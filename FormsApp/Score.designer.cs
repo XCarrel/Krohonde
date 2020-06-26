@@ -28,36 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblElapsedTime = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
-            // lblElapsedTime
-            // 
-            this.lblElapsedTime.AutoSize = true;
-            this.lblElapsedTime.Location = new System.Drawing.Point(46, 35);
-            this.lblElapsedTime.Name = "lblElapsedTime";
-            this.lblElapsedTime.Size = new System.Drawing.Size(97, 17);
-            this.lblElapsedTime.TabIndex = 0;
-            this.lblElapsedTime.Text = "Temps écoulé";
             // 
             // Score
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::FormsApp.Properties.Resources.grass;
-            this.ClientSize = new System.Drawing.Size(438, 387);
-            this.Controls.Add(this.lblElapsedTime);
+            this.ClientSize = new System.Drawing.Size(1270, 794);
             this.Name = "Score";
             this.Text = "Score";
             this.Load += new System.EventHandler(this.Score_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label lblElapsedTime;
-        
     }
 }

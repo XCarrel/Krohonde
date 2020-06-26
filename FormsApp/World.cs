@@ -39,6 +39,7 @@ namespace FormsApp
         {
             myWorld.Live(); // update
             if (chkRender.Checked || chkRenderOnce.Checked) pctWorld.Invalidate(); // render
+            score.RefreshScore();
         }
         public static Image RotateImage(Image img, float rotationAngle)
         {
