@@ -21,7 +21,7 @@ namespace FormsApp
         private const int SCORE_GRP_Y = 30;
 
         private int SCORE_GRP_WIDTH;
-        private int SCORE_GRP_HEIGHT;
+        private const int SCORE_GRP_HEIGHT = 350;
 
         private World world;
 
@@ -33,7 +33,6 @@ namespace FormsApp
             
             InitializeComponent();
             SCORE_GRP_WIDTH = this.Width - 100;
-            SCORE_GRP_HEIGHT = 350;
 
             scoreGroupBoxes = new List<ScoreGroupBox>();
         }
@@ -41,15 +40,15 @@ namespace FormsApp
         
         private void Score_Load(object sender, EventArgs e)
         {
-
+            Logger.WriteLogFile("ouverture score");
             int nbColony = 0;
+
+            timerScore.Start();
 
             this.SuspendLayout();
 
             foreach (Colony colony in world.myWorld.Colonies())
             {
-               
-
                 ScoreGroupBox sgb = new ScoreGroupBox(colony, SCORE_GRP_WIDTH);
 
                 if (nbColony > 0)
@@ -74,17 +73,13 @@ namespace FormsApp
 
                 scoreGroupBoxes.Add(sgb);
 
-                this.Controls.Add(sgb);
+                pnlScore.Controls.Add(sgb);
             }
             this.ResumeLayout(false);
             this.PerformLayout();
-
-            int taille = 20 + SCORE_GRP_Y + (nbColony * (SCORE_GRP_HEIGHT + 10));
-
-            this.Height = taille;
         }
 
-        public void RefreshScore()
+        public void RefreshData()
         {
             foreach (ScoreGroupBox sgb in scoreGroupBoxes)
             {
@@ -92,29 +87,9 @@ namespace FormsApp
             }
         }
 
-        
-
-        /*
-        private void cmdFilter_Click(object sender, EventArgs e)
+        private void timerScore_Tick(object sender, EventArgs e)
         {
-            /*
-            List<Ant> lstAnts = (List<Ant>)dgvTest.DataSource;
-
-            List<Ant> filteredList = lstAnts.FindAll(delegate (Ant ant)
-                         {
-
-                             return ant is Krohonde.GreenColony.SoldierAnt || ant is Krohonde.RedColony.SoldierAnt;
-
-                         });
-
-            dgvTest.DataSource = filteredList;
-
-
+            RefreshData();
         }
-        */
     }
-
-    
-
-
 }

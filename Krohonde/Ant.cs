@@ -268,6 +268,26 @@ namespace Krohonde
         [Browsable(false)]
         public Object BlockedByScore { get => BlockedBy; }
 
+        public string Blocked
+        {
+            get
+            {
+                if (BlockedBy != null)
+                {
+                    if (BlockedByScore is Krohonde.MotherNature)
+                        return "oui, par mère nature";
+                    else if (BlockedByScore is Krohonde.Rock)
+                        return "oui, par un rocher";
+                    else
+                        return BlockedByScore.GetType().Name;
+                }
+                else
+                {
+                    return "non";
+                }
+            }
+        }
+
         [Browsable(false)]
         public int FoodBag { get => foodbag; }
 
@@ -277,6 +297,7 @@ namespace Krohonde
         [Browsable(false)]
         public bool Selected { get; set; }
 
+        [Browsable(false)]
         public Ant HitBy { get => hitBy; }
     }
 }

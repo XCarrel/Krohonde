@@ -4,15 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Configuration;
 
 namespace Krohonde
 {
     public class Logger
     {
-        public enum LogLevel {
-            INFO, DEBUG, WARNING, ERROR
-        }
-        public static void WriteLogFile(LogLevel level, String logDirectoryPath, String logFileName, String logMessage)
+        
+        public static void WriteLogFile(String logDirectoryPath, String logFileName, String logMessage)
         {
             StreamWriter strWriter = null;
 
@@ -24,15 +23,24 @@ namespace Krohonde
             try
             {
                 strWriter = File.AppendText(logDirectoryPath + @".\" + logFileName);
-                strWriter.WriteLine(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "\t" + level + "\t" + logMessage);
+                strWriter.WriteLine(DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss") + "\t" + logMessage);
             }
             finally
             {
                 strWriter.Close();
             }
-            
-            
         }
+
+        public static void WriteLogFile(String logMessage)
+        {
+            string logDirectoryPath = ConfigurationManager.AppSettings["directory"];
+            string logFileName = ConfigurationManager.AppSettings["file"];
+
+            WriteLogFile(logDirectoryPath, logFileName, logMessage);
+        }
+
+        
+
     }
 }
 

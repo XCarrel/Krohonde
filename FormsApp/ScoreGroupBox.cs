@@ -21,8 +21,6 @@ namespace FormsApp
 
         private int width;
 
-       
-
         public ScoreGroupBox(Colony colony, int width)
         {
             this.colony = colony;
@@ -31,8 +29,7 @@ namespace FormsApp
 
         public void Display()
         {
-
-           
+            //build data in the groupbox : number of ants, quantity of food, and we can filter the datagridview according to the type of ants
             this.lblAntNb = new System.Windows.Forms.Label();
             this.lblFoodStore = new System.Windows.Forms.Label();
             this.cmbAntType = new System.Windows.Forms.ComboBox();
@@ -46,7 +43,7 @@ namespace FormsApp
             this.Controls.Add(this.lblFoodStore);
             this.Controls.Add(this.lblDisplayAntFilter);
             this.Controls.Add(this.cmbAntType);
-            this.Controls.Add(dgvAnts);
+            this.Controls.Add(this.dgvAnts);
 
             // 
             // lblAntNb
@@ -70,7 +67,7 @@ namespace FormsApp
             // cmbAntType
             // 
             this.cmbAntType.FormattingEnabled = true;
-            this.cmbAntType.Location = new System.Drawing.Point(65, 95);
+            this.cmbAntType.Location = new System.Drawing.Point(150, 95);
             this.cmbAntType.Name = "cmbAntType" + nbColony;
             this.cmbAntType.Size = new System.Drawing.Size(121, 24);
             this.cmbAntType.TabIndex = 4;
@@ -83,59 +80,76 @@ namespace FormsApp
             this.lblDisplayAntFilter.Name = "lblDisplayAntFilter";
             this.lblDisplayAntFilter.Size = new System.Drawing.Size(54, 17);
             this.lblDisplayAntFilter.TabIndex = 5;
-            this.lblDisplayAntFilter.Text = "Filtres :";
+            this.lblDisplayAntFilter.Text = "Filtres - type de fourmis:";
 
-            cmbAntType.Items.Add("");
-            cmbAntType.Items.Add("Scout");
-            cmbAntType.Items.Add("Fermière");
-            cmbAntType.Items.Add("Soldat");
-            cmbAntType.Items.Add("Ouvrière");
+            this.cmbAntType.Items.Add("");
+            this.cmbAntType.Items.Add("Scout");
+            this.cmbAntType.Items.Add("Fermière");
+            this.cmbAntType.Items.Add("Soldat");
+            this.cmbAntType.Items.Add("Ouvrière");
 
+            
             ((System.ComponentModel.ISupportInitialize)(dgvAnts)).BeginInit();
-            dgvAnts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvAnts.Location = new System.Drawing.Point(25, 125);
-            dgvAnts.Name = "dgvAnts" + nbColony;
-            dgvAnts.RowHeadersWidth = 80;
-            dgvAnts.RowTemplate.Height = 24;
-            dgvAnts.Size = new System.Drawing.Size(width - 50, 200);
-            dgvAnts.TabIndex = 2;
-            dgvAnts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvAnts.RowStateChanged += RowSelected;
+            this.dgvAnts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvAnts.Location = new System.Drawing.Point(25, 125);
+            this.dgvAnts.Name = "dgvAnts" + nbColony;
+            this.dgvAnts.RowHeadersWidth = 80;
+            this.dgvAnts.RowTemplate.Height = 24;
+            this.dgvAnts.Size = new System.Drawing.Size(width - 50, 200);
+            this.dgvAnts.TabIndex = 2;
+            this.dgvAnts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvAnts.MultiSelect = false;
+            this.dgvAnts.RowStateChanged += RowSelected;
 
             ((System.ComponentModel.ISupportInitialize)(dgvAnts)).EndInit();
 
             nbColony++;
 
-            dgvAnts.DataSource = colony.Population;
+            //we fill the datagridview with the list of ants in the colony
+            //so that all properties do not appear in the datagridview, we set them to [Browsable(false)]
+            //the other properties will appear.
+            this.dgvAnts.DataSource = colony.Population;
         }
 
         public void RefreshData()
         {
+            
             this.lblAntNb.Text = "Nombre de fourmis : " + colony.Population.Count;
             this.lblFoodStore.Text = "Stock nourriture : " + colony.FoodStore;
-            Refresh();
-            ClickOnCmb(cmbAntType, EventArgs.Empty);
+
+            if (dgvAnts.Rows.Count > 0)
+            {
+                CurrencyManager cm = (CurrencyManager)this.dgvAnts.BindingContext[colony.Population];
+                if (cm != null)
+                {
+                    cm.Refresh();
+                }
+            
+                ClickOnCmb(cmbAntType, EventArgs.Empty);
+                Refresh();
+            }
+
         }
 
         private void RowSelected(object sender, DataGridViewRowStateChangedEventArgs e)
         {
-            Logger.WriteLogFile(Logger.LogLevel.DEBUG, @"C:\Temp", "Krohonde.log", "Ligne sélectionnée");
-
             DataGridView dgv = sender as DataGridView;
 
             if (dgv.SelectedRows.Count == 1)
             {
-                Ant ant = (Ant)dgv.SelectedRows[0].DataBoundItem;
-                ant.Selected = true;
+                if (dgv.SelectedRows[0] != null)
+                {
+                    Ant ant = (Ant)dgv.SelectedRows[0].DataBoundItem;
+                    ant.Selected = true;
+                    MessageBox.Show(ant.Fullname);
+                }
             }
         }
 
-
         private void ClickOnCmb(object sender, EventArgs e)
         {
-
             ComboBox cmbBox = sender as ComboBox;
-                
+
             List<Ant> lstAnts = colony.Population;
 
             string filter = "";
@@ -151,25 +165,25 @@ namespace FormsApp
                     filter = "WorkerAnt";
                     filteredList = lstAnts.FindAll(delegate (Ant ant)
                     {
-                        return ant is Krohonde.GreenColony.WorkerAnt || ant is Krohonde.RedColony.WorkerAnt;
+                        return ant.GetType().Name == "WorkerAnt";
                     });
                     break;
                 case "Fermière":
                     filteredList = lstAnts.FindAll(delegate (Ant ant)
                     {
-                        return ant is Krohonde.GreenColony.FarmerAnt || ant is Krohonde.RedColony.FarmerAnt;
+                        return ant.GetType().Name == "FarmerAnt";
                     });
                     break;
                 case "Soldat":
                     filteredList = lstAnts.FindAll(delegate (Ant ant)
                     {
-                        return ant is Krohonde.GreenColony.SoldierAnt || ant is Krohonde.RedColony.SoldierAnt;
+                        return ant.GetType().Name == "SoldierAnt";
                     });
                     break;
                 case "Scout":
                     filteredList = lstAnts.FindAll(delegate (Ant ant)
                     {
-                        return ant is Krohonde.GreenColony.ScoutAnt || ant is Krohonde.RedColony.ScoutAnt;
+                        return ant.GetType().Name == "ScoutAnt";
                     });
                     break;
                 default:
@@ -177,7 +191,6 @@ namespace FormsApp
             }
 
             dgvAnts.DataSource = filteredList;
-
         }
     }
 }
