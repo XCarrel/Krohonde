@@ -28,7 +28,7 @@ namespace Krohonde
         private Point Location;
         protected Point Speed;
         protected Object BlockedBy; // if defined: the object that prevented the ant from moving
-        protected Ant hitBy; // if defined: the ant that just hit me
+        protected Ant lastHitBy; // if defined: the ant that just hit me
 
         protected Colony MyColony;
 
@@ -64,7 +64,7 @@ namespace Krohonde
                 if (MotherNature.alea.Next(0, 2) == 0)
                     Speed.X = MotherNature.alea.Next(0, 30) - 14;
                 else
-                    Speed.Y = MotherNature.alea.Next(0, 39) - 14;
+                    Speed.Y = MotherNature.alea.Next(0, 30) - 14;
         }
 
         protected void Move(double deltatime)
@@ -103,6 +103,7 @@ namespace Krohonde
 
             // Energy consumption
             energy -= (int)(linspeed * deltatime);
+            Logger.WriteLogFile($"{fullname} moves to {Location}");
         }
 
         /// <summary>
@@ -151,7 +152,7 @@ namespace Krohonde
             // Ok, we have a fight...
             int damage = energy / 10;
             ant.energy -= damage;
-            ant.hitBy = this;
+            ant.lastHitBy = this;
 
             return true;
         }
@@ -298,6 +299,6 @@ namespace Krohonde
         public bool Selected { get; set; }
 
         [Browsable(false)]
-        public Ant HitBy { get => hitBy; }
+        public Ant LastHitBy { get => lastHitBy; }
     }
 }
