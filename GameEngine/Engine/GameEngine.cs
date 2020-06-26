@@ -10,11 +10,14 @@ using System.Runtime.CompilerServices;
 
 namespace GameEngine.Engine
 {
-    class Canvas : Form
+    public class Canvas : Form
     {
+        public Background ImageBackground;
+        public System.Windows.Forms.PictureBox World;
         public Canvas()
         {
             this.DoubleBuffered = true;
+            this.AutoScroll = true;
         }
     }
 
@@ -45,20 +48,18 @@ namespace GameEngine.Engine
 
         private Vector2 ScreenSize = new Vector2(512,512);
         private string Title= "New Game";
-        private Canvas Window = null;
-        private Canvas LogWindow = null;
         private Thread GameLoopThread = null;
-        private Background BackImage = null;
+        private int delay;
         private static List<Shape2D> AllShapes = new List<Shape2D>();
         private static List<Sprite2D> AllSprites = new List<Sprite2D>();
-        
 
 
-
+        public Background BackImage = null;
+        public Canvas Window = null;
+        public Canvas LogWindow = null;
         public Color BackgroundColor = Color.Beige;
         public Vector2 CameraPosition = Vector2.Zero();
         public float CameraAngle = 0f;
-
         public bool AllObjReady ;
         public GameEngine(Vector2 ScrennSize, string Title, Background TheBackground)
         {
@@ -68,20 +69,18 @@ namespace GameEngine.Engine
             this.BackImage = TheBackground;
             this.AllObjReady = false;
             Window = new Canvas();
-            Window.Size = new Size((int)this.ScreenSize.X, (int)this.ScreenSize.Y);
-            Window.Text = this.Title;
-            Window.Paint += Renderer;
-            Window.KeyDown += Window_KeyDown;
-            Window.KeyUp += Window_KeyUp;
-            Window.WindowState = FormWindowState.Maximized;
-           // Window.BackgroundImage = this.BackImage.BackgroundIamge;
+            InitWindwosComponent();
+            //Window.Size = new Size((int)this.ScreenSize.X, (int)this.ScreenSize.Y);
+            //Window.Text = this.Title;
+
+            // Window.BackgroundImage = this.BackImage.BackgroundIamge;
             LogWindow = new Canvas();
             LogWindow.Size = new Size(400, 400);
             LogWindow.Text = "Log";
             OnceLoad();
             GameLoopThread = new Thread(GameLoop);
             GameLoopThread.Start();
-
+            delay = 250;
             //Application.Run(Window);
             Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
@@ -122,16 +121,17 @@ namespace GameEngine.Engine
 
         void GameLoop()
         {
-           
             OnLoad();
             while (GameLoopThread.IsAlive)
             {
                 try
                 {
                     OnDraw();
-                    Window.BeginInvoke((MethodInvoker)delegate { Window.Refresh(); });
+                    //Window.BeginInvoke((MethodInvoker)delegate { Window.World.Refresh(); });
+                    Window.World.Invalidate();
                     OnUpdate();
-                    Thread.Sleep(10);
+                    Thread.Sleep(delay);
+                    //delay = 500;
                 }
                 catch
                 {
@@ -141,6 +141,8 @@ namespace GameEngine.Engine
        
 
         }
+
+        public abstract void InitWindwosComponent();
         public abstract void Renderer(object sender, PaintEventArgs e);
         public abstract void OnceLoad();
 

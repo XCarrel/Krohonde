@@ -64,7 +64,7 @@ namespace GameEngine
         }
         public override void OnLoad()
         {
-
+            this.Window.BackgroundImage = this.BackImage.BackgroundIamge;
         }
         public override void OnDraw()
         {
@@ -99,11 +99,7 @@ namespace GameEngine
 
         public override void OnUpdate()
         {
-            //CameraPosition.X+=.1f;
-            //CameraPosition.Y += .1f;
-            //CameraAngle += .1f;
             myWorld.Live(); // update
-           
         }
 
         public override void GetKeyDown(KeyEventArgs e)
@@ -128,8 +124,7 @@ namespace GameEngine
         {
             Graphics graphics = e.Graphics;
             bool showOrigin = true;
-            if (this.AllObjReady)
-            {
+          
                 // Colonies
                 foreach (Colony colony in myWorld.Colonies())
                 {
@@ -195,7 +190,7 @@ namespace GameEngine
                     graphics.DrawImage(img, (int)phero.Location.X, (int)phero.Location.Y, img.Width / 2, img.Height / 2);
                     if (showOrigin) graphics.DrawLine(new Pen(phero.Colony.Color, 6), new System.Drawing.Point((int)phero.Location.X, (int)phero.Location.Y), new System.Drawing.Point((int)(phero.Location.X + 24 * phero.Intensity), (int)phero.Location.Y));
                 }
-            }
+            
         }
 
         public override void OnceLoad()
@@ -206,10 +201,10 @@ namespace GameEngine
                 this.height = 1800;
                 myWorld = new MotherNature(this.width, this.height);
                 RedColony rcolo = new RedColony(new System.Windows.Point(400, 200), myWorld);
-                rcolo.Spawn(4);
+                rcolo.Spawn(40);
                 myWorld.AddColony(rcolo);
                 GreenColony gcolo = new GreenColony(new System.Windows.Point(1200, 600), myWorld);
-                gcolo.Spawn(4);
+                gcolo.Spawn(40);
                 myWorld.AddColony(gcolo);
                 myWorld.Initialize();
                 colonies = new List<Colony>();
@@ -220,6 +215,35 @@ namespace GameEngine
                 alea = new Random();
                 this.AllObjReady = true;
             }
+        }
+
+        public override void InitWindwosComponent()
+        {
+            Window.World = new System.Windows.Forms.PictureBox();
+           ((System.ComponentModel.ISupportInitialize)(Window.World)).BeginInit();
+            Window.SuspendLayout();
+
+            Window.BackColor = System.Drawing.Color.White;
+            Window.World.BackgroundImage = global::GameEngine.Properties.Resources.grass;
+            Window.World.Location = new System.Drawing.Point(0, 0);
+            Window.World.Name = "World";
+            Window.World.Size = new System.Drawing.Size(1800, 1000);
+            //Window.World.TabIndex = 0;
+            //Window.World.TabStop = false;
+            Window.World.Paint += new System.Windows.Forms.PaintEventHandler(Renderer);
+
+
+            Window.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            Window.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Window.AutoScroll = true;
+            Window.ClientSize = new System.Drawing.Size(1218, 595);
+            Window.Controls.Add(Window.World);
+            Window.Name = "World";
+            Window.Text = "Krohonde";
+            Window.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            ((System.ComponentModel.ISupportInitialize)(Window.World)).EndInit();
+            Window.ResumeLayout(false);
+            Window.PerformLayout();
         }
     }
 }
