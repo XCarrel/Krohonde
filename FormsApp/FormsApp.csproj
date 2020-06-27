@@ -133,6 +133,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\farmer.png" />
+    <None Include="Resources\queen.png" />
     <Content Include="Resources\scout.png" />
     <Content Include="Resources\soldier.png" />
     <Content Include="Resources\worker.png" />

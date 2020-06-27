@@ -109,9 +109,15 @@ namespace FormsApp
                     if (ant.HitBy != null) graphics.DrawLine(new Pen(Color.OrangeRed, 10), new System.Drawing.Point((int)(ant.X+12), (int)(ant.Y+12)), new System.Drawing.Point((int)(ant.HitBy.X + 12), (int)(ant.HitBy.Y + 12)));
                     //*/
                 }
+
+                // Hill
                 graphics.FillClosedCurve(new TextureBrush(Properties.Resources.anthill), colony.Hill);
                 graphics.FillEllipse(new SolidBrush(colony.Color), (float)colony.Location.X - 15, (float)colony.Location.Y - 15, 30, 30); // Colony "flag"
                 graphics.DrawPolygon(new Pen(Color.Black), colony.Hill);
+
+                // Queen
+                Image queenImage = global::FormsApp.Properties.Resources.queen;
+                graphics.DrawImage(queenImage, (int)colony.Queen.X-queenImage.Width/2, (int)colony.Queen.Y-queenImage.Height/2, queenImage.Width, queenImage.Height);
             }
 
             // Food

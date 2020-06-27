@@ -14,6 +14,7 @@ namespace Krohonde
         protected IMotherNature myWorld;
         protected System.Windows.Point location;
         protected List<System.Drawing.Point> hill;
+        protected Queen queen;
         protected List<Ant> ants;
         private readonly Color color;
         private int foodstore;
@@ -31,6 +32,7 @@ namespace Krohonde
             hill.Add(new System.Drawing.Point { X = (int)location.X, Y = (int)location.Y + 50 });
             hill.Add(new System.Drawing.Point { X = (int)location.X - 43, Y = (int)location.Y + 25 });
             ants = new List<Ant>();
+            queen = new Queen(loc, new System.Windows.Point(0, 0), this);
             color = col;
         }
 
@@ -110,5 +112,7 @@ namespace Krohonde
         public IMotherNature World() { return myWorld; }
 
         public double Size { get => Helpers.PolygonArea(Hill); }
+
+        public Queen Queen { get => queen; }
     }
 }
