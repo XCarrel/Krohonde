@@ -103,7 +103,6 @@ namespace Krohonde
 
             // Energy consumption
             energy -= (int)(linspeed * deltatime);
-            Logger.WriteLogFile($"{fullname} moves to {Location}");
         }
 
         /// <summary>
