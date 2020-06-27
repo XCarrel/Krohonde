@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,10 +15,11 @@ namespace Krohonde
         protected List<System.Drawing.Point> hill;
         protected Queen queen;
         protected List<Ant> ants;
-        private readonly Color color;
+        protected List<Larvae> eggs;
+        private readonly System.Drawing.Color color;
         private int foodstore;
 
-        public Colony(Color col, System.Windows.Point loc, IMotherNature world)
+        public Colony(System.Drawing.Color col, System.Windows.Point loc, IMotherNature world)
         {
             myWorld = world;
             // Anthill
@@ -32,6 +32,7 @@ namespace Krohonde
             hill.Add(new System.Drawing.Point { X = (int)location.X, Y = (int)location.Y + 50 });
             hill.Add(new System.Drawing.Point { X = (int)location.X - 43, Y = (int)location.Y + 25 });
             ants = new List<Ant>();
+            eggs = new List<Larvae>();
             queen = new Queen(loc, new System.Windows.Point(0, 0), this);
             color = col;
         }
@@ -43,6 +44,15 @@ namespace Krohonde
         public void Dispose(Ant ant)
         {
             ants.Remove(ant);
+        }
+
+        /// <summary>
+        /// Remove an egg from the nursery (it's born)
+        /// </summary>
+        /// <param name="egg"></param>
+        public void Dispose(Larvae egg)
+        {
+            eggs.Remove(egg);
         }
 
         /// <summary>
@@ -97,13 +107,37 @@ namespace Krohonde
             return true;
         }
 
-        public abstract void Spawn(int nbAnts);
+        public void Spawn(int nbEggs)
+        {
+            for (int i = 0; i < nbEggs; i++)
+            {
+                int dx = -40 + (i % 5) * 16;
+                int dy = -40 + (i / 5) * 16;
+
+                switch (i % 4)
+                {
+                    case 0:
+                        eggs.Add(new Larvae(MotherNature.AntTypes.FarmerAnt, new Point(location.X+dx, location.Y + dy),queen,MotherNature.alea.Next(75,90)));
+                        break;
+                    case 1:
+                        eggs.Add(new Larvae(MotherNature.AntTypes.WorkerAnt, new Point(location.X + dx, location.Y + dy), queen, MotherNature.alea.Next(75, 90)));
+                        break;
+                    case 2:
+                        eggs.Add(new Larvae(MotherNature.AntTypes.ScoutAnt, new Point(location.X + dx, location.Y + dy), queen, MotherNature.alea.Next(75, 90)));
+                        break;
+                    case 3:
+                        eggs.Add(new Larvae(MotherNature.AntTypes.SoldierAnt, new Point(location.X + dx, location.Y + dy), queen, MotherNature.alea.Next(75, 90)));
+                        break;
+                }
+            }
+        }
 
         public System.Drawing.Point[] Hill { get => hill.ToArray(); }
 
         public List<Ant> Population { get => ants; }
 
-        public Color Color { get => color; }
+        public List<Larvae> Nursery { get => eggs; }
+        public System.Drawing.Color Color { get => color; }
 
         public int FoodStore { get => foodstore; }
 

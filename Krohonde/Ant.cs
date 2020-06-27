@@ -12,7 +12,7 @@ namespace Krohonde
 {
     public abstract class Ant
     {
-        private static int lastid = 0;
+        private static int lastid = 0; // id if the last Ant that was instanciated
         private readonly int id;
         private static int lastactionby; // the id of the last ant that performed an action (prevent double play)
         private readonly string fullname;
