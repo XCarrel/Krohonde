@@ -47,13 +47,10 @@ namespace Krohonde
         }
 
         /// <summary>
-        /// Remove an egg from the nursery (it's born)
+        /// A new star is born !!!!
         /// </summary>
         /// <param name="egg"></param>
-        public void Dispose(Larvae egg)
-        {
-            eggs.Remove(egg);
-        }
+        public abstract void Hatch(Larvae egg);
 
         /// <summary>
         /// An ant intends to dump its food bag into the colony's foodstore

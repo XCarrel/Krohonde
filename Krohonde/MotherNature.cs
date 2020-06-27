@@ -202,7 +202,10 @@ namespace Krohonde
                     }
                 }
                 // Remove the ripe ones
-                foreach (Larvae egg in ripeones) colony.Dispose(egg);
+                foreach (Larvae egg in ripeones)
+                {
+                    colony.Hatch(egg); // welcome a new baby
+                }
 
             }
 
