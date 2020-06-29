@@ -75,6 +75,11 @@ namespace FormsApp
             // Colonies
             foreach (Colony colony in myWorld.Colonies())
             {
+                // Hill
+                graphics.FillClosedCurve(new TextureBrush(Properties.Resources.anthill), colony.Hill);
+                graphics.FillEllipse(new SolidBrush(colony.Color), (float)colony.Location.X - 15, (float)colony.Location.Y - 15, 30, 30); // Colony "flag"
+                graphics.DrawPolygon(new Pen(Color.Black), colony.Hill);
+
                 foreach (Ant ant in colony.Population)
                 {
                     Image sourceImage;
@@ -109,9 +114,6 @@ namespace FormsApp
                     if (ant.HitBy != null) graphics.DrawLine(new Pen(Color.OrangeRed, 10), new System.Drawing.Point((int)(ant.X+12), (int)(ant.Y+12)), new System.Drawing.Point((int)(ant.HitBy.X + 12), (int)(ant.HitBy.Y + 12)));
                     //*/
                 }
-                graphics.FillClosedCurve(new TextureBrush(Properties.Resources.anthill), colony.Hill);
-                graphics.FillEllipse(new SolidBrush(colony.Color), (float)colony.Location.X - 15, (float)colony.Location.Y - 15, 30, 30); // Colony "flag"
-                graphics.DrawPolygon(new Pen(Color.Black), colony.Hill);
 
                 // Eggs
                 Image eggImage;
@@ -135,6 +137,7 @@ namespace FormsApp
                             eggImage = global::FormsApp.Properties.Resources.workeregg;
                             break;
                     }
+                    eggImage = RotateImage(eggImage, egg.Rot);
                     graphics.DrawImage(eggImage, (int)egg.SDLocation.X, (int)egg.SDLocation.Y, (float)(eggImage.Width*egg.Maturity/100), (float)(eggImage.Height*egg.Maturity/100));
                 }
                 // Queen

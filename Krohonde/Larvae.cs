@@ -15,6 +15,7 @@ namespace Krohonde
         private readonly string name;
         private readonly MotherNature.AntTypes type;
         private readonly string certificate;
+        private readonly int rot;
 
         private double maturity;     // 100 means it's birth time !!!
 
@@ -27,6 +28,7 @@ namespace Krohonde
             name = mother.Colony.GetType().Name + this.GetType().Name + id;
             Location = location;
             certificate = mother.Colony.World().GetEggCertificate(name);
+            rot = MotherNature.alea.Next(0, 360) ;
         }
 
         public Larvae(MotherNature.AntTypes t, Point location, Queen mother, int mat)
@@ -37,6 +39,7 @@ namespace Krohonde
             Location = location;
             certificate = mother.Colony.World().GetEggCertificate(name);
             maturity = mat;
+            rot = MotherNature.alea.Next(0, 360);
         }
 
         public void Grow(double deltatime)
@@ -51,6 +54,7 @@ namespace Krohonde
 
         public string Name { get => name; }
         public string Certificate { get => certificate; }
+        public int Rot { get => rot; }
 
     }
 }
