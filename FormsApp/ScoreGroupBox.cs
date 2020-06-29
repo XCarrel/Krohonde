@@ -16,7 +16,10 @@ namespace FormsApp
         private Label lblAntNb;
         private Label lblFoodStore;
         private ComboBox cmbAntType;
-        private Label lblDisplayAntFilter;
+        private ComboBox cmbEnergySign;
+        private TextBox txtEnergyValue;
+        private Label lblDisplayAntTypeFilter;
+        private Label lblDisplayAntEnergyFilter;
         private DataGridView dgvAnts;
 
         private int width;
@@ -33,7 +36,10 @@ namespace FormsApp
             this.lblAntNb = new System.Windows.Forms.Label();
             this.lblFoodStore = new System.Windows.Forms.Label();
             this.cmbAntType = new System.Windows.Forms.ComboBox();
-            this.lblDisplayAntFilter = new System.Windows.Forms.Label();
+            this.cmbEnergySign = new System.Windows.Forms.ComboBox();
+            this.txtEnergyValue = new System.Windows.Forms.TextBox();
+            this.lblDisplayAntTypeFilter = new System.Windows.Forms.Label();
+            this.lblDisplayAntEnergyFilter = new System.Windows.Forms.Label();
             this.dgvAnts = new System.Windows.Forms.DataGridView();
             
             // 
@@ -41,8 +47,11 @@ namespace FormsApp
             // 
             this.Controls.Add(this.lblAntNb);
             this.Controls.Add(this.lblFoodStore);
-            this.Controls.Add(this.lblDisplayAntFilter);
+            this.Controls.Add(this.lblDisplayAntTypeFilter);
+            this.Controls.Add(this.lblDisplayAntEnergyFilter);
             this.Controls.Add(this.cmbAntType);
+            this.Controls.Add(this.cmbEnergySign);
+            this.Controls.Add(this.txtEnergyValue);
             this.Controls.Add(this.dgvAnts);
 
             // 
@@ -72,15 +81,36 @@ namespace FormsApp
             this.cmbAntType.Size = new System.Drawing.Size(121, 24);
             this.cmbAntType.TabIndex = 4;
             this.cmbAntType.TextChanged += ClickOnCmb;
+
+            this.cmbEnergySign.FormattingEnabled = true;
+            this.cmbEnergySign.Location = new System.Drawing.Point(340, 95);
+            this.cmbEnergySign.Name = "cmbEnergieSign" + nbColony;
+            this.cmbEnergySign.Size = new System.Drawing.Size(50, 24);
+            this.cmbEnergySign.TabIndex = 4;
+            this.cmbEnergySign.TextChanged += ClickOnCmb;
+
+            this.txtEnergyValue.Location = new System.Drawing.Point(400, 95);
+            this.txtEnergyValue.Name = "txtEnergieSign" + nbColony;
+            this.txtEnergyValue.Size = new System.Drawing.Size(121, 24);
+            this.txtEnergyValue.TabIndex = 4;
+            this.txtEnergyValue.TextChanged += ClickOnCmb;
+
             // 
             // lblDisplayAntFilter
             // 
-            this.lblDisplayAntFilter.AutoSize = true;
-            this.lblDisplayAntFilter.Location = new System.Drawing.Point(25, 95);
-            this.lblDisplayAntFilter.Name = "lblDisplayAntFilter";
-            this.lblDisplayAntFilter.Size = new System.Drawing.Size(54, 17);
-            this.lblDisplayAntFilter.TabIndex = 5;
-            this.lblDisplayAntFilter.Text = "Filtres - type de fourmis:";
+            this.lblDisplayAntTypeFilter.AutoSize = true;
+            this.lblDisplayAntTypeFilter.Location = new System.Drawing.Point(25, 95);
+            this.lblDisplayAntTypeFilter.Name = "lblDisplayAntTypeFilter";
+            this.lblDisplayAntTypeFilter.Size = new System.Drawing.Size(54, 17);
+            this.lblDisplayAntTypeFilter.TabIndex = 5;
+            this.lblDisplayAntTypeFilter.Text = "Filtres - Type de fourmis:";
+
+            this.lblDisplayAntEnergyFilter.AutoSize = true;
+            this.lblDisplayAntEnergyFilter.Location = new System.Drawing.Point(285, 95);
+            this.lblDisplayAntEnergyFilter.Name = "lblDisplayAntEnergyFilter";
+            this.lblDisplayAntEnergyFilter.Size = new System.Drawing.Size(54, 17);
+            this.lblDisplayAntEnergyFilter.TabIndex = 5;
+            this.lblDisplayAntEnergyFilter.Text = "Energie :";
 
             this.cmbAntType.Items.Add("");
             this.cmbAntType.Items.Add("Scout");
@@ -88,19 +118,23 @@ namespace FormsApp
             this.cmbAntType.Items.Add("Soldat");
             this.cmbAntType.Items.Add("Ouvrière");
 
-            
+            this.cmbEnergySign.Items.Add("");
+            this.cmbEnergySign.Items.Add(">");
+            this.cmbEnergySign.Items.Add("<");
+            this.cmbEnergySign.Items.Add("=");
+
+
             ((System.ComponentModel.ISupportInitialize)(dgvAnts)).BeginInit();
             this.dgvAnts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAnts.Location = new System.Drawing.Point(25, 125);
             this.dgvAnts.Name = "dgvAnts" + nbColony;
-            this.dgvAnts.RowHeadersWidth = 80;
+            //this.dgvAnts.RowHeadersWidth = 80;
             this.dgvAnts.RowTemplate.Height = 24;
             this.dgvAnts.Size = new System.Drawing.Size(width - 50, 200);
             this.dgvAnts.TabIndex = 2;
-            this.dgvAnts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvAnts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dgvAnts.MultiSelect = false;
             this.dgvAnts.RowStateChanged += RowSelected;
-
             ((System.ComponentModel.ISupportInitialize)(dgvAnts)).EndInit();
 
             nbColony++;
@@ -109,6 +143,7 @@ namespace FormsApp
             //so that all properties do not appear in the datagridview, we set them to [Browsable(false)]
             //the other properties will appear.
             this.dgvAnts.DataSource = colony.Population;
+            
         }
 
         public void RefreshData()
@@ -117,7 +152,7 @@ namespace FormsApp
             this.lblAntNb.Text = "Nombre de fourmis : " + colony.Population.Count;
             this.lblFoodStore.Text = "Stock nourriture : " + colony.FoodStore;
 
-            if (dgvAnts.Rows.Count > 0)
+            if (dgvAnts.Rows.Count > 0 || colony.Population.Count > 0)
             {
                 CurrencyManager cm = (CurrencyManager)this.dgvAnts.BindingContext[colony.Population];
                 if (cm != null)
@@ -135,62 +170,106 @@ namespace FormsApp
         {
             DataGridView dgv = sender as DataGridView;
 
-            if (dgv.SelectedRows.Count == 1)
+            if (dgv.SelectedRows.Count >= 1)
             {
-                if (dgv.SelectedRows[0] != null)
+
+                foreach (DataGridViewRow row in dgv.SelectedRows)
                 {
-                    Ant ant = (Ant)dgv.SelectedRows[0].DataBoundItem;
-                    ant.Selected = true;
-                    MessageBox.Show(ant.Fullname);
+                    if (row != null)
+                    {
+                        Ant ant = (Ant)row.DataBoundItem;
+                        if (ant.Selected)
+                            ant.Selected = false;
+                        else
+                            ant.Selected = true;
+                    }
                 }
             }
         }
 
         private void ClickOnCmb(object sender, EventArgs e)
         {
-            ComboBox cmbBox = sender as ComboBox;
-
+            //ComboBox cmbBox = sender as ComboBox;
+            
             List<Ant> lstAnts = colony.Population;
 
             string filter = "";
-            if (cmbBox.SelectedItem != null)
+            //string filterEnergy = "";
+            int limitEnergy = -1;
+            if (cmbAntType.SelectedItem != null)
             {
-                filter = cmbBox.SelectedItem.ToString();
+                filter = cmbAntType.SelectedItem.ToString();
             }
 
+            if (cmbEnergySign.SelectedItem != null)
+            {
+                if (txtEnergyValue.Text != "")
+                {
+                    try
+                    {
+                        limitEnergy = int.Parse(txtEnergyValue.Text);
+                    } catch (Exception ex)
+                    {
+                        //the energy limit is not a number, no search according to energy will be done
+                        limitEnergy = -1;
+                    }
+                }
+            }
             List<Ant> filteredList = lstAnts;
             switch (filter)
             {
                 case "Ouvrière":
                     filter = "WorkerAnt";
-                    filteredList = lstAnts.FindAll(delegate (Ant ant)
-                    {
-                        return ant.GetType().Name == "WorkerAnt";
-                    });
                     break;
                 case "Fermière":
-                    filteredList = lstAnts.FindAll(delegate (Ant ant)
-                    {
-                        return ant.GetType().Name == "FarmerAnt";
-                    });
+                    filter = "FarmerAnt";
                     break;
                 case "Soldat":
-                    filteredList = lstAnts.FindAll(delegate (Ant ant)
-                    {
-                        return ant.GetType().Name == "SoldierAnt";
-                    });
+                    filter = "SoldierAnt";
                     break;
                 case "Scout":
-                    filteredList = lstAnts.FindAll(delegate (Ant ant)
-                    {
-                        return ant.GetType().Name == "ScoutAnt";
-                    });
+                    filter = "ScoutAnt";
                     break;
                 default:
                     break;
             }
 
+            //if (txtEnergyValue.Text != "") { 
+                if ((filter != "") || (limitEnergy > -1))
+                {
+                    filteredList = lstAnts.FindAll(delegate (Ant ant)
+                    {
+                        if ((filter != "") && (limitEnergy > -1))
+                        {
+                            if (cmbEnergySign.Text == ">")
+                                return (ant.GetType().Name == filter) && (ant.Energy > limitEnergy);
+                            if (cmbEnergySign.Text == "<")
+                                return (ant.GetType().Name == filter) && (ant.Energy < limitEnergy && ant.Energy > 0);
+                            if (cmbEnergySign.Text == "=")
+                                return (ant.GetType().Name == filter) && (ant.Energy == limitEnergy);
+                        } else
+                        {
+                            if (filter != "")
+                            {
+                                return ant.GetType().Name == filter;
+                            } else
+                            {
+                                if (cmbEnergySign.Text == ">")
+                                    return (ant.Energy > limitEnergy);
+                                if (cmbEnergySign.Text == "<")
+                                    return (ant.Energy < limitEnergy && ant.Energy > 0);
+                                if (cmbEnergySign.Text == "=")
+                                    return (ant.Energy == limitEnergy);
+                            }
+                        }
+                        //hyper moche à voir
+                        return ant == ant;
+                    });
+                }
+            //}
+            
             dgvAnts.DataSource = filteredList;
+            
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Krohonde
 {
     public abstract class Ant
     {
-        private static int lastid = 0;
+        private static int lastid = 0; // id if the last Ant that was instanciated
         private readonly int id;
         private static int lastactionby; // the id of the last ant that performed an action (prevent double play)
         private readonly string fullname;
@@ -28,7 +28,7 @@ namespace Krohonde
         private Point Location;
         protected Point Speed;
         protected Object BlockedBy; // if defined: the object that prevented the ant from moving
-        protected Ant hitBy; // if defined: the ant that just hit me
+        protected Ant lastHitBy; // if defined: the ant that just hit me
 
         protected Colony MyColony;
 
@@ -64,7 +64,7 @@ namespace Krohonde
                 if (MotherNature.alea.Next(0, 2) == 0)
                     Speed.X = MotherNature.alea.Next(0, 30) - 14;
                 else
-                    Speed.Y = MotherNature.alea.Next(0, 39) - 14;
+                    Speed.Y = MotherNature.alea.Next(0, 30) - 14;
         }
 
         protected void Move(double deltatime)
@@ -151,7 +151,7 @@ namespace Krohonde
             // Ok, we have a fight...
             int damage = energy / 10;
             ant.energy -= damage;
-            ant.hitBy = this;
+            ant.lastHitBy = this;
 
             return true;
         }
@@ -297,16 +297,19 @@ namespace Krohonde
         [Browsable(false)]
         public bool Selected { get; set; }
 
-        public String HitBy
+        //For scoreboard
+        public String LastHitByName
         {
             get
             {
-                if (hitBy != null)
-                    return hitBy.Fullname;
+                if (lastHitBy != null)
+                    return lastHitBy.Fullname;
                 else
                     return null;
             }
         }
         
+        [Browsable(false)]
+        public Ant LastHitBy { get => lastHitBy; }
     }
 }
