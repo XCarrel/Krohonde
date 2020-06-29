@@ -262,7 +262,7 @@ namespace FormsApp
                                     return (ant.Energy == limitEnergy);
                             }
                         }
-                        //hyper moche à voir
+                        //no filter in this case
                         return ant == ant;
                     });
                 }
