@@ -133,8 +133,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\farmer.png" />
+    <None Include="Resources\workeregg.png" />
+    <None Include="Resources\farmeregg.png" />
+    <None Include="Resources\queen.png" />
     <Content Include="Resources\scout.png" />
+    <None Include="Resources\scoutegg.png" />
     <Content Include="Resources\soldier.png" />
+    <None Include="Resources\soldieregg.png" />
     <Content Include="Resources\worker.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

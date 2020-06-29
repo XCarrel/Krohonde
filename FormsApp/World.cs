@@ -25,10 +25,10 @@ namespace FormsApp
             myWorld = new MotherNature(pctWorld.ClientSize.Width, pctWorld.ClientSize.Height);
 
             RedColony rcolo = new RedColony(new System.Windows.Point(400, 200), myWorld);
-            rcolo.Spawn(40);
+            rcolo.Spawn(8);
             myWorld.AddColony(rcolo);
             GreenColony gcolo = new GreenColony(new System.Windows.Point(400, 500), myWorld);
-            gcolo.Spawn(40);
+            gcolo.Spawn(8);
             myWorld.AddColony(gcolo);
             myWorld.Initialize();
             score = new Score(this);
@@ -112,6 +112,34 @@ namespace FormsApp
                 graphics.FillClosedCurve(new TextureBrush(Properties.Resources.anthill), colony.Hill);
                 graphics.FillEllipse(new SolidBrush(colony.Color), (float)colony.Location.X - 15, (float)colony.Location.Y - 15, 30, 30); // Colony "flag"
                 graphics.DrawPolygon(new Pen(Color.Black), colony.Hill);
+
+                // Eggs
+                Image eggImage;
+                foreach (Larvae egg in colony.Nursery)
+                {
+                    switch (egg.Type)
+                    {
+                        case MotherNature.AntTypes.FarmerAnt:
+                            eggImage = global::FormsApp.Properties.Resources.farmeregg;
+                            break;
+                        case MotherNature.AntTypes.ScoutAnt:
+                            eggImage = global::FormsApp.Properties.Resources.scoutegg;
+                            break;
+                        case MotherNature.AntTypes.SoldierAnt:
+                            eggImage = global::FormsApp.Properties.Resources.soldieregg;
+                            break;
+                        case MotherNature.AntTypes.WorkerAnt:
+                            eggImage = global::FormsApp.Properties.Resources.workeregg;
+                            break;
+                        default:
+                            eggImage = global::FormsApp.Properties.Resources.workeregg;
+                            break;
+                    }
+                    graphics.DrawImage(eggImage, (int)egg.SDLocation.X, (int)egg.SDLocation.Y, (float)(eggImage.Width*egg.Maturity/100), (float)(eggImage.Height*egg.Maturity/100));
+                }
+                // Queen
+                Image queenImage = global::FormsApp.Properties.Resources.queen;
+                graphics.DrawImage(queenImage, (int)colony.Queen.X-queenImage.Width/2, (int)colony.Queen.Y-queenImage.Height/2, queenImage.Width, queenImage.Height);
             }
 
             // Food

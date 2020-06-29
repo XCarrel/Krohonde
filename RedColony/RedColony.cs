@@ -15,29 +15,17 @@ namespace Krohonde.RedColony
         {
         }
 
-        
-        public override void Spawn(int nbAnts)
+        public override void Hatch(Larvae egg)
         {
-            for (int i = 0; i < nbAnts; i++)
+            eggs.Remove(egg);
+            switch (egg.Type)
             {
-                switch (i % 4)
-                {
-                    case 0:
-                        ants.Add(new WorkerAnt(new System.Windows.Point(location.X, location.Y), new System.Windows.Point(MotherNature.alea.Next(0, 200) - 100, MotherNature.alea.Next(0, 200) - 100), this));
-                        break;
-                    case 1:
-                        ants.Add(new FarmerAnt(new System.Windows.Point(location.X, location.Y), new System.Windows.Point(MotherNature.alea.Next(0, 200) - 100, MotherNature.alea.Next(0, 200) - 100), this));
-                        break;
-                    case 2:
-                        ants.Add(new SoldierAnt(new System.Windows.Point(location.X, location.Y), new System.Windows.Point(MotherNature.alea.Next(0, 200) - 100, MotherNature.alea.Next(0, 200) - 100), this));
-                        break;
-                    case 3:
-                        ants.Add(new ScoutAnt(new System.Windows.Point(location.X, location.Y), new System.Windows.Point(MotherNature.alea.Next(0, 200) - 100, MotherNature.alea.Next(0, 200) - 100), this));
-                        break;
-                }
+                case MotherNature.AntTypes.FarmerAnt: ants.Add(new FarmerAnt(new System.Windows.Point(egg.SDLocation.X, egg.SDLocation.Y), new System.Windows.Point(5, 5), this)); break;
+                case MotherNature.AntTypes.WorkerAnt: ants.Add(new WorkerAnt(new System.Windows.Point(egg.SDLocation.X, egg.SDLocation.Y), new System.Windows.Point(5, 5), this)); break;
+                case MotherNature.AntTypes.ScoutAnt: ants.Add(new ScoutAnt(new System.Windows.Point(egg.SDLocation.X, egg.SDLocation.Y), new System.Windows.Point(5, 5), this)); break;
+                case MotherNature.AntTypes.SoldierAnt: ants.Add(new SoldierAnt(new System.Windows.Point(egg.SDLocation.X, egg.SDLocation.Y), new System.Windows.Point(5, 5), this)); break;
             }
         }
-
     }
 
 }

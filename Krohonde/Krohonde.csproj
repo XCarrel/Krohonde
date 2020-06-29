@@ -52,10 +52,12 @@
     <Compile Include="FoodCluster.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="IMotherNature.cs" />
+    <Compile Include="Larvae.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="MotherNature.cs" />
     <Compile Include="Pheromon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queen.cs" />
     <Compile Include="Resource.cs" />
     <Compile Include="Rock.cs" />
   </ItemGroup>

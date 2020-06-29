@@ -47,6 +47,7 @@ namespace Krohonde
 
         public enum PheromonTypes { Food, Danger, Build }
         public enum DigestionFor { Energy, Strength, Toughness }
+        public enum AntTypes { Queen, FarmerAnt, WorkerAnt, ScoutAnt, SoldierAnt }
 
         private List<Colony> colonies;
         private List<FoodCluster> food;
@@ -185,6 +186,26 @@ namespace Krohonde
                 }
                 // Remove the dead ones
                 foreach (Ant ant in deadones) colony.Dispose(ant);
+
+                List<Larvae> ripeones = new List<Larvae>(); // those that are ready for birth
+                foreach (Larvae egg in colony.Nursery)
+                {
+                    if (eggCertificates[egg.Name].Equals(egg.Certificate))
+                    {
+                        egg.Grow(deltatime);
+                        if (egg.Maturity >= 100)
+                        {
+                            eggCertificates.Remove(egg.Name);
+                            ripeones.Add(egg);
+                        }
+                    }
+                }
+                // Remove the ripe ones
+                foreach (Larvae egg in ripeones)
+                {
+                    colony.Hatch(egg); // welcome a new baby
+                }
+
             }
 
             // Handle stale pheromons
@@ -215,6 +236,26 @@ namespace Krohonde
             }
         }
 
+        /// <summary>
+        /// Get a birth certificate for a specific egg name
+        /// </summary>
+        /// <param name="eggname"></param>
+        /// <returns></returns>
+        public string GetEggCertificate(string eggname)
+        {
+            // TODO Give the certificate only to a certified queen
+            try
+            {
+                string GuidString = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+                eggCertificates.Add(eggname, GuidString);
+                return GuidString;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return "";
+            }
+        }
         public void AddColony(Colony colo)
         {
             colonies.Add(colo);
@@ -344,7 +385,8 @@ namespace Krohonde
             {
                 res = ANT_FOOD_BAG_SIZE;
                 if (ant.GetType().Name == "FarmerAnt") res *= 20; // farmers can carry 20 times more food
-            } else if (resource.GetType() == typeof(Brick))
+            }
+            else if (resource.GetType() == typeof(Brick))
             {
                 res = ANT_BRICK_BAG_SIZE;
                 if (ant.GetType().Name == "WorkerAnt") res *= 20; // workers can carry 20 times more bricks
