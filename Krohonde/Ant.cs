@@ -297,7 +297,16 @@ namespace Krohonde
         [Browsable(false)]
         public bool Selected { get; set; }
 
-        [Browsable(false)]
-        public Ant HitBy { get => hitBy; }
+        public String HitBy
+        {
+            get
+            {
+                if (hitBy != null)
+                    return hitBy.Fullname;
+                else
+                    return null;
+            }
+        }
+        
     }
 }
