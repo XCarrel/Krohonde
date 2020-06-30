@@ -82,6 +82,10 @@ namespace Krohonde
             Sprinkle(); // Bricks
         }
 
+        /// <summary>
+        /// Selects a point at random, free of anthills and rocks. The point is 1/20th of the screen clear of the sides
+        /// </summary>
+        /// <returns></returns>
         private System.Drawing.Point PickAPoint()
         {
             double distmin;
@@ -100,6 +104,11 @@ namespace Krohonde
             return res;
         }
 
+        /// <summary>
+        /// Check if a point is inside a rock
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         private bool inARock(System.Drawing.Point p)
         {
             foreach (Rock rock in rocks)
@@ -163,6 +172,9 @@ namespace Krohonde
             }
         }
 
+        /// <summary>
+        /// The pump of it all
+        /// </summary>
         public void Live()
         {
             double deltatime = (universaltime.Elapsed - lastupdate).TotalSeconds;
@@ -422,12 +434,6 @@ namespace Krohonde
             }
             pheromons.Add(new Pheromon(ant.SDLocation, pherotype, ant.Colony));
         }
-
-        void IMotherNature.Build(Ant ant)
-        {
-            throw new NotImplementedException();
-        }
-
 
     }
 }

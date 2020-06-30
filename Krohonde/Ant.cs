@@ -97,6 +97,13 @@ namespace Krohonde
                     Speed.Y = MotherNature.alea.Next(0, 30) - 14;
         }
 
+        /// <summary>
+        /// Moves the ant according to its speed and the time elapsed since last update
+        /// If the speed of the ant is too big, only the max speed of its kind is applied
+        /// If the move would put the ant into a rock, the ant stays there and its 'BlockedBy' attribute identifies the rock that prevented the move
+        /// If the move would put the ant outside the garden, the ant stays there and its 'BlockedBy' attribute is MotherNature
+        /// </summary>
+        /// <param name="deltatime"></param>
         protected void Move(double deltatime)
         {
             // Temporary
@@ -229,12 +236,18 @@ namespace Krohonde
             }
         }
 
+        /// <summary>
+        /// Picks up a resource (food or brick) from the ground and places it in the right bag.
+        /// The ant must be clode enough to the resource (see PICKUP_REACH)
+        /// </summary>
+        /// <param name="resource"></param>
+        /// <returns>True if we have been able to collect (some of) the resource</returns>
         protected bool Pickup(Resource resource)
         {
             if (!ActionAllowed()) return false; // ignore multiple actions by same ant
 
             int max = MyColony.World().BagSize(this,resource); // How much can I carry of that resource ?
-            int val = MyColony.World().Collect(this,resource); // pick it up
+            int val = MyColony.World().Collect(this,resource); // pick it up. Can be 0 if we're too far for instance
             energy -= MotherNature.COST_OF_COLLECTING_RESOURCE;
             if (val == 0) return false; // waste of energy !!!!
 
@@ -292,18 +305,30 @@ namespace Krohonde
             return Colony.World().LookForFoodAround(this);
         }
 
+        /// <summary>
+        /// Gets the list of bricks in sighr
+        /// </summary>
+        /// <returns></returns>
         protected List<Brick> BricksAroundMe()
         {
             energy -= MotherNature.COST_OF_LOOKING_AROUND;
             return Colony.World().LookForBricksAround(this);
         }
 
+        /// <summary>
+        ///  Gets the list of enemies in sight
+        /// </summary>
+        /// <returns></returns>
         protected List<Ant> EnemiesAroundMe()
         {
             energy -= MotherNature.COST_OF_LOOKING_AROUND;
             return Colony.World().LookForEnemiesAround(this);
         }
 
+        /// <summary>
+        /// Gets the list of pheromons within smelling distance (SMELL_RANGE)
+        /// </summary>
+        /// <returns></returns>
         protected List<Pheromon> SmellsAroundMe()
         {
             energy -= MotherNature.COST_OF_SMELLING_AROUND;

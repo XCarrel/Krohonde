@@ -51,8 +51,5 @@ namespace Krohonde
         void DropPheromon(Ant ant);
 
         #endregion
-        #region Worker ants
-        void Build(Ant ant);
-        #endregion
     }
 }
