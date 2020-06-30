@@ -7,13 +7,13 @@ using Krohonde;
 using System.Windows;
 using System.Drawing;
 
-namespace Krohonde.GreenColony
+namespace Krohonde.BlueColony
 {
-    public class GreenColony : Colony
+    public class BlueColony : Colony
     {
-        public GreenColony(System.Windows.Point loc, IMotherNature world) : base (Color.Green, loc,world)
+        public BlueColony(System.Windows.Point loc, IMotherNature world) : base (Color.Blue, loc,world)
         {
-            queen = new GreenQueen(new System.Drawing.Point((int)loc.X, (int)loc.Y), new System.Drawing.Point(0, 0), this);
+            queen = new BlueQueen(new System.Drawing.Point((int)loc.X, (int)loc.Y), new System.Drawing.Point(0, 0), this);
         }
 
         public override void Hatch(Egg egg)

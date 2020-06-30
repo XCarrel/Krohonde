@@ -12,6 +12,7 @@ using System.Windows;
 using Krohonde;
 using Krohonde.RedColony;
 using Krohonde.GreenColony;
+using Krohonde.BlueColony;
 
 namespace FormsApp
 {
@@ -27,9 +28,12 @@ namespace FormsApp
             RedColony rcolo = new RedColony(new System.Windows.Point(400, 200), myWorld);
             rcolo.Spawn(8);
             myWorld.AddColony(rcolo);
-            GreenColony gcolo = new GreenColony(new System.Windows.Point(400, 500), myWorld);
+            GreenColony gcolo = new GreenColony(new System.Windows.Point(1400, 200), myWorld);
             gcolo.Spawn(8);
             myWorld.AddColony(gcolo);
+            BlueColony bcolo = new BlueColony(new System.Windows.Point(900, 800), myWorld);
+            bcolo.Spawn(8);
+            myWorld.AddColony(bcolo);
             myWorld.Initialize();
             score = new Score(this);
             score.Show();

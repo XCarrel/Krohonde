@@ -100,6 +100,10 @@
     <None Include="Resources\anthill.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BlueColony\BlueColony.csproj">
+      <Project>{2f4ca6c3-21f9-433e-86df-a12f4320d964}</Project>
+      <Name>BlueColony</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GreenColony\GreenColony.csproj">
       <Project>{b43d3c2d-9f06-4cb1-a987-80abc076f764}</Project>
       <Name>GreenColony</Name>
