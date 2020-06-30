@@ -31,15 +31,9 @@ namespace Krohonde
             rot = MotherNature.alea.Next(0, 360) ;
         }
 
-        public Larvae(MotherNature.AntTypes t, Point location, Queen mother, int mat)
+        public Larvae(MotherNature.AntTypes t, Point location, Queen mother, int mat) : this(t,location,mother)
         {
-            id = ++lastid;
-            type = t;
-            name = mother.Colony.GetType().Name + this.GetType().Name + id;
-            Location = location;
-            certificate = mother.Colony.World().GetEggCertificate(name);
             maturity = mat;
-            rot = MotherNature.alea.Next(0, 360);
         }
 
         public void Grow(double deltatime)

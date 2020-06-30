@@ -105,28 +105,16 @@ namespace Krohonde
             return true;
         }
 
+        private bool LayEgg(MotherNature.AntTypes typ, System.Windows.Point loc,Queen queen,int val)
+        {
+            eggs.Add(new Larvae(typ, loc, queen, val));
+            return true;
+        }
         public void Spawn(int nbEggs)
         {
             for (int i = 0; i < nbEggs; i++)
             {
-                int dx = -40 + (i % 5) * 16;
-                int dy = -40 + (i / 5) * 16;
-
-                switch (i % 4)
-                {
-                    case 0:
-                        eggs.Add(new Larvae(MotherNature.AntTypes.FarmerAnt, new System.Windows.Point(location.X + dx, location.Y + dy), queen, MotherNature.alea.Next(75, 90)));
-                        break;
-                    case 1:
-                        eggs.Add(new Larvae(MotherNature.AntTypes.WorkerAnt, new System.Windows.Point(location.X + dx, location.Y + dy), queen, MotherNature.alea.Next(75, 90)));
-                        break;
-                    case 2:
-                        eggs.Add(new Larvae(MotherNature.AntTypes.ScoutAnt, new System.Windows.Point(location.X + dx, location.Y + dy), queen, MotherNature.alea.Next(75, 90)));
-                        break;
-                    case 3:
-                        eggs.Add(new Larvae(MotherNature.AntTypes.SoldierAnt, new System.Windows.Point(location.X + dx, location.Y + dy), queen, MotherNature.alea.Next(75, 90)));
-                        break;
-                }
+                eggs.Add(new Larvae((MotherNature.AntTypes)(i%4), new System.Windows.Point(location.X + -40 + (i % 5) * 16, location.Y + -40 + (i / 5) * 16), queen, MotherNature.alea.Next(75, 90)));
             }
         }
         public System.Drawing.Point[] Hill { get => hill.ToArray(); }
