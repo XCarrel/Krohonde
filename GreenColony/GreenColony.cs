@@ -13,7 +13,7 @@ namespace Krohonde.GreenColony
     {
         public GreenColony(System.Windows.Point loc, IMotherNature world) : base (Color.LightGreen, loc,world)
         {
-            queen = new GreenQueen(loc, new System.Windows.Point(0, 0), this);
+            queen = new GreenQueen(new System.Drawing.Point((int)loc.X, (int)loc.Y), new System.Drawing.Point(0, 0), this);
         }
 
         public override void Hatch(Egg egg)

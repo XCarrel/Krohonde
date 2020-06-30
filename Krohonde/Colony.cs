@@ -11,8 +11,8 @@ namespace Krohonde
     public abstract class Colony
     {
         private const int CONSTRUCTION_ZONE = 50; // The distance around the anthill where construction is allowed
-        private const int CRIB_SIZE = 16; // the square space that an egg takes in the anthill
-        private const int INITIAL_MATURITY = 25; // When an egg is laid, it doesn't start from 0 so that it is visible
+        public const int CRIB_SIZE = 16; // the square space that an egg takes in the anthill
+
         protected IMotherNature myWorld;
         protected System.Windows.Point location;
         protected List<System.Drawing.Point> hill;
@@ -26,7 +26,7 @@ namespace Krohonde
         {
             myWorld = world;
             // Anthill
-            location = loc;
+            location =loc;
             hill = new List<System.Drawing.Point>();
             hill.Add(new System.Drawing.Point { X = (int)location.X - 43, Y = (int)location.Y - 25 });
             hill.Add(new System.Drawing.Point { X = (int)location.X, Y = (int)location.Y - 50 });
@@ -106,24 +106,16 @@ namespace Krohonde
             return true;
         }
 
-        private bool LayEgg(MotherNature.AntTypes typ, System.Drawing.Point loc, Queen queen, int val)
+        public bool StoreEggInNursery (Egg egg)
         {
-            if (!Helpers.IsInPolygon(Hill, loc)) return false; // can't lay an egg outside the hill
-
             // Check if there is space
-            Rectangle newcrib = new Rectangle(loc, new System.Drawing.Size(CRIB_SIZE, CRIB_SIZE));
+            Rectangle newcrib = new Rectangle(egg.Location, new System.Drawing.Size(CRIB_SIZE, CRIB_SIZE));
             foreach (Egg crib in Nursery)
                 if (newcrib.IntersectsWith(new Rectangle(crib.Location, new System.Drawing.Size(CRIB_SIZE, CRIB_SIZE))))
                     return false;
 
-            eggs.Add(new Egg(typ, loc, queen, val));
             return true;
         }
-        public bool LayEgg(MotherNature.AntTypes typ, System.Drawing.Point loc, Queen queen)
-        {
-            return LayEgg(typ,loc,queen,INITIAL_MATURITY);
-        }
-
 
         public void Spawn(int nbEggs)
         {

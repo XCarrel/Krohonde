@@ -13,7 +13,7 @@ namespace Krohonde.RedColony
     {
         public RedColony(System.Windows.Point loc, IMotherNature world) : base(Color.Red,loc, world)
         {
-            queen = new RedQueen(loc, new System.Windows.Point(0, 0), this);
+            queen = new RedQueen(new System.Drawing.Point((int)loc.X, (int)loc.Y), new System.Drawing.Point(0, 0), this);
         }
 
         public override void Hatch(Egg egg)
