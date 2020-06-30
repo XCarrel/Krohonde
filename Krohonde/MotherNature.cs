@@ -378,6 +378,7 @@ namespace Krohonde
                 res = Ant.BRICK_BAG_SIZE;
                 if (ant.GetType().Name == "WorkerAnt") res *= 20; // workers can carry 20 times more bricks
             }
+            res += (int)(ant.Strength / 10.0); // strength allow ants to carry more
             return res;
         }
         /// <summary>

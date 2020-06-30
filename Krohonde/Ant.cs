@@ -69,7 +69,7 @@ namespace Krohonde
             Speed = speed;
             MyColony = colony;
             id = ++lastid;
-            fullname = colony.GetType().Name+this.GetType().Name+id;
+            fullname = colony.GetType().Name + this.GetType().Name + id;
             certificate = colony.World().GetBirthCertificate(fullname);
             energy = MotherNature.MAX_ENERGY;
             brickbag = 500;
@@ -140,7 +140,8 @@ namespace Krohonde
             Location.Y += Speed.Y * deltatime;
 
             // Energy consumption
-            energy -= (int)(linspeed * deltatime);
+            double strengthfactor = 1 + strength / 100.0; // strength attenuates fatigue
+            energy -= (int)(linspeed * deltatime / strengthfactor);
         }
 
         private void Eat(int amount, MotherNature.DigestionFor purpose)
@@ -181,6 +182,7 @@ namespace Krohonde
         protected bool EatFromStore(int amount, MotherNature.DigestionFor purpose)
         {
             if (!ActionAllowed()) return false; // ignore multiple actions by same ant
+            if (!Helpers.IsInPolygon(MyColony.Hill, SDLocation)) return false; // must be in the hill to eat from store
             int val = MyColony.GetFoodFromStore(MAX_BITE_SIZE);
             Eat(val, purpose);
             return true;
@@ -221,7 +223,8 @@ namespace Krohonde
             // Ok, we have a fight...
             int damage = energy / 10;
             double strengthfactor = 1 + strength / 100.0;
-            damage = (int)(damage*strengthfactor);
+            double toughnessfactor = 1 + ant.Toughness / 100.0;
+            damage = (int)(damage * strengthfactor / toughnessfactor); // Strength of attacker increases damage, Toughness of attacked decreases damage
             ant.energy -= damage;
             ant.lastHitBy = this;
 
@@ -240,7 +243,7 @@ namespace Krohonde
         [Browsable(false)]
         public int Heading
         {
-            get => (int)(Math.Atan2(Speed.Y , Speed.X -1)*180/Math.PI);
+            get => (int)(Math.Atan2(Speed.Y, Speed.X - 1) * 180 / Math.PI);
         }
 
         /// <summary>
@@ -252,7 +255,7 @@ namespace Krohonde
             get
             {
                 double angle = Math.Atan2(Speed.Y, Speed.X - 1);
-                return new Point(Location.X + 12 + 12*Math.Cos(angle), Location.Y + 12 + 12 * Math.Sin(angle));
+                return new Point(Location.X + 12 + 12 * Math.Cos(angle), Location.Y + 12 + 12 * Math.Sin(angle));
             }
         }
 
@@ -266,8 +269,8 @@ namespace Krohonde
         {
             if (!ActionAllowed()) return false; // ignore multiple actions by same ant
 
-            int max = MyColony.World().BagSize(this,resource); // How much can I carry of that resource ?
-            int val = MyColony.World().Collect(this,resource); // pick it up. Can be 0 if we're too far for instance
+            int max = MyColony.World().BagSize(this, resource); // How much can I carry of that resource ?
+            int val = MyColony.World().Collect(this, resource); // pick it up. Can be 0 if we're too far for instance
             energy -= MotherNature.COST_OF_COLLECTING_RESOURCE;
             if (val == 0) return false; // waste of energy !!!!
 
@@ -364,17 +367,17 @@ namespace Krohonde
 
         [Browsable(false)]
         public Colony Colony { get => MyColony; }
-        
+
         public string Fullname { get => fullname; }
 
         [Browsable(false)]
         public string Certificate { get => certificate; }
 
         [Browsable(false)]
-        public System.Drawing.Point SDLocation { get => new System.Drawing.Point((int)X,(int)Y); }
+        public System.Drawing.Point SDLocation { get => new System.Drawing.Point((int)X, (int)Y); }
 
         public int Energy { get => energy; }
-        
+
         public int Strength { get => strength; }
 
         public int Toughness { get => toughness; }
@@ -422,20 +425,22 @@ namespace Krohonde
                     return null;
             }
         }
-        
+
         [Browsable(false)]
         public Ant LastHitBy { get => lastHitBy; }
 
         private double getMaxSpeed()
         {
+            double res=0;
             switch (this.GetType().Name)
             {
-                case "FarmerAnt": return 10;
-                case "WorkerAnt": return 10;
-                case "ScoutAnt": return 20;
-                case "SoldierAnt": return 15;
-                default: return 0;
+                case "FarmerAnt": res = 10; break;
+                case "WorkerAnt": res = 10; break;
+                case "ScoutAnt": res = 20; break;
+                case "SoldierAnt": res = 15; break;
             }
+            res += strength / 10.0; // strength allow ants to faster
+            return res;
         }
         public double SightRange()
         {
