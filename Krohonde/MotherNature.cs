@@ -40,6 +40,8 @@ namespace Krohonde
         public const int COST_OF_BUILDING = 50; // units of energy
         public const int COST_OF_LAYING_AN_EGG = 500; // units of energy
         public const int MAX_BITE_SIZE = 2; // how much food an ant can eat in one action
+        public const int MAX_QUEEN_BITE_SIZE = 10; // how much food a queen can eat in one action
+        public const int MAX_QUEEN_SPEED = 4; // A queen will walk but never run
         public const int ANT_HIT_REACH = 30; // How far ants can hit another ant
         public const int FOOD_TO_ENERGY = 500; // how much energy an ant get when it eats food
         public const int FOOD_TO_STRENGTH = 500; // how much strength an ant get when it eats food

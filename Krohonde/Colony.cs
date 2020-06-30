@@ -106,6 +106,13 @@ namespace Krohonde
             return true;
         }
 
+        public int GetFoodFromStore(int val)
+        {
+            int res = Math.Min(val, foodstore);
+            foodstore -= res;
+            return res;
+        }
+
         public bool StoreEggInNursery (Egg egg)
         {
             // Check if there is space

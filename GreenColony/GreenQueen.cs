@@ -13,6 +13,9 @@ namespace Krohonde.GreenColony
         { }
         public override void Live(double deltatime)
         {
+            Speed.X = 2;
+            Move(deltatime);
+            DoNothing(); // The queen MUST either do something (Move, Eat, Lay an egg) or announce that she does nothing
         }
 
     }

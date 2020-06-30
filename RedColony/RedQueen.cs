@@ -13,6 +13,8 @@ namespace Krohonde.RedColony
         { }
         public override void Live(double deltatime)
         {
+            Eat(10);
+            DoNothing(); // The queen MUST either do something (Move, Eat, Lay an egg) or announce that she does nothing
         }
 
     }
