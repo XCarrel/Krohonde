@@ -17,7 +17,7 @@ namespace Krohonde.GreenColony
         {
             List<Ant> foes = EnemiesAroundMe();
                 foreach(Ant foe in foes)
-                if (Helpers.Distance(SDLocation,foe.SDLocation) < MotherNature.ANT_HIT_REACH)
+                if (Helpers.Distance(SDLocation,foe.SDLocation) < Ant.HIT_REACH)
                     Hit(foes[0]);
             Move(deltatime);
         }

@@ -24,11 +24,6 @@ namespace Krohonde
         private const int MAX_ROCK_HEIGHT = 100;
         private const int MIN_ROCK_HEIGHT = 10;
         private const int CLEAR_ZONE_RADIUS = 200; // Empty zone around anthills
-        private const int ANT_SIGHT_RANGE = 100; // How far ants can see
-        private const int ANT_SMELL_RANGE = 1000; // How far ants can smell a full-intensity pheromon
-        private const int ANT_FOOD_BAG_SIZE = 5; // The basic size of the food bag of all ants
-        private const int ANT_BRICK_BAG_SIZE = 5; // The basic size of the brick bag of all ants
-        private const int ANT_REACH = 10; // From how far can an ant pickup a resource
 
         public static Random alea;
         public const int MAX_ENERGY = 30000; // of an ant 
@@ -42,7 +37,6 @@ namespace Krohonde
         public const int MAX_BITE_SIZE = 2; // how much food an ant can eat in one action
         public const int MAX_QUEEN_BITE_SIZE = 10; // how much food a queen can eat in one action
         public const int MAX_QUEEN_SPEED = 4; // A queen will walk but never run
-        public const int ANT_HIT_REACH = 30; // How far ants can hit another ant
         public const int FOOD_TO_ENERGY = 500; // how much energy an ant get when it eats food
         public const int FOOD_TO_STRENGTH = 500; // how much strength an ant get when it eats food
         public const int FOOD_TO_TOUGHNESS = 500; // how much touhness an ant get when it eats food
@@ -296,35 +290,11 @@ namespace Krohonde
 
         int IMotherNature.height => height;
 
-        public double getMaxSpeed(Ant ant)
-        {
-            switch (ant.GetType().Name)
-            {
-                case "FarmerAnt": return 10;
-                case "WorkerAnt": return 10;
-                case "ScoutAnt": return 20;
-                case "SoldierAnt": return 15;
-                default: return 0;
-            }
-        }
-        public double SightRange(Ant ant)
-        {
-            switch (ant.GetType().Name)
-            {
-                case "FarmerAnt": return ANT_SIGHT_RANGE;
-                case "WorkerAnt": return ANT_SIGHT_RANGE;
-                case "ScoutAnt": return ANT_SIGHT_RANGE * 2;
-                case "SoldierAnt": return ANT_SIGHT_RANGE * 1.5;
-                default: return 0;
-            }
-        }
-        #region IMotherNature methods
-
         List<Food> IMotherNature.LookForFoodAround(Ant ant)
         {
             List<Food> res = new List<Food>();
             foreach (FoodCluster cluster in food)
-                res.AddRange(cluster.Content.Where(f => new Vector(f.Location.X - ant.X, f.Location.Y - ant.Y).Length < SightRange(ant)));
+                res.AddRange(cluster.Content.Where(f => new Vector(f.Location.X - ant.X, f.Location.Y - ant.Y).Length < ant.SightRange()));
             return res;
         }
 
@@ -332,7 +302,7 @@ namespace Krohonde
         {
             List<Brick> res = new List<Brick>();
             foreach (BrickCluster cluster in bricks)
-                res.AddRange(cluster.Content.Where(b => new Vector(b.Location.X - ant.X, b.Location.Y - ant.Y).Length < SightRange(ant)));
+                res.AddRange(cluster.Content.Where(b => new Vector(b.Location.X - ant.X, b.Location.Y - ant.Y).Length < ant.SightRange()));
             return res;
         }
 
@@ -341,18 +311,18 @@ namespace Krohonde
             List<Ant> res = new List<Ant>();
             foreach (Colony colo in colonies)
                 if (colo != ant.Colony)
-                    res.AddRange(colo.Population.Where(b => new Vector(b.X - ant.X, b.Y - ant.Y).Length < SightRange(ant)));
+                    res.AddRange(colo.Population.Where(b => new Vector(b.X - ant.X, b.Y - ant.Y).Length < ant.SightRange()));
             return res;
         }
 
         List<Pheromon> IMotherNature.SmellAround(Ant ant)
         {
-            return pheromons.Where(phero => new Vector(phero.Location.X - ant.X, phero.Location.Y - ant.Y).Length < ANT_SMELL_RANGE * phero.Intensity && ant.Colony == phero.Colony).ToList();
+            return pheromons.Where(phero => new Vector(phero.Location.X - ant.X, phero.Location.Y - ant.Y).Length < Ant.SMELL_RANGE * phero.Intensity && ant.Colony == phero.Colony).ToList();
         }
 
         int IMotherNature.Collect(Ant ant, Resource resource)
         {
-            if (Helpers.Distance(ant.SDLocation, resource.Location) > ANT_REACH) return 0; // resource is too far
+            if (Helpers.Distance(ant.SDLocation, resource.Location) > Ant.PICKUP_REACH) return 0; // resource is too far
 
             bool gotcha = false;
             if (resource.GetType() == typeof(Food))
@@ -388,12 +358,12 @@ namespace Krohonde
             int res = 0;
             if (resource.GetType() == typeof(Food))
             {
-                res = ANT_FOOD_BAG_SIZE;
+                res = Ant.FOOD_BAG_SIZE;
                 if (ant.GetType().Name == "FarmerAnt") res *= 20; // farmers can carry 20 times more food
             }
             else if (resource.GetType() == typeof(Brick))
             {
-                res = ANT_BRICK_BAG_SIZE;
+                res = Ant.BRICK_BAG_SIZE;
                 if (ant.GetType().Name == "WorkerAnt") res *= 20; // workers can carry 20 times more bricks
             }
             return res;
@@ -457,7 +427,6 @@ namespace Krohonde
         {
             throw new NotImplementedException();
         }
-        #endregion
 
 
     }

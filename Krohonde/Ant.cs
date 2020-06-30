@@ -10,8 +10,38 @@ using System.Windows;
 
 namespace Krohonde
 {
+    /// <summary>
+    /// The Ant class defines all ants with
+    /// 
+    /// - A full (and unique) name
+    /// - A location (X,Y)
+    /// - A speed (can be higher for Scouts)
+    /// - The Colony to which it belongs
+    /// - Energy, Strength and Toughness
+    /// - A foodbag to hold food (much bigger for Farmers)
+    /// - A brickbag to hold bricks (much bigger for Workers)
+    /// 
+    /// The class also defines things all ants can do:
+    /// 
+    /// - Move
+    /// - Eat
+    /// - Fight
+    /// - Build (Workers)
+    /// - Pick a resource from the ground (Workers and Farmers)
+    /// - Drop a pheromon
+    /// - Look for Food, Buildin material ('bricks') or enemies around them
+    /// - Detect smells (pheromons)
+    /// 
+    /// </summary>
     public abstract class Ant
     {
+        public const int HIT_REACH = 30; // How far ants can hit another ant
+        public const int SIGHT_RANGE = 100; // How far ants can see
+        public const int SMELL_RANGE = 1000; // How far ants can smell a full-intensity pheromon
+        public const int FOOD_BAG_SIZE = 5; // The basic size of the food bag of all ants
+        public const int BRICK_BAG_SIZE = 5; // The basic size of the brick bag of all ants
+        public const int PICKUP_REACH = 10; // From how far can an ant pickup a resource
+
         private static int lastid = 0; // id if the last Ant that was instanciated
         private readonly int id;
         private static int lastactionby; // the id of the last ant that performed an action (prevent double play)
@@ -73,7 +103,7 @@ namespace Krohonde
             roam();
 
             if (!ActionAllowed()) return; // ignore multiple actions by same ant
-            double maxSpeed = MyColony.World().getMaxSpeed(this);
+            double maxSpeed = this.getMaxSpeed();
             // Linear speed
             double linspeed = (new Vector(Speed.X, Speed.Y)).Length;
             if (linspeed > maxSpeed) // Too big, let's adjust to max 
@@ -130,6 +160,12 @@ namespace Krohonde
             return true;
         }
 
+        /// <summary>
+        /// Build an extension to the colony's hill
+        /// The ant must be a worker, with enough bricks in its brickbag.
+        /// It must be outside the anthill, but not too far (see Colony.CONSTRUCTION_ZONE)
+        /// </summary>
+        /// <returns>True if the action succeeded</returns>
         protected bool Build()
         {
             if (!ActionAllowed()) return false; // ignore multiple actions by same ant
@@ -142,15 +178,24 @@ namespace Krohonde
             return false;
         }
 
+        /// <summary>
+        /// Hit an enemy ant
+        /// The enemy must be close enough (see HIT_REACH)
+        /// The more energy the ant has, the more damage it makes to the enemy
+        /// The more strength the ant has, the more damage too
+        /// </summary>
+        /// <param name="ant"></param>
+        /// <returns></returns>
         protected bool Hit(Ant ant)
         {
             if (!ActionAllowed()) return false; // ignore multiple actions by same ant
-            if (Helpers.Distance(SDLocation, ant.SDLocation) > MotherNature.ANT_HIT_REACH) return false;
+            if (Helpers.Distance(SDLocation, ant.SDLocation) > HIT_REACH) return false;
             if (ant.Colony == MyColony) return false; // don't hit a friend !!!!
 
             // Ok, we have a fight...
             int damage = energy / 10;
             ant.energy -= damage;
+            // TODO damage take strength into account
             ant.lastHitBy = this;
 
             return true;
@@ -162,12 +207,18 @@ namespace Krohonde
         /// <param name="deltatime"></param>
         public abstract void Live(double deltatime);
 
+        /// <summary>
+        /// The angle (in degrees) the speed makes with x-axis
+        /// </summary>
         [Browsable(false)]
         public int Heading
         {
             get => (int)(Math.Atan2(Speed.Y , Speed.X -1)*180/Math.PI);
         }
 
+        /// <summary>
+        /// The position of the ant's head (which is not the picture's location
+        /// </summary>
         [Browsable(false)]
         public Point HeadPosition
         {
@@ -198,11 +249,20 @@ namespace Krohonde
             return true;
         }
 
+        /// <summary>
+        /// Dump the foodbag into the colony's foodstore
+        /// </summary>
         public void EmptyFoodBag()
         {
             foodbag = 0;
         }
 
+        /// <summary>
+        /// Drop a pheromon at the ant's current location. The type of the pheromon depends on the type of ant:
+        /// Food for Farmers and scouts
+        /// Build for Workers
+        /// Danger for soldiers 
+        /// </summary>
         protected void DropPheromon()
         {
             if (!ActionAllowed()) return; // ignore multiple actions by same ant
@@ -210,6 +270,11 @@ namespace Krohonde
             energy -= MotherNature.COST_OF_DROPPING_PHEROMON;
         }
 
+        /// <summary>
+        /// Drop a specific pheromontype
+        /// At this point, it is only useful for scouts to drop other types of pheromons than Food
+        /// </summary>
+        /// <param name="pherotype"></param>
         protected void DropPheromon(MotherNature.PheromonTypes pherotype)
         {
             if (!ActionAllowed()) return; // ignore multiple actions by same ant
@@ -217,6 +282,10 @@ namespace Krohonde
             energy -= MotherNature.COST_OF_DROPPING_PHEROMON;
         }
 
+        /// <summary>
+        /// Get the list of food chunks in sight (
+        /// </summary>
+        /// <returns></returns>
         protected List<Food> FoodAroundMe()
         {
             energy -= MotherNature.COST_OF_LOOKING_AROUND;
@@ -311,5 +380,30 @@ namespace Krohonde
         
         [Browsable(false)]
         public Ant LastHitBy { get => lastHitBy; }
+
+        private double getMaxSpeed()
+        {
+            switch (this.GetType().Name)
+            {
+                case "FarmerAnt": return 10;
+                case "WorkerAnt": return 10;
+                case "ScoutAnt": return 20;
+                case "SoldierAnt": return 15;
+                default: return 0;
+            }
+        }
+        public double SightRange()
+        {
+            switch (this.GetType().Name)
+            {
+                case "FarmerAnt": return SIGHT_RANGE;
+                case "WorkerAnt": return SIGHT_RANGE;
+                case "ScoutAnt": return SIGHT_RANGE * 2;
+                case "SoldierAnt": return SIGHT_RANGE * 1.5;
+                default: return 0;
+            }
+        }
+
+
     }
 }
