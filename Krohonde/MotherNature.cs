@@ -206,6 +206,8 @@ namespace Krohonde
                     colony.Hatch(egg); // welcome a new baby
                 }
 
+                // Long live the Queen !!!!
+                colony.Queen.Live(deltatime);
             }
 
             // Handle stale pheromons

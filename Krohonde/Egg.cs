@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
+using System.Drawing;
 
 namespace Krohonde
 {
@@ -19,14 +19,14 @@ namespace Krohonde
 
         private double maturity;     // 100 means it's birth time !!!
 
-        private Point Location;
+        private Point location;
 
-        public Egg(MotherNature.AntTypes t, Point location, Queen mother)
+        public Egg(MotherNature.AntTypes t, Point loc, Queen mother)
         {
             id = ++lastid;
             type = t;
             name = mother.Colony.GetType().Name + this.GetType().Name + id;
-            Location = location;
+            location = loc;
             certificate = mother.Colony.World().GetEggCertificate(name);
             rot = MotherNature.alea.Next(0, 360) ;
         }
@@ -44,7 +44,7 @@ namespace Krohonde
         public double Maturity { get => maturity; }
 
         public MotherNature.AntTypes Type { get => type; }
-        public System.Drawing.Point SDLocation { get => new System.Drawing.Point((int)Location.X, (int)Location.Y); }
+        public Point Location { get => location; }
 
         public string Name { get => name; }
         public string Certificate { get => certificate; }

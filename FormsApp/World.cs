@@ -138,7 +138,7 @@ namespace FormsApp
                             break;
                     }
                     eggImage = RotateImage(eggImage, egg.Rot);
-                    graphics.DrawImage(eggImage, (int)egg.SDLocation.X, (int)egg.SDLocation.Y, (float)(eggImage.Width*egg.Maturity/100), (float)(eggImage.Height*egg.Maturity/100));
+                    graphics.DrawImage(eggImage, (int)egg.Location.X, (int)egg.Location.Y, (float)(eggImage.Width*egg.Maturity/100), (float)(eggImage.Height*egg.Maturity/100));
                 }
                 // Queen
                 Image queenImage = global::FormsApp.Properties.Resources.queen;

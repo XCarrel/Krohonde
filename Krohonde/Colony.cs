@@ -10,8 +10,9 @@ namespace Krohonde
 {
     public abstract class Colony
     {
-        private const int CONSTRUCTION_ZONE = 50;
-        private const int CRIB_SIZE = 16; // the square space that an egg takes
+        private const int CONSTRUCTION_ZONE = 50; // The distance around the anthill where construction is allowed
+        private const int CRIB_SIZE = 16; // the square space that an egg takes in the anthill
+        private const int INITIAL_MATURITY = 25; // When an egg is laid, it doesn't start from 0 so that it is visible
         protected IMotherNature myWorld;
         protected System.Windows.Point location;
         protected List<System.Drawing.Point> hill;
@@ -33,7 +34,6 @@ namespace Krohonde
             hill.Add(new System.Drawing.Point { X = (int)location.X + 43, Y = (int)location.Y + 25 });
             hill.Add(new System.Drawing.Point { X = (int)location.X, Y = (int)location.Y + 50 });
             hill.Add(new System.Drawing.Point { X = (int)location.X - 43, Y = (int)location.Y + 25 });
-            queen = new Queen(loc, new System.Windows.Point(0, 0), this);
             eggs = new List<Egg>();
             ants = new List<Ant>();
             color = col;
@@ -106,16 +106,30 @@ namespace Krohonde
             return true;
         }
 
-        private bool LayEgg(MotherNature.AntTypes typ, System.Windows.Point loc,Queen queen,int val)
+        private bool LayEgg(MotherNature.AntTypes typ, System.Drawing.Point loc, Queen queen, int val)
         {
+            if (!Helpers.IsInPolygon(Hill, loc)) return false; // can't lay an egg outside the hill
+
+            // Check if there is space
+            Rectangle newcrib = new Rectangle(loc, new System.Drawing.Size(CRIB_SIZE, CRIB_SIZE));
+            foreach (Egg crib in Nursery)
+                if (newcrib.IntersectsWith(new Rectangle(crib.Location, new System.Drawing.Size(CRIB_SIZE, CRIB_SIZE))))
+                    return false;
+
             eggs.Add(new Egg(typ, loc, queen, val));
             return true;
         }
+        public bool LayEgg(MotherNature.AntTypes typ, System.Drawing.Point loc, Queen queen)
+        {
+            return LayEgg(typ,loc,queen,INITIAL_MATURITY);
+        }
+
+
         public void Spawn(int nbEggs)
         {
             for (int i = 0; i < nbEggs; i++)
             {
-                eggs.Add(new Egg((MotherNature.AntTypes)(i%4), new System.Windows.Point(location.X + -40 + (i % 5) * 16, location.Y + -40 + (i / 5) * 16), queen, MotherNature.alea.Next(75, 90)));
+                eggs.Add(new Egg((MotherNature.AntTypes)(i%4), new System.Drawing.Point((int)(location.X + -40 + (i % 5) * 16), (int)(location.Y + -40 + (i / 5) * 16)), queen, MotherNature.alea.Next(75, 90)));
             }
         }
         public System.Drawing.Point[] Hill { get => hill.ToArray(); }
