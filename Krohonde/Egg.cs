@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace Krohonde
 {
-    public class Larvae
+    public class Egg
     {
         private static int lastid = 0; // id if the last larvae that was instanciated
         private readonly int id;
@@ -21,7 +21,7 @@ namespace Krohonde
 
         private Point Location;
 
-        public Larvae(MotherNature.AntTypes t, Point location, Queen mother)
+        public Egg(MotherNature.AntTypes t, Point location, Queen mother)
         {
             id = ++lastid;
             type = t;
@@ -31,7 +31,7 @@ namespace Krohonde
             rot = MotherNature.alea.Next(0, 360) ;
         }
 
-        public Larvae(MotherNature.AntTypes t, Point location, Queen mother, int mat) : this(t,location,mother)
+        public Egg(MotherNature.AntTypes t, Point location, Queen mother, int mat) : this(t,location,mother)
         {
             maturity = mat;
         }

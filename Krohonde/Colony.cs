@@ -11,12 +11,13 @@ namespace Krohonde
     public abstract class Colony
     {
         private const int CONSTRUCTION_ZONE = 50;
+        private const int CRIB_SIZE = 16; // the square space that an egg takes
         protected IMotherNature myWorld;
         protected System.Windows.Point location;
         protected List<System.Drawing.Point> hill;
         protected Queen queen;
         protected List<Ant> ants;
-        protected List<Larvae> eggs;
+        protected List<Egg> eggs;
         private readonly Color color;
         private int foodstore;
 
@@ -33,7 +34,7 @@ namespace Krohonde
             hill.Add(new System.Drawing.Point { X = (int)location.X, Y = (int)location.Y + 50 });
             hill.Add(new System.Drawing.Point { X = (int)location.X - 43, Y = (int)location.Y + 25 });
             queen = new Queen(loc, new System.Windows.Point(0, 0), this);
-            eggs = new List<Larvae>();
+            eggs = new List<Egg>();
             ants = new List<Ant>();
             color = col;
         }
@@ -51,7 +52,7 @@ namespace Krohonde
         /// A new star is born !!!!
         /// </summary>
         /// <param name="egg"></param>
-        public abstract void Hatch(Larvae egg);
+        public abstract void Hatch(Egg egg);
         /// <summary>
         /// An ant intends to dump its food bag into the colony's foodstore
         /// </summary>
@@ -107,20 +108,20 @@ namespace Krohonde
 
         private bool LayEgg(MotherNature.AntTypes typ, System.Windows.Point loc,Queen queen,int val)
         {
-            eggs.Add(new Larvae(typ, loc, queen, val));
+            eggs.Add(new Egg(typ, loc, queen, val));
             return true;
         }
         public void Spawn(int nbEggs)
         {
             for (int i = 0; i < nbEggs; i++)
             {
-                eggs.Add(new Larvae((MotherNature.AntTypes)(i%4), new System.Windows.Point(location.X + -40 + (i % 5) * 16, location.Y + -40 + (i / 5) * 16), queen, MotherNature.alea.Next(75, 90)));
+                eggs.Add(new Egg((MotherNature.AntTypes)(i%4), new System.Windows.Point(location.X + -40 + (i % 5) * 16, location.Y + -40 + (i / 5) * 16), queen, MotherNature.alea.Next(75, 90)));
             }
         }
         public System.Drawing.Point[] Hill { get => hill.ToArray(); }
 
         public List<Ant> Population { get => ants; }
-        public List<Larvae> Nursery { get => eggs; }
+        public List<Egg> Nursery { get => eggs; }
 
         public Color Color { get => color; }
 

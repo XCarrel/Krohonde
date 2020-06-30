@@ -187,8 +187,8 @@ namespace Krohonde
                 // Remove the dead ones
                 foreach (Ant ant in deadones) colony.Dispose(ant);
 
-                List<Larvae> ripeones = new List<Larvae>(); // those that are ready for birth
-                foreach (Larvae egg in colony.Nursery)
+                List<Egg> ripeones = new List<Egg>(); // those that are ready for birth
+                foreach (Egg egg in colony.Nursery)
                 {
                     if (eggCertificates[egg.Name].Equals(egg.Certificate))
                     {
@@ -201,7 +201,7 @@ namespace Krohonde
                     }
                 }
                 // Remove the ripe ones
-                foreach (Larvae egg in ripeones)
+                foreach (Egg egg in ripeones)
                 {
                     colony.Hatch(egg); // welcome a new baby
                 }

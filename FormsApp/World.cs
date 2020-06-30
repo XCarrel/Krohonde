@@ -117,7 +117,7 @@ namespace FormsApp
 
                 // Eggs
                 Image eggImage;
-                foreach (Larvae egg in colony.Nursery)
+                foreach (Egg egg in colony.Nursery)
                 {
                     switch (egg.Type)
                     {

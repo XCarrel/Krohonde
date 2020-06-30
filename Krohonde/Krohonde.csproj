@@ -52,7 +52,7 @@
     <Compile Include="FoodCluster.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="IMotherNature.cs" />
-    <Compile Include="Larvae.cs" />
+    <Compile Include="Egg.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="MotherNature.cs" />
     <Compile Include="Pheromon.cs" />

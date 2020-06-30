@@ -15,7 +15,7 @@ namespace Krohonde.RedColony
         {
         }
 
-        public override void Hatch(Larvae egg)
+        public override void Hatch(Egg egg)
         {
             eggs.Remove(egg);
             switch (egg.Type)
