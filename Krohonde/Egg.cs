@@ -16,6 +16,7 @@ namespace Krohonde
         private readonly MotherNature.AntTypes type;
         private readonly string certificate;
         private readonly int rot;
+        private readonly Queen mother;
 
         private double maturity;     // 100 means it's birth time !!!
 
@@ -29,6 +30,7 @@ namespace Krohonde
             location = loc;
             certificate = mother.Colony.World().GetEggCertificate(name);
             rot = MotherNature.alea.Next(0, 360) ;
+            this.mother = mother;
         }
 
         public Egg(MotherNature.AntTypes t, Point location, Queen mother, int mat) : this(t,location,mother)
@@ -39,7 +41,7 @@ namespace Krohonde
         public void Grow(double deltatime)
         {
             maturity += deltatime;
-            // TODO growth must cost food to colony
+            mother.Colony.GetFoodFromStore(MotherNature.COST_OF_EGG_GROWTH);
         }
         public double Maturity { get => maturity; }
 

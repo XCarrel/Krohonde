@@ -41,6 +41,7 @@ namespace Krohonde
         public const int FOOD_BAG_SIZE = 5; // The basic size of the food bag of all ants
         public const int BRICK_BAG_SIZE = 5; // The basic size of the brick bag of all ants
         public const int PICKUP_REACH = 10; // From how far can an ant pickup a resource
+        public const int MAX_BITE_SIZE = 2; // how much food an ant can eat in one action
 
         private static int lastid = 0; // id if the last Ant that was instanciated
         private readonly int id;
@@ -142,6 +143,22 @@ namespace Krohonde
             energy -= (int)(linspeed * deltatime);
         }
 
+        private void Eat(int amount, MotherNature.DigestionFor purpose)
+        {
+            switch (purpose)
+            {
+                case MotherNature.DigestionFor.Energy:
+                    energy += amount * MotherNature.FOOD_TO_ENERGY;
+                    break;
+                case MotherNature.DigestionFor.Strength:
+                    strength += amount * MotherNature.FOOD_TO_STRENGTH;
+                    break;
+                case MotherNature.DigestionFor.Toughness:
+                    toughness += amount * MotherNature.FOOD_TO_TOUGHNESS;
+                    break;
+            }
+        }
+
         /// <summary>
         /// Eat some food from my own bag, to build up energy, strength or toughness
         /// </summary>
@@ -150,20 +167,22 @@ namespace Krohonde
         protected bool EatFromBag(int amount, MotherNature.DigestionFor purpose)
         {
             if (!ActionAllowed()) return false; // ignore multiple actions by same ant
-            int val = Math.Min(Math.Min(amount,foodbag), MotherNature.MAX_BITE_SIZE);
-            switch (purpose)
-            {
-                case MotherNature.DigestionFor.Energy:
-                    energy += val * MotherNature.FOOD_TO_ENERGY;
-                    break;
-                case MotherNature.DigestionFor.Strength:
-                    strength += val * MotherNature.FOOD_TO_STRENGTH;
-                    break;
-                case MotherNature.DigestionFor.Toughness:
-                    toughness += val * MotherNature.FOOD_TO_TOUGHNESS;
-                    break;
-            }
+            int val = Math.Min(Math.Min(amount, foodbag), MAX_BITE_SIZE);
+            Eat(val, purpose);
             foodbag -= val;
+            return true;
+        }
+
+        /// <summary>
+        /// Eat some food from my own bag, to build up energy, strength or toughness
+        /// </summary>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        protected bool EatFromStore(int amount, MotherNature.DigestionFor purpose)
+        {
+            if (!ActionAllowed()) return false; // ignore multiple actions by same ant
+            int val = MyColony.GetFoodFromStore(MAX_BITE_SIZE);
+            Eat(val, purpose);
             return true;
         }
 
@@ -201,8 +220,9 @@ namespace Krohonde
 
             // Ok, we have a fight...
             int damage = energy / 10;
+            double strengthfactor = 1 + strength / 100.0;
+            damage = (int)(damage*strengthfactor);
             ant.energy -= damage;
-            // TODO damage take strength into account
             ant.lastHitBy = this;
 
             return true;
