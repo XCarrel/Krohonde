@@ -181,43 +181,50 @@ namespace Krohonde
             double deltatime = (universaltime.Elapsed - lastupdate).TotalSeconds;
             foreach (Colony colony in colonies)
             {
-                List<Ant> deadones = new List<Ant>();
-                foreach (Ant ant in colony.Population)
+                if (colony.IsAlive)
                 {
-                    if (birthCertificates[ant.Fullname].Equals(ant.Certificate))
+                    List<Ant> deadones = new List<Ant>();
+                    foreach (Ant ant in colony.Population)
                     {
-                        ant.Live(deltatime);
-                        if (ant.Energy < 0)
+                        if (birthCertificates[ant.Fullname].Equals(ant.Certificate))
                         {
-                            birthCertificates.Remove(ant.Fullname);
-                            deadones.Add(ant);
+                            ant.Live(deltatime);
+                            if (ant.Energy < 0)
+                            {
+                                birthCertificates.Remove(ant.Fullname);
+                                deadones.Add(ant);
+                            }
                         }
                     }
-                }
-                // Remove the dead ones
-                foreach (Ant ant in deadones) colony.Dispose(ant);
+                    // Remove the dead ones
+                    foreach (Ant ant in deadones) colony.Dispose(ant);
 
-                List<Egg> ripeones = new List<Egg>(); // those that are ready for birth
-                foreach (Egg egg in colony.Nursery)
-                {
-                    if (eggCertificates[egg.Name].Equals(egg.Certificate))
+                    List<Egg> ripeones = new List<Egg>(); // those that are ready for birth
+                    foreach (Egg egg in colony.Nursery)
                     {
-                        egg.Grow(deltatime);
-                        if (egg.Maturity >= 100)
+                        if (eggCertificates[egg.Name].Equals(egg.Certificate))
                         {
-                            eggCertificates.Remove(egg.Name);
-                            ripeones.Add(egg);
+                            egg.Grow(deltatime);
+                            if (egg.Maturity >= 100)
+                            {
+                                eggCertificates.Remove(egg.Name);
+                                ripeones.Add(egg);
+                            }
                         }
                     }
-                }
-                // Remove the ripe ones
-                foreach (Egg egg in ripeones)
-                {
-                    colony.Hatch(egg); // welcome a new baby
-                }
+                    // Remove the ripe ones
+                    foreach (Egg egg in ripeones)
+                    {
+                        colony.Hatch(egg); // welcome a new baby
+                    }
 
-                // Long live the Queen !!!!
-                colony.Queen.Live(deltatime);
+                    // Long live the Queen !!!!
+                    colony.Queen.Live(deltatime);
+                    colony.Queen.Sleep(); // get some rest
+                } else
+                {
+                    colony.DoomsDay();
+                }
             }
 
             // Handle stale pheromons
