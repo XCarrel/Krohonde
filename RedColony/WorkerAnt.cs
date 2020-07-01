@@ -9,19 +9,37 @@ namespace Krohonde.RedColony
 {
     public class WorkerAnt : Ant
     {
-        public WorkerAnt(Point location, Point speed, RedColony colony) : base (location,speed,colony)
+        private Point position;
+
+
+        public WorkerAnt(Point location, Point speed, RedColony colony) : base(location, speed, colony)
         {
+
         }
 
         public override void Live(double deltatime)
         {
-            if (Selected)
+            double distMin = 5000;
+
+
+            List<Brick> brickpositions = BricksAroundMe();
+            if (brickpositions.Count() > 0)
             {
-                Console.WriteLine($"Colony size = {MyColony.Size}");
-                Build();
-                Console.WriteLine($"Colony size = {MyColony.Size}");
-                Selected = false;
+                Brick closest = brickpositions[0];
+                foreach (Brick brickporche in brickpositions)
+                {
+                    if (Helpers.Distance(SDLocation, brickporche.Location) < distMin)
+                    {
+                        closest = brickporche;
+                        distMin = Helpers.Distance(SDLocation, brickporche.Location);
+                    }
+                }
+
+                Speed.X = closest.Location.X - X;
+                Speed.Y = closest.Location.Y - Y;
             }
+
+
             Move(deltatime);
         }
     }
