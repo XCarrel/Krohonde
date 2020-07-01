@@ -15,7 +15,8 @@ namespace Krohonde.BlueColony
 
         public override void Live(double deltatime)
         {
-            Move(deltatime);
+            ///Move(deltatime);
+            this.SmellsAroundMe();
         }
     }
 }

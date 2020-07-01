@@ -9,13 +9,17 @@ namespace Krohonde.BlueColony
 {
     public class ScoutAnt : Ant
     {
+        public List<Food> food;
+        public int time = 50;
+        Point destination;
         public ScoutAnt(Point location, Point speed, BlueColony colony) : base(location, speed, colony)
         {
+            
         }
 
         public override void Live(double deltatime)
         {
-            Move(deltatime);
+                Move(deltatime);
         }
     }
 }

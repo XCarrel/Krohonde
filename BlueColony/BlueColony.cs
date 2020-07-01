@@ -27,5 +27,6 @@ namespace Krohonde.BlueColony
                 case MotherNature.AntTypes.SoldierAnt: ants.Add(new SoldierAnt(new System.Windows.Point(egg.Location.X, egg.Location.Y), new System.Windows.Point(5, 5), this)); break;
             }
         }
+
     }
 }
