@@ -103,5 +103,7 @@ namespace Krohonde
         [Browsable(false)]
         public System.Drawing.Point SDLocation { get => new System.Drawing.Point((int)X, (int)Y); }
 
+        public int Energy { get => energy; }
+
     }
 }
