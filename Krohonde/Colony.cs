@@ -37,6 +37,7 @@ namespace Krohonde
             eggs = new List<Egg>();
             ants = new List<Ant>();
             color = col;
+            foodstore = MotherNature.INITIAL_FOOD_STORE;
         }
 
         /// <summary>

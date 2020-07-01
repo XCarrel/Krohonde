@@ -27,7 +27,7 @@ namespace Krohonde
 
         public static Random alea;
         public const int MAX_ENERGY = 30000; // of an ant 
-        public const int PHEROMON_LIFE_DURATION = 30; // seconds
+        public const int PHEROMON_LIFE_DURATION = 120; // seconds
         public const int COST_OF_DROPPING_PHEROMON = 30; // units of energy
         public const int COST_OF_LOOKING_AROUND = 10; // units of energy
         public const int COST_OF_SMELLING_AROUND = 20; // units of energy
@@ -37,9 +37,10 @@ namespace Krohonde
         public const int COST_OF_EGG_GROWTH = 5; // units of energy
         public const int MAX_QUEEN_BITE_SIZE = 10; // how much food a queen can eat in one action
         public const int MAX_QUEEN_SPEED = 4; // A queen will walk but never run
-        public const int FOOD_TO_ENERGY = 500; // how much energy an ant get when it eats food
-        public const int FOOD_TO_STRENGTH = 500; // how much strength an ant get when it eats food
-        public const int FOOD_TO_TOUGHNESS = 500; // how much touhness an ant get when it eats food
+        public const int INITIAL_FOOD_STORE = 500; 
+        public const int FOOD_TO_ENERGY = 100; // how much energy an ant get when it eats food
+        public const int FOOD_TO_STRENGTH = 5; // how much strength an ant get when it eats food
+        public const int FOOD_TO_TOUGHNESS = 5; // how much touhness an ant get when it eats food
         public const int BRICKS_TO_BUILD = 50; // how much bricks it takes to build an extension
 
         public enum PheromonTypes { Food, Danger, Build }
