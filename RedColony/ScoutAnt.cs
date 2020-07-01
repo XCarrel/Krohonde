@@ -7,10 +7,15 @@ using System.Windows;
 
 namespace Krohonde.RedColony
 {
-    
+    /**
+     * Auteur : Eliott Jaquier CORP & CO - (P0PC0RN)
+     * Version : 3.6 (01.07.2020) - phase 1
+     * Comments : Remove
+     */
     
     public class ScoutAnt : Ant
     {
+        /*Classe d'une resource custom (Resource standar + food + estUsée) */
         [Serializable]
         public class ResourceCustom
         {
@@ -18,35 +23,32 @@ namespace Krohonde.RedColony
             public bool isFood;
             public Resource resource;
         }
+        /*Variables globales*/
         public Point goToPosition;
         public Resource ressourceLast = null;
         public bool isPickuping = false;
         public static List<ResourceCustom> ressources = new List<ResourceCustom>(0);
 
-        public ScoutAnt(Point location, Point speed, RedColony colony) : base(location, speed, colony)
+        public ScoutAnt(Point location, Point speed, RedColony colony) : base(location, speed, colony)//Setup
         {
-            GeneratePosition();
+            GeneratePosition();//Génération d'une destination aléatoire
         }
-        private int tick = 0;
-        public override void Live(double deltatime)
+        public override void Live(double deltatime)//Update
         {
-            /*if (tick > 100)
-            {
-                Resource procheSelonScouts = GoToResource(new Point(X, Y), true, true);
-                goToPosition = new Point(procheSelonScouts.Location.X, procheSelonScouts.Location.Y);
-            }*/
-            MoveToPosition(deltatime, goToPosition);
+            MoveToPosition(deltatime, goToPosition);//Avance d'un tick en direction de la destination
             CheckFor();
-            tick = tick++;
-            
-            
-            /*List <Ant> fourmis = MyColony.Population;
-            foreach(Ant ant in fourmis)
-            {
-                if(ant.)
-            }*/
         }
-        public static Resource GoToResource(Point position,bool bypasseUse, bool isForFood)
+        public static void DesactivateRessource(Resource ressourceADelete)//Supprime la resource une fois qu'elle est utilisée
+        {
+            foreach (ResourceCustom resActif in ressources.ToList())
+            {
+                if(resActif.resource == ressourceADelete)
+                {
+                    ressources.Remove(resActif);
+                }
+            }
+        }
+        public static Resource GoToResource(Point position,bool bypasseUse, bool isForFood)//Checher la resource la plus proche (selon la position demandée, le bypasse, et la nourriture / brique)
         {
             Resource nearest = null;
             float nearestDistance = 100000;
@@ -71,7 +73,7 @@ namespace Krohonde.RedColony
             }
             return nearest;
         }
-        public void CheckFor()
+        public void CheckFor()//Détecte les ressources à côté (briques et nourriture)
         {
             List<ResourceCustom> currentCheck = new List<ResourceCustom>(0);
             foreach(Brick briqueProche in BricksAroundMe())
@@ -90,7 +92,8 @@ namespace Krohonde.RedColony
                 ressourceToAdd.resource = foodProche;
                 currentCheck.Add(ressourceToAdd);
             }
-            foreach(ResourceCustom ressourceAChecker in currentCheck)
+           
+            foreach(ResourceCustom ressourceAChecker in currentCheck)//Ajoute seulement les nouvelles entrées
             {
                 bool isAlreadyFounded = false;
                 foreach (ResourceCustom ressourceChecker in ressources)
@@ -107,11 +110,11 @@ namespace Krohonde.RedColony
                 }
             }
         }
-        public void MoveToPosition(double deltatime, Point goPos)
+        public void MoveToPosition(double deltatime, Point goPos)//Avance d'un tick en direction de la destination
         {
             if(this.Blocked != "non")
             {
-                GeneratePosition();
+                GeneratePosition();//Génération d'une destination aléatoire
             }
             float limitArrived = 3f;
             bool canMove = true;
@@ -130,10 +133,10 @@ namespace Krohonde.RedColony
                     DropPheromon(MotherNature.PheromonTypes.Build);
                     Pickup(ressourceLast);
                 }
-                GeneratePosition();
+                GeneratePosition();//Génération d'une destination aléatoire
             }
         }
-        public void GeneratePosition()
+        public void GeneratePosition()//Génération d'une destination aléatoire
         {
             Random r = new Random();
             goToPosition = new Point(r.Next(200, 1200), r.Next(150, 600));

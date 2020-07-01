@@ -35,10 +35,29 @@ namespace Krohonde.RedColony
                         closest = brickporche;
                         distMin = Helpers.Distance(SDLocation, brickporche.Location);
                     }
-                } 
+                }
 
-                Speed.X = closest.Location.X - X;
-                Speed.Y = closest.Location.Y - Y;
+                int xPos = closest.Location.X;
+                int yPos = closest.Location.Y;
+                int xMyPos = Convert.ToInt32(X);
+                int yMyPos = Convert.ToInt32(Y);
+                float distance = Math.Abs(xPos - xMyPos) + Math.Abs(yPos - yMyPos);
+
+                if(distance < 2.0f)
+                {
+                    ScoutAnt.DesactivateRessource(closest);
+                    Pickup(closest);
+                }
+                else
+                {
+                    Speed.X = closest.Location.X - X - 1;
+                    Speed.Y = closest.Location.Y - Y - 1;
+                    Move(deltatime);
+                }
+
+                
+
+
             }
             else
             {
@@ -52,10 +71,11 @@ namespace Krohonde.RedColony
 
                 Speed.X = goToPosition.X - X;
                 Speed.Y = goToPosition.Y - Y;
+                Move(deltatime);
             }
+            
 
-
-            Move(deltatime);
+            
         }
     }
 }
