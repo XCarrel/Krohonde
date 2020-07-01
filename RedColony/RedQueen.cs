@@ -14,14 +14,17 @@ namespace Krohonde.RedColony
         public int NbFarmerAnt = 0;
         public int NbScoutAnt = 0;
         public int NbSoldierAnt = 0;
-        public int NbMaxAntTypeFarmer = 2;
-        public int NbMaxAntTypeWorker = 2;
+        public int NbMaxAntTypeFarmer = 10;
+        public int NbMaxAntTypeWorker = 15;
         public int NbMaxAntTypeScout = 2;
-        public int NbMaxAntTypeSoldier = 2;
+        public int NbMaxAntTypeSoldier = 300;
+        public int SpawnAnt = 1;
+        private int Phase = 1;
         public RedQueen(Point location, Point speed, Colony colony) : base(location, speed, colony)
         { }
         public override void Live(double deltatime)
         {
+            
             NbWorkerAnt = 0;
             NbFarmerAnt = 0;
             NbScoutAnt = 0;
@@ -45,31 +48,63 @@ namespace Krohonde.RedColony
                 }
 
             }
-            /*Logger.WriteLogFile("Nombre de fourmis travailleuse :" + NbWorkerAnt);
-            Logger.WriteLogFile("Nombre de fourmis Fermiere :" + NbFarmerAnt);
-            Logger.WriteLogFile("Nombre de fourmis scout :" + NbScoutAnt);
-            Logger.WriteLogFile("Nombre de fourmis soldat :" + NbSoldierAnt);*/
-            if (NbFarmerAnt < NbMaxAntTypeFarmer)
+            if (Phase == 1)
             {
-                LayEgg(MotherNature.AntTypes.FarmerAnt, new Point((int)X, (int)Y + 15));
-                //NbMaxAntTypeFarmer = NbMaxAntTypeFarmer + 1;
+                if (SpawnAnt == 4)
+                {
+                    LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X + 16, (int)Y));
+                    SpawnAnt = 1;
+                    Phase = 2;
+                }
+                if (SpawnAnt == 3)
+                {
+                    LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X - 16, (int)Y));
+                    SpawnAnt++;
+                }
+                if (SpawnAnt == 2)
+                {
+                    LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X, (int)Y + 16));
+                    SpawnAnt++;
+                }
+                if (SpawnAnt == 1)
+                {
+                    LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X, (int)Y - 16));
+                    SpawnAnt++;
+                }
+                
             }
-            if (NbWorkerAnt < NbMaxAntTypeWorker)
-            {
-                //NbMaxAntTypeWorker = NbMaxAntTypeWorker + 1;
-                if (NbWorkerAnt < NbMaxAntTypeWorker) LayEgg(MotherNature.AntTypes.WorkerAnt, new Point((int)X, (int)Y - 15));
-            }
-            if (NbScoutAnt < NbMaxAntTypeScout)
-            {
-                //NbMaxAntTypeScout = NbMaxAntTypeScout + 1;
-                if (NbScoutAnt < NbMaxAntTypeScout) LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X + 15, (int)Y));
-            }
-            if (NbSoldierAnt < NbMaxAntTypeSoldier)
-            {
-                //NbMaxAntTypeSoldier = NbMaxAntTypeSoldier + 1;
-                if (NbSoldierAnt < NbMaxAntTypeSoldier) LayEgg(MotherNature.AntTypes.SoldierAnt, new Point((int)X - 15, (int)Y));
+
+
+
+            if(Phase == 2){
+
+                if (NbFarmerAnt < NbMaxAntTypeFarmer && SpawnAnt == 4)
+                {
+                    LayEgg(MotherNature.AntTypes.FarmerAnt, new Point((int)X + 16, (int)Y + 16));
+                    SpawnAnt = 1;
+                    //NbMaxAntTypeFarmer = NbMaxAntTypeFarmer + 1;
+                }
+                if (NbWorkerAnt < NbMaxAntTypeWorker && SpawnAnt == 3)
+                {
+                    LayEgg(MotherNature.AntTypes.WorkerAnt, new Point((int)X - 16, (int)Y + 16));
+                    SpawnAnt++;
+                    //NbMaxAntTypeFarmer = NbMaxAntTypeFarmer + 1;
+                }
+                if (NbScoutAnt < NbMaxAntTypeScout && SpawnAnt == 2)
+                {
+                    LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X + 16, (int)Y - 16));
+                    SpawnAnt++;
+                    //NbMaxAntTypeFarmer = NbMaxAntTypeFarmer + 1;
+                }
+                if (NbSoldierAnt < NbMaxAntTypeSoldier && SpawnAnt == 1)
+                {
+                    LayEgg(MotherNature.AntTypes.SoldierAnt, new Point((int)X - 16, (int)Y - 16));
+                    SpawnAnt++;
+                    //NbMaxAntTypeFarmer = NbMaxAntTypeFarmer + 1;
+                }
             }
             DoNothing(); // The queen MUST either do something (Move, Eat, Lay an egg) or announce that she does nothing
+            
         }
 
     }
