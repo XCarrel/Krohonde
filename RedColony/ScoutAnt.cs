@@ -46,7 +46,7 @@ namespace Krohonde.RedColony
                 if(ant.)
             }*/
         }
-        public Resource GoToResource(Point position,bool bypasseUse, bool isForFood)
+        public static Resource GoToResource(Point position,bool bypasseUse, bool isForFood)
         {
             Resource nearest = null;
             float nearestDistance = 100000;
