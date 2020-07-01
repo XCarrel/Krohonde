@@ -138,6 +138,14 @@ namespace Krohonde
                 }                
             }
         }
+
+        public void DoomsDay()
+        {
+            ants = new List<Ant>();
+            eggs = new List<Egg>();
+            foodstore = 0;
+        }
+
         public System.Drawing.Point[] Hill { get => hill.ToArray(); }
 
         public List<Ant> Population { get => ants; }
@@ -153,5 +161,7 @@ namespace Krohonde
 
         public double Size { get => Helpers.PolygonArea(Hill); }
         public Queen Queen { get => queen; }
+
+        public bool IsAlive { get => (queen.Energy > 0) && (Population.Count + Nursery.Count > 0); }
     }
 }
