@@ -28,5 +28,38 @@ namespace Krohonde.BlueColony
             }
         }
 
+        public System.Windows.Point unblock(Ant ant, System.Windows.Point speed)
+        {
+            System.Windows.Point unblockSpeed = speed;
+
+            if (ant.Blocked == "oui, par mère nature")
+            {
+                if (speed.X <= 0)
+                {
+                    unblockSpeed.X = 10;
+                }
+                else
+                {
+                    unblockSpeed.X = -10;
+                }
+
+                if (speed.Y <= 0)
+                {
+                    unblockSpeed.Y = 10;
+                }
+                else
+                {
+                    unblockSpeed.Y = -10;
+                }
+
+            }
+            else
+            {
+                unblockSpeed.Y = -1 * speed.X;
+                unblockSpeed.X = -1 * speed.Y;
+            }
+
+            return unblockSpeed;
+        }
     }
 }
