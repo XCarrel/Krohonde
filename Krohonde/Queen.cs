@@ -54,7 +54,7 @@ namespace Krohonde
             return true;
         }
 
-        protected bool LayEgg(MotherNature.AntTypes typ, System.Drawing.Point loc, int val)
+        protected bool LayEgg(MotherNature.AntTypes typ, System.Drawing.Point loc)
         {
             if (!ActionAllowed()) return false; // already did something 
 
@@ -62,7 +62,7 @@ namespace Krohonde
 
             if (Helpers.Distance(SDLocation, loc) > Colony.CRIB_SIZE) return false; // queen cannot throw an egg !!
 
-            MyColony.StoreEggInNursery(new Egg(typ, loc, this,val));
+            MyColony.StoreEggInNursery(new Egg(typ, loc, this,INITIAL_MATURITY));
 
             energy -= MotherNature.COST_OF_LAYING_AN_EGG;
 
@@ -89,7 +89,7 @@ namespace Krohonde
         }
         public bool LayEgg(MotherNature.AntTypes typ, System.Drawing.Point loc, Queen queen)
         {
-            return LayEgg(typ, loc, INITIAL_MATURITY);
+            return LayEgg(typ, loc);
         }
 
         public Colony Colony { get => MyColony; }

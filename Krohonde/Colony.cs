@@ -121,7 +121,7 @@ namespace Krohonde
             foreach (Egg crib in Nursery)
                 if (newcrib.IntersectsWith(new Rectangle(crib.Location, new System.Drawing.Size(CRIB_SIZE, CRIB_SIZE))))
                     return false;
-
+            eggs.Add(egg);
             return true;
         }
 
