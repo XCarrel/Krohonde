@@ -10,6 +10,7 @@ namespace Krohonde.RedColony
     public class WorkerAnt : Ant
     {
         private Point position;
+        private Point goToPosition;
 
 
         public WorkerAnt(Point location, Point speed, RedColony colony) : base(location, speed, colony)
@@ -21,6 +22,16 @@ namespace Krohonde.RedColony
         {
             double distMin = 5000;
 
+            Resource procheSelonScouts = ScoutAnt.GoToResource(new Point(X, Y), true, false);
+            
+            if (procheSelonScouts != null)
+            {
+                goToPosition = new Point(procheSelonScouts.Location.X, procheSelonScouts.Location.Y);
+            }
+            
+
+            Speed.X = goToPosition.X - X;
+            Speed.Y = goToPosition.Y - Y;
 
             List<Brick> brickpositions = BricksAroundMe();
             if (brickpositions.Count() > 0)
