@@ -11,18 +11,26 @@ namespace Krohonde.RedColony
     {
         private Point position;
         private Point goToPosition;
-
+        
+        
 
         public WorkerAnt(Point location, Point speed, RedColony colony) : base(location, speed, colony)
         {
-             
+            
         }
 
         public override void Live(double deltatime)
         {
-            double distMin = 5000;
-
             
+
+            if (BrickBag > 500)
+            {
+                Speed.X = MyColony.Location.X - X;
+                Speed.Y = MyColony.Location.Y - Y;
+                Move(deltatime);
+            }
+
+            double distMin = 5000;
 
             List<Brick> brickpositions = BricksAroundMe();
             if (brickpositions.Count() > 0)

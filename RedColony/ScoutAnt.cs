@@ -112,7 +112,7 @@ namespace Krohonde.RedColony
         }
         public void MoveToPosition(double deltatime, Point goPos)//Avance d'un tick en direction de la destination
         {
-            if(this.Blocked != "non")
+            if(BlockedBy != null)
             {
                 GeneratePosition();//Génération d'une destination aléatoire
             }
@@ -139,7 +139,7 @@ namespace Krohonde.RedColony
         public void GeneratePosition()//Génération d'une destination aléatoire
         {
             Random r = new Random();
-            goToPosition = new Point(r.Next(200, 1200), r.Next(150, 600));
+            goToPosition = new Point(r.Next(100, 1600), r.Next(80, 800));
         }
     }
 }
