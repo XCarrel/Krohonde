@@ -107,9 +107,6 @@ namespace Krohonde
         /// <param name="deltatime"></param>
         protected void Move(double deltatime)
         {
-            // Temporary
-            roam();
-
             if (!ActionAllowed()) return; // ignore multiple actions by same ant
             double maxSpeed = this.getMaxSpeed();
             // Linear speed
@@ -122,6 +119,7 @@ namespace Krohonde
             }
 
             // Check if move is OK
+            BlockedBy = null; // assume it will be ok to move
             double nextX = HeadPosition.X + Speed.X * deltatime;
             double nextY = HeadPosition.Y + Speed.Y * deltatime;
             if (nextX < 0 || nextY < 0 || nextX > this.Colony.World().width || nextY > this.Colony.World().height)
