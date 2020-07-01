@@ -30,11 +30,11 @@ namespace Krohonde.RedColony
         private int tick = 0;
         public override void Live(double deltatime)
         {
-            if (tick > 100)
+            /*if (tick > 100)
             {
                 Resource procheSelonScouts = GoToResource(new Point(X, Y), true, true);
                 goToPosition = new Point(procheSelonScouts.Location.X, procheSelonScouts.Location.Y);
-            }
+            }*/
             MoveToPosition(deltatime, goToPosition);
             CheckFor();
             tick = tick++;
@@ -74,7 +74,6 @@ namespace Krohonde.RedColony
         public void CheckFor()
         {
             List<ResourceCustom> currentCheck = new List<ResourceCustom>(0);
-            bool isAFood = false;
             foreach(Brick briqueProche in BricksAroundMe())
             {
                 ResourceCustom ressourceToAdd = new ResourceCustom();
