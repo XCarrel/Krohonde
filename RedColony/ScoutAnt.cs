@@ -40,7 +40,7 @@ namespace Krohonde.RedColony
         }
         public static void DesactivateRessource(Resource ressourceADelete)//Supprime la resource une fois qu'elle est utilisée
         {
-            foreach (ResourceCustom resActif in ressources)
+            foreach (ResourceCustom resActif in ressources.ToList())
             {
                 if(resActif.resource == ressourceADelete)
                 {
