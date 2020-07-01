@@ -41,7 +41,7 @@
             this.pnlScore.Location = new System.Drawing.Point(15, 10);
             this.pnlScore.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.pnlScore.Name = "pnlScore";
-            this.pnlScore.Size = new System.Drawing.Size(777, 1001);
+            this.pnlScore.Size = new System.Drawing.Size(1514, 563);
             this.pnlScore.TabIndex = 0;
             // 
             // timerScore
@@ -54,7 +54,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::FormsApp.Properties.Resources.grass;
-            this.ClientSize = new System.Drawing.Size(808, 1022);
+            this.ClientSize = new System.Drawing.Size(1540, 582);
             this.Controls.Add(this.pnlScore);
             this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
