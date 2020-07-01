@@ -197,7 +197,7 @@ namespace FormsApp
                         distmin = (int)Helpers.Distance(ant.SDLocation, mouse);
                         chosen = ant;
                     }
-            chosen.Selected = !chosen.Selected;
+            if (chosen != null) chosen.Selected = !chosen.Selected;
         }
     }
 }
