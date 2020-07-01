@@ -130,7 +130,7 @@ namespace FormsApp
             this.dgvAnts.Name = "dgvAnts" + nbColony;
             //this.dgvAnts.RowHeadersWidth = 80;
             this.dgvAnts.RowTemplate.Height = 24;
-            this.dgvAnts.Size = new System.Drawing.Size(width - 50, 200);
+            this.dgvAnts.Size = new System.Drawing.Size(width - 50, 300);
             this.dgvAnts.TabIndex = 2;
             this.dgvAnts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dgvAnts.MultiSelect = false;

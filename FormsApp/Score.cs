@@ -21,7 +21,7 @@ namespace FormsApp
         private const int SCORE_GRP_Y = 30;
 
         private int SCORE_GRP_WIDTH;
-        private const int SCORE_GRP_HEIGHT = 350;
+        private const int SCORE_GRP_HEIGHT = 450;
 
         private World world;
 
@@ -32,7 +32,8 @@ namespace FormsApp
             world = w;
             
             InitializeComponent();
-            SCORE_GRP_WIDTH = this.Width - 100;
+            //SCORE_GRP_WIDTH = this.Width - 100;
+            SCORE_GRP_WIDTH = 550;
 
             scoreGroupBoxes = new List<ScoreGroupBox>();
         }
@@ -53,7 +54,7 @@ namespace FormsApp
 
                 if (nbColony > 0)
                 {
-                    sgb.Location = new System.Drawing.Point(SCORE_GRP_X, SCORE_GRP_Y + nbColony * (SCORE_GRP_HEIGHT + 10));
+                    sgb.Location = new System.Drawing.Point(SCORE_GRP_X + nbColony * (SCORE_GRP_WIDTH + 10), SCORE_GRP_Y);
                 }
                 else
                 {
