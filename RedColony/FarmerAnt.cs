@@ -10,6 +10,7 @@ namespace Krohonde.RedColony
     public class FarmerAnt : Ant
     {
         private Point position;
+        private Point goToPosition;
 
         public FarmerAnt(Point location, Point speed, RedColony colony) : base(location, speed, colony)
         {
@@ -21,7 +22,16 @@ namespace Krohonde.RedColony
            
             double disMin = 5000;
 
-                                                               
+            Resource procheSelonScouts = ScoutAnt.GoToResource(new Point(X, Y), true, true);
+
+            if (procheSelonScouts != null)
+            {
+                goToPosition = new Point(procheSelonScouts.Location.X, procheSelonScouts.Location.Y);
+            }
+
+            Speed.X = goToPosition.X - X;
+            Speed.Y = goToPosition.Y - Y;
+
             List<Food> foodposition = FoodAroundMe();
             if (foodposition.Count() > 0)
             {
