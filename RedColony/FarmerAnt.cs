@@ -28,7 +28,7 @@ namespace Krohonde.RedColony
                 Speed.Y = startSpawnY - Y;
                 Move(deltatime);
             }
-
+            
 
             double disMin = 5000;
 
@@ -80,7 +80,7 @@ namespace Krohonde.RedColony
             }
 
 
-            //end
+            
             
 
 
