@@ -129,7 +129,13 @@ namespace Krohonde
         {
             for (int i = 0; i < nbEggs; i++)
             {
-                eggs.Add(new Egg((MotherNature.AntTypes)(i%4), new System.Drawing.Point((int)(location.X + -40 + (i % 5) * 16), (int)(location.Y + -40 + (i / 5) * 16)), queen, MotherNature.alea.Next(75, 90)));
+                switch (i%4)
+                {
+                    case 0: eggs.Add(new Egg(MotherNature.AntTypes.WorkerAnt, new System.Drawing.Point((int)(location.X + -40 + (i % 5) * 16), (int)(location.Y + -40 + (i / 5) * 16)), queen, MotherNature.alea.Next(75, 90))); break;
+                    case 1: eggs.Add(new Egg(MotherNature.AntTypes.FarmerAnt, new System.Drawing.Point((int)(location.X + -40 + (i % 5) * 16), (int)(location.Y + -40 + (i / 5) * 16)), queen, MotherNature.alea.Next(75, 90))); break;
+                    case 2: eggs.Add(new Egg(MotherNature.AntTypes.ScoutAnt, new System.Drawing.Point((int)(location.X + -40 + (i % 5) * 16), (int)(location.Y + -40 + (i / 5) * 16)), queen, MotherNature.alea.Next(75, 90))); break; break;
+                    case 3: eggs.Add(new Egg(MotherNature.AntTypes.SoldierAnt, new System.Drawing.Point((int)(location.X + -40 + (i % 5) * 16), (int)(location.Y + -40 + (i / 5) * 16)), queen, MotherNature.alea.Next(75, 90))); break;
+                }                
             }
         }
         public System.Drawing.Point[] Hill { get => hill.ToArray(); }
