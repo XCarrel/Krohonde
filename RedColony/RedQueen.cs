@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Krohonde.RedColony
 {
-    public class RedQueen:Queen
+    public class RedQueen : Queen
     {
         public string CountAnts = null;
         public int NbWorkerAnt = 0;
@@ -18,20 +18,23 @@ namespace Krohonde.RedColony
         public int NbMaxAntTypeWorker = 15;
         public int NbMaxAntTypeScout = 2;
         public int NbMaxAntTypeSoldier = 300;
-        public int SpawnAnt = 1;
+        public int SpawnAnt = 0;
+        public int SpawnAnt2 = 0;
         private int Phase = 1;
+        private int Mouvement = 0;
         public RedQueen(Point location, Point speed, Colony colony) : base(location, speed, colony)
         { }
         public override void Live(double deltatime)
         {
-            
+
             NbWorkerAnt = 0;
             NbFarmerAnt = 0;
             NbScoutAnt = 0;
             NbSoldierAnt = 0;
             foreach (Ant ant in MyColony.Population)
             {
-                if (ant.Fullname.Contains("WorkerAnt")){
+                if (ant.Fullname.Contains("WorkerAnt"))
+                {
                     NbWorkerAnt = NbWorkerAnt + 1;
                 }
                 if (ant.Fullname.Contains("FarmerAnt"))
@@ -50,33 +53,57 @@ namespace Krohonde.RedColony
             }
             if (Phase == 1)
             {
-                if (SpawnAnt == 4)
+                switch (SpawnAnt)
+
                 {
-                    LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X + 16, (int)Y));
-                    SpawnAnt = 1;
-                    Phase = 2;
+                    case 3:
+                        LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X + 16, (int)Y));
+                        Phase = 2;
+                        break;
+
+                    case 2:
+                        LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X - 16, (int)Y));
+                        break;
+
+                    case 1:
+                        LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X, (int)Y + 16));
+                        break;
+                    case 0:
+                        LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X, (int)Y - 16));
+                        break;
                 }
-                if (SpawnAnt == 3)
-                {
-                    LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X - 16, (int)Y));
-                    SpawnAnt++;
-                }
-                if (SpawnAnt == 2)
-                {
-                    LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X, (int)Y + 16));
-                    SpawnAnt++;
-                }
-                if (SpawnAnt == 1)
-                {
-                    LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X, (int)Y - 16));
-                    SpawnAnt++;
-                }
-                
+                SpawnAnt = (SpawnAnt + 1) % 4;
             }
+            if (Mouvement < 20)
+            {
+                Speed.X = 0;
+                Speed.Y = -100;
+                Move(deltatime);
+                Mouvement++;
+            }
+            switch (SpawnAnt2)
 
+            {
+                case 3:
+                    LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X + 16, (int)Y));
+                    Phase = 2;
+                    break;
 
+                case 2:
+                    LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X - 16, (int)Y));
+                    break;
 
-            if(Phase == 2){
+                case 1:
+                    LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X, (int)Y + 16));
+                    break;
+                case 0:
+                    LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X, (int)Y - 16));
+                    break;
+            }
+            SpawnAnt2 = (SpawnAnt2 + 1) % 4;
+
+            if (Phase == 2)
+            {
 
                 if (NbFarmerAnt < NbMaxAntTypeFarmer && SpawnAnt == 4)
                 {
@@ -103,8 +130,16 @@ namespace Krohonde.RedColony
                     //NbMaxAntTypeFarmer = NbMaxAntTypeFarmer + 1;
                 }
             }
-            DoNothing(); // The queen MUST either do something (Move, Eat, Lay an egg) or announce that she does nothing
             
+
+
+
+
+
+
+
+            DoNothing(); // The queen MUST either do something (Move, Eat, Lay an egg) or announce that she does nothing
+
         }
 
     }
