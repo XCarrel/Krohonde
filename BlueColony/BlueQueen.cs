@@ -32,39 +32,17 @@ namespace Krohonde.BlueColony
             {
                 if (!SDLocation.IsEmpty)
                 {
-                    //move
+                    Move(deltatime);
                 }
                 else
                 {
-                    //pondre
+                    LayEgg(MotherNature.AntTypes.FarmerAnt, MyColony.Queen.SDLocation);
                 }
             }
             else
             {
                 Eat(1);
             }
-
         }
-
-            if (CanLayEgg)
-            {
-                LayEgg(MotherNature.AntTypes.FarmerAnt, MyColony.Queen.SDLocation);
-        QueenEnergy -= MotherNature.COST_OF_LAYING_AN_EGG;
-                CanLayEgg = false;
-            }
-
-    Move(deltatime);
-
-            /*if(MyColony.Queen.energy)
-                //superfourmi.GetType().Name ==
-            }*/
-            else
-            {
-                DoNothing();
-}
-            // The queen MUST either do something (Move, Eat, Lay an egg) or announce that she does nothing
-
-        }
-
     }
 }
