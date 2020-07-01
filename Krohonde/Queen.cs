@@ -13,11 +13,13 @@ namespace Krohonde
         private static Queen lastactionby; // the queen that performed an action (prevent double play)
 
         private const int INITIAL_MATURITY = 25; // When an egg is laid, it doesn't start from 0 so that it is visible
+        private const int COST_OF_LIVING = MotherNature.MAX_ENERGY / 600; 
 
         private Point Location;
         protected Point Speed;
         protected Colony MyColony;
         private int energy;     // 0 energy means you're dead
+        private bool awake=false; 
 
         public Queen(Point location, Point speed, Colony colony)
         {
@@ -34,6 +36,7 @@ namespace Krohonde
         /// <returns></returns>
         private bool ActionAllowed()
         {
+            if (!awake) return false; // can't do anything while sleeping
             bool res = (lastactionby != this);
             lastactionby = this; 
             return res;
@@ -44,7 +47,16 @@ namespace Krohonde
             lastactionby = this; 
         }
 
-        public abstract void Live(double deltatime);
+        public virtual void Live(double deltatime)
+        {
+            awake = true;
+            energy -= (int)(COST_OF_LIVING * deltatime);
+        }
+
+        public void Sleep()
+        {
+            awake = false;
+        }
 
         protected bool Eat(int amount)
         {
