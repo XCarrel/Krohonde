@@ -14,7 +14,7 @@ namespace Krohonde.RedColony
 
         public WorkerAnt(Point location, Point speed, RedColony colony) : base(location, speed, colony)
         {
-
+             
         }
 
         public override void Live(double deltatime)
@@ -33,7 +33,7 @@ namespace Krohonde.RedColony
                         closest = brickporche;
                         distMin = Helpers.Distance(SDLocation, brickporche.Location);
                     }
-                }
+                } 
 
                 Speed.X = closest.Location.X - X;
                 Speed.Y = closest.Location.Y - Y;
