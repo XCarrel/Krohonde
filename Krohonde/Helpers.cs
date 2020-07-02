@@ -135,6 +135,12 @@ namespace Krohonde
             return Math.Sqrt(dx * dx + dy * dy);
         }
 
+        public static double DistanceToLine(Point p, Point a, Point b)
+        {
+            bool dummy;
+            return DistanceToLine(p, a, b, out dummy);
+        }
+
         // Return the polygon's area in "square units."
         // based on : http://csharphelper.com/blog/2014/07/calculate-the-area-of-a-polygon-in-c/
         public static float PolygonArea(Point[] poly)
