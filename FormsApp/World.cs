@@ -42,7 +42,7 @@ namespace FormsApp
         private void timer_Tick(object sender, EventArgs e)
         {
             myWorld.Live(); // update
-            if (chkRender.Checked || chkRenderOnce.Checked) pctWorld.Invalidate(); // render
+            pctWorld.Invalidate(); // render
 
         }
         public static Image RotateImage(Image img, float rotationAngle)
@@ -182,7 +182,6 @@ namespace FormsApp
                 if (showOrigin) graphics.DrawLine(new Pen(phero.Colony.Color, 6), new System.Drawing.Point((int)phero.Location.X, (int)phero.Location.Y), new System.Drawing.Point((int)(phero.Location.X + 24 * phero.Intensity), (int)phero.Location.Y));
             }
 
-            chkRenderOnce.Checked = false; // clear that flag for next loop
         }
 
         private void pctWorld_Click(object sender, EventArgs e)
@@ -198,6 +197,11 @@ namespace FormsApp
                         chosen = ant;
                     }
             if (chosen != null) chosen.Selected = !chosen.Selected;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            Logger.IsActive = checkBox1.Checked;
         }
     }
 }

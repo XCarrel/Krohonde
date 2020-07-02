@@ -10,7 +10,8 @@ namespace Krohonde
 {
     public class Logger
     {
-        
+        public static bool IsActive = false;
+
         public static void WriteLogFile(String logDirectoryPath, String logFileName, String logMessage)
         {
             StreamWriter strWriter = null;
@@ -33,6 +34,8 @@ namespace Krohonde
 
         public static void WriteLogFile(String logMessage)
         {
+            if (!IsActive) return;
+
             string logDirectoryPath = ConfigurationManager.AppSettings["directory"];
             string logFileName = ConfigurationManager.AppSettings["file"];
 
