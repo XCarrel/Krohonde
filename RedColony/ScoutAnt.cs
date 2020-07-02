@@ -96,6 +96,7 @@ namespace Krohonde.RedColony
                 ressourceToAdd.isFood = true;
                 ressourceToAdd.isUsed = false;
                 ressourceToAdd.resource = foodProche;
+                ressourceToAdd.tickAcurate = 120;
                 currentCheck.Add(ressourceToAdd);
             }
            
