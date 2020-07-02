@@ -105,7 +105,7 @@ namespace Krohonde.RedColony
                 }
                 if (!isAlreadyFounded)
                 {
-                    Logger.WriteLogFile("Nouvelle resource trouvée !"+ ressourceAChecker.isFood+" X : "+ ressourceAChecker.resource.Value);
+                    Logger.WriteLogFile("RED COLONY : Nouvelle resource trouvée !"+ ressourceAChecker.isFood+" X : "+ ressourceAChecker.resource.Location.X+" Y : "+ ressourceAChecker.resource.Location.Y);
                     ressources.Add(ressourceAChecker);
                 }
             }

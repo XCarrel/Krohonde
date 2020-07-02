@@ -21,8 +21,8 @@ namespace Krohonde.RedColony
 
         public override void Live()
         {
-            
 
+            
             if (BrickBag > 500)
             {
                 Speed.X = MyColony.Location.X - X;
@@ -54,12 +54,14 @@ namespace Krohonde.RedColony
                 if(distance < 2.0f)
                 {
                     ScoutAnt.DesactivateRessource(closest);
+                    Logger.WriteLogFile("RED patate");
                     Pickup(closest);
+                    
                 }
                 else
                 {
-                    Speed.X = closest.Location.X - X - 1;
-                    Speed.Y = closest.Location.Y - Y - 1;
+                    Speed.X = closest.Location.X - X;
+                    Speed.Y = closest.Location.Y - Y;
                     Move();
                 }
 
