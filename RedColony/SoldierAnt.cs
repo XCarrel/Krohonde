@@ -83,12 +83,13 @@ namespace Krohonde.RedColony
                         Speed.Y = goToPosition.Y - Y;
                         Move();
                     }
+                */
                 }
             }
             foreach(Ant enemy in EnemiesAroundMe())
             {
                 SoldierAnt.PointAnEnemy(enemy,2);
             }
-        }*/
+        }
     }
 }
