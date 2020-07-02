@@ -59,6 +59,7 @@ namespace Krohonde.RedColony
                         goToPosition = new Point(enemyRepered[0].fourmis.X, enemyRepered[0].fourmis.Y);
                         Speed.X = goToPosition.X - X;
                         Speed.Y = goToPosition.Y - Y;
+                        Move();
                     }
                 }
             }
@@ -66,7 +67,6 @@ namespace Krohonde.RedColony
             {
                 SoldierAnt.PointAnEnemy(enemy);
             }
-            //Move();
         }
     }
 }
