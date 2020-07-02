@@ -39,21 +39,22 @@ namespace Krohonde.RedColony
                 inc = 0;
             }
 
-            if (Energy < 29000)
+            if (Energy < 20000)
             {
                 nouriture = 1;
             }
 
-            if (nouriture <0)
+            if (nouriture >0)
             {
                 EatFromBag(2, MotherNature.DigestionFor.Energy);
                 nouriture++;
-                if(nouriture == 5)
+                if(nouriture == 10)
                 {
                     nouriture = 0;
                 }
             }
 
+           
                 if (FoodBag > 48)
                 {
                     if (X != MyColony.Location.X && Y != MyColony.Location.Y)

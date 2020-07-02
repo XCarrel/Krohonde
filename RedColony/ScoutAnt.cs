@@ -22,6 +22,7 @@ namespace Krohonde.RedColony
             public bool isUsed;
             public bool isFood;
             public Resource resource;
+            public int tickAcurate;
         }
         /*Variables globales*/
         public Point goToPosition;
@@ -86,6 +87,7 @@ namespace Krohonde.RedColony
                 ressourceToAdd.isUsed = false;
                 ressourceToAdd.isFood = false;
                 ressourceToAdd.resource = briqueProche;
+                ressourceToAdd.tickAcurate = 120;
                 currentCheck.Add(ressourceToAdd);
             }
             foreach (Food foodProche in FoodAroundMe())

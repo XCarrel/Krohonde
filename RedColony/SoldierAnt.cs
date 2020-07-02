@@ -16,6 +16,7 @@ namespace Krohonde.RedColony
     {
         public static List<EnemyListedActu> enemyRepered = new List<EnemyListedActu>(0);
         public static List<Queen> listOfQueen = new List<Queen>(0);
+        private Ant enemyToTarget;
         public Point goToPosition;
         private Point pointOfAction;
         public SoldierAnt(Point location, Point speed, RedColony colony) : base(location, speed, colony)
@@ -58,7 +59,7 @@ namespace Krohonde.RedColony
             {
                 EnemyListedActu enemy = new EnemyListedActu();
                 enemy.fourmis = ant;
-                enemy.time = 60;
+                enemy.time = 600;
                 float importOfType = 0;
                 if (ant.Fullname.Contains("WorkerAnt"))
                 {
@@ -87,25 +88,16 @@ namespace Krohonde.RedColony
             tick++;
             if (enemyRepered.Count > 0)
             {
-                int optimal = 0;
-                int counter = 0;
-                float importance = 0;
-                int distLast = 100000;
-                /*SELECT PART*/
-                foreach (EnemyListedActu enemyTest in enemyRepered)
-                {
-                    if (enemyTest.importance > importance)
+                if(enemyToTarget == null || enemyToTarget.Energy < 1 || ((tick%7) == 0)) {
+                    /*SELECT PART*/
+                    int optimal = 0;
+                    int counter = 0;
+                    float importance = 0;
+                    int distLast = 100000;
+                    
+                    foreach (EnemyListedActu enemyTest in enemyRepered)
                     {
-                        if (enemyTest.fourmis.Energy >= 0)
-                        {
-                            importance = enemyTest.importance;
-                            optimal = counter;
-                        }
-                    }
-                    if (enemyTest.importance == importance)
-                    {
-                        int distActu = Math.Abs(Convert.ToInt32(enemyTest.fourmis.X) - Convert.ToInt32(X)) + Math.Abs(Convert.ToInt32(enemyTest.fourmis.Y) - Convert.ToInt32(Y));
-                        if (distLast >= distActu)
+                        if (enemyTest.importance > importance)
                         {
                             if (enemyTest.fourmis.Energy >= 0)
                             {
@@ -113,10 +105,22 @@ namespace Krohonde.RedColony
                                 optimal = counter;
                             }
                         }
+                        if (enemyTest.importance == importance)
+                        {
+                            int distActu = Math.Abs(Convert.ToInt32(enemyTest.fourmis.X) - Convert.ToInt32(X)) + Math.Abs(Convert.ToInt32(enemyTest.fourmis.Y) - Convert.ToInt32(Y));
+                            if (distLast >= distActu)
+                            {
+                                if (enemyTest.fourmis.Energy >= 0)
+                                {
+                                    importance = enemyTest.importance;
+                                    optimal = counter;
+                                }
+                            }
+                        }
+                        counter++;
                     }
-                    counter++;
+                    enemyToTarget = enemyRepered[optimal].fourmis;
                 }
-                Ant enemyToTarget = enemyRepered[optimal].fourmis;
                 goToPosition = new Point(enemyToTarget.X, enemyToTarget.Y);
                 int distance = Math.Abs(Convert.ToInt32(goToPosition.X) - Convert.ToInt32(X)) + Math.Abs(Convert.ToInt32(goToPosition.Y) - Convert.ToInt32(Y));
                 if (distance < 40)
