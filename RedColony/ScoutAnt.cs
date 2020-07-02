@@ -57,29 +57,33 @@ namespace Krohonde.RedColony
             {
                 isCharging = true;
                 Resource red = GoToResource(new Point(X, Y), true, true);
-                Point goPos = new Point(red.Location.X, red.Location.Y);
-                Speed.X = goPos.X - X;
-                Speed.Y = goPos.Y - Y;
-                bool arrivedToPosition = ((goPos.X - X) < 2 && (goPos.X - X) > -2) && ((goPos.Y - Y) < 2 && (goPos.Y - Y) > -2);
-                bool canMove = !arrivedToPosition && (Energy > 2000);
-                if (canMove)
+                if(red != null)
                 {
-                    Move();
-                }
-                if (arrivedToPosition)
-                {
-                    if ((counter % 3) == 0)
+                    Point goPos = new Point(red.Location.X, red.Location.Y);
+                    Speed.X = goPos.X - X;
+                    Speed.Y = goPos.Y - Y;
+                    bool arrivedToPosition = ((goPos.X - X) < 2 && (goPos.X - X) > -2) && ((goPos.Y - Y) < 2 && (goPos.Y - Y) > -2);
+                    bool canMove = !arrivedToPosition && (Energy > 2000);
+                    if (canMove)
                     {
-                        Pickup(red);
+                        Move();
                     }
-                    else
+                    if (arrivedToPosition)
                     {
-                        if (!(EatFromBag(1, MotherNature.DigestionFor.Energy)))
+                        if ((counter % 3) == 0)
                         {
-                            DesactivateRessource(red);
+                            Pickup(red);
+                        }
+                        else
+                        {
+                            if (!(EatFromBag(1, MotherNature.DigestionFor.Energy)))
+                            {
+                                DesactivateRessource(red);
+                            }
                         }
                     }
                 }
+                
             }
 
             foreach (Ant enemy in EnemiesAroundMe())
