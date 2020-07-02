@@ -158,7 +158,11 @@ namespace Krohonde.RedColony
                     }
                 }
             }
-            DoNothing(); // The queen MUST either do something (Move, Eat, Lay an egg) or announce that she does nothing
+            else
+            {
+                Eat(10);
+            }
+           
         }
 
     }

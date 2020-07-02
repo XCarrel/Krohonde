@@ -17,14 +17,11 @@ namespace Krohonde.RedColony
     {
         private Point position;
         private Point goToPosition;
-        double startSpawnX = 0;
-        double startSpawnY = 0;
         bool canDumpFood = false;
 
         public FarmerAnt(Point location, Point speed, RedColony colony) : base(location, speed, colony)
         {
-            startSpawnX = X;    // indicates the spawn
-            startSpawnY = Y;
+            
         }
 
         public override void Live()
@@ -34,10 +31,10 @@ namespace Krohonde.RedColony
                 SoldierAnt.PointAnEnemy(enemy);     // defense
             }
             if (FoodBag >48) {
-                if (X != startSpawnX && Y != startSpawnY)
+                if (X != MyColony.Location.X && Y != MyColony.Location.Y)
                 {
-                    Speed.X = startSpawnX - X;     
-                    Speed.Y = startSpawnY - Y;
+                    Speed.X = MyColony.Location.X - X;     
+                    Speed.Y = MyColony.Location.Y - Y;
                     Move();
 
                     
