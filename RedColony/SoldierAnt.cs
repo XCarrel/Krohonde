@@ -14,7 +14,7 @@ namespace Krohonde.RedColony
     */
     public class SoldierAnt : Ant
     {
-        public static List<EnemyListedActu> enemyRepered;
+        public static List<EnemyListedActu> enemyRepered = new List<EnemyListedActu>(0);
         public Point goToPosition;
         public SoldierAnt(Point location, Point speed, RedColony colony) : base(location, speed, colony)
         {
