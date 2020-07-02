@@ -37,13 +37,13 @@ namespace Krohonde.RedColony
                     }
                 }
             }
-            
+
         }
         public override void Live()
         {
             base.Live();
             GeneralRefresh();
-            if (Energy > 5000)
+            if (Energy > 5000 && Energy > 25000)
             {
                 NbWorkerAnt = 0;
                 NbFarmerAnt = 0;
@@ -71,7 +71,7 @@ namespace Krohonde.RedColony
 
                 }
                 Logger.WriteLogFile("RED COLONY : Queen counted !");
-                if (Phase == 1)
+                if (Phase == 1 && Energy > 25000)
                 {
                     Logger.WriteLogFile("RED COLONY : Phase 1!");
                     switch (SpawnAnt)
@@ -99,38 +99,44 @@ namespace Krohonde.RedColony
                     }
                     SpawnAnt = (SpawnAnt + 1) % 4;
                 }
-                if (Mouvement < 20)
-                {
-                    Logger.WriteLogFile("RED COLONY : MOVE!");
-                    Speed.X = 0;
-                    Speed.Y = -100;
-                    Move();
-                    Mouvement++;
-                }
-                Logger.WriteLogFile("RED COLONY : SPAWN2!");
-                switch (SpawnAnt2)
-
-                {
-                    case 3:
-                        LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X + 16, (int)Y));
-                        Phase = 2;
-                        break;
-
-                    case 2:
-                        LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X - 16, (int)Y));
-                        break;
-
-                    case 1:
-                        LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X, (int)Y + 16));
-                        break;
-                    case 0:
-                        LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X, (int)Y - 16));
-                        break;
-                }
-                SpawnAnt2 = (SpawnAnt2 + 1) % 4;
-
                 if (Phase == 2)
                 {
+                    if (Mouvement < 15)
+                    {
+                        Logger.WriteLogFile("RED COLONY : MOVE!");
+                        Speed.X = 0;
+                        Speed.Y = -100;
+                        Move();
+                        Mouvement++;
+                    }
+                    if (Mouvement == 15) Phase = 3;
+                }
+                if (Phase == 3 && Energy > 25000) 
+                {
+                    Logger.WriteLogFile("RED COLONY : SPAWN2!");
+                    switch (SpawnAnt2)
+
+                    {
+                        case 3:
+                            LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X + 16, (int)Y));
+                            Phase = 2;
+                            break;
+
+                        case 2:
+                            LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X - 16, (int)Y));
+                            break;
+
+                        case 1:
+                            LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X, (int)Y + 16));
+                            break;
+                        case 0:
+                            LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X, (int)Y - 16));
+                            break;
+                    }
+                    SpawnAnt2 = (SpawnAnt2 + 1) % 4;
+
+
+
                     Logger.WriteLogFile("RED COLONY : PHASE2!");
                     if (NbFarmerAnt < NbMaxAntTypeFarmer && SpawnAnt == 4)
                     {
@@ -162,8 +168,13 @@ namespace Krohonde.RedColony
             {
                 Eat(10);
             }
-           
+
         }
+
+    }
+    public class Wait
+    {
+        public int time;
 
     }
 }
