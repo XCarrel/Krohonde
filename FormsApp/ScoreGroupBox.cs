@@ -14,6 +14,7 @@ namespace FormsApp
         private int nbColony;
         
         private Label lblAntNb;
+        private Label lblQueenEnergy;
         private Label lblFoodStore;
         private ComboBox cmbAntType;
         private ComboBox cmbEnergySign;
@@ -34,6 +35,7 @@ namespace FormsApp
         {
             //build data in the groupbox : number of ants, quantity of food, and we can filter the datagridview according to the type of ants
             this.lblAntNb = new System.Windows.Forms.Label();
+            this.lblQueenEnergy = new System.Windows.Forms.Label();
             this.lblFoodStore = new System.Windows.Forms.Label();
             this.cmbAntType = new System.Windows.Forms.ComboBox();
             this.cmbEnergySign = new System.Windows.Forms.ComboBox();
@@ -46,6 +48,7 @@ namespace FormsApp
             // grpColonie
             // 
             this.Controls.Add(this.lblAntNb);
+            this.Controls.Add(this.lblQueenEnergy);
             this.Controls.Add(this.lblFoodStore);
             this.Controls.Add(this.lblDisplayAntTypeFilter);
             this.Controls.Add(this.lblDisplayAntEnergyFilter);
@@ -63,6 +66,13 @@ namespace FormsApp
             this.lblAntNb.Size = new System.Drawing.Size(128, 17);
             this.lblAntNb.TabIndex = 0;
             this.lblAntNb.Text = "Nombre de fourmis : " + colony.Population.Count;
+
+            this.lblQueenEnergy.AutoSize = true;
+            this.lblQueenEnergy.Location = new System.Drawing.Point(170, 35);
+            this.lblQueenEnergy.Name = "lblQueenEnergy";
+            this.lblQueenEnergy.Size = new System.Drawing.Size(128, 17);
+            this.lblQueenEnergy.TabIndex = 0;
+            this.lblQueenEnergy.Text = "Energie reine : " + colony.Queen.Energy;
 
 
             this.lblFoodStore.AutoSize = true;
