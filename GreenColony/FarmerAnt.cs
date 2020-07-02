@@ -19,7 +19,9 @@ namespace Krohonde.GreenColony
         public override void Live()
         {
             //default speed direction
-            //Todo:change default
+            //Todo:change default movement
+            //Todo:avoid obstacles
+            //Todo:Fix food dump to colony
             Speed.X = -1000;
 
             //strength increase for speed
