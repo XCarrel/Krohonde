@@ -23,7 +23,7 @@ namespace Krohonde
         private const int MIN_ROCK_WIDTH = 10;
         private const int MAX_ROCK_HEIGHT = 100;
         private const int MIN_ROCK_HEIGHT = 10;
-        private const int CLEAR_ZONE_RADIUS = 200; // Empty zone around anthills
+        public const int CLEAR_ZONE_RADIUS = 200; // Empty zone around anthills
 
         public static Random alea;
         public const int MAX_ENERGY = 30000; // of an ant 
