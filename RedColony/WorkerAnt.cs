@@ -27,7 +27,7 @@ namespace Krohonde.RedColony
             {
                 foreach (Ant enemy in EnemiesAroundMe())
                 {
-                    SoldierAnt.PointAnEnemy(enemy);
+                    SoldierAnt.PointAnEnemy(enemy,3);
                 }
                 inc = 0;
             }

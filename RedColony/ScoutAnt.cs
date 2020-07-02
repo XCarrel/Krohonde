@@ -39,7 +39,7 @@ namespace Krohonde.RedColony
             CheckFor();
             foreach (Ant enemy in EnemiesAroundMe())
             {
-                SoldierAnt.PointAnEnemy(enemy);
+                SoldierAnt.PointAnEnemy(enemy,1);
             }
         }
         public static void DesactivateRessource(Resource ressourceADelete)//Supprime la resource une fois qu'elle est utilisée

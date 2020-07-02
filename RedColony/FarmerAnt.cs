@@ -28,7 +28,7 @@ namespace Krohonde.RedColony
         {
             foreach (Ant enemy in EnemiesAroundMe())
             {
-                SoldierAnt.PointAnEnemy(enemy);     // defense
+                SoldierAnt.PointAnEnemy(enemy,4);     // defense
             }
             if (FoodBag >48) {
                 if (X != MyColony.Location.X && Y != MyColony.Location.Y)

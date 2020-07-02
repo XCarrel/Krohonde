@@ -16,16 +16,21 @@ namespace Krohonde.RedColony
     {
         public static List<EnemyListedActu> enemyRepered = new List<EnemyListedActu>(0);
         public Point goToPosition;
+        private Point pointOfAction;
         public SoldierAnt(Point location, Point speed, RedColony colony) : base(location, speed, colony)
         {
+            Random r = new Random();
+            System.Drawing.Point pt= new System.Drawing.Point(Convert.ToInt32(MyColony.Location.X), Convert.ToInt32(MyColony.Location.Y));
+            pointOfAction = new Point(MyColony.Location.X + r.Next(-100, 300), MyColony.Location.Y+ r.Next(-100, 300));
         }
         [Serializable]
         public class EnemyListedActu
         {
             public Ant fourmis;
             public int time;
+            public int importanceAntDetected;
         }
-        public static void PointAnEnemy(Ant ant)
+        public static void PointAnEnemy(Ant ant,int importance)
         {
             Logger.WriteLogFile("RED COLONY : Enemy trouvé = "+ant.Fullname);
             bool isAlreadyInList = false;
@@ -41,6 +46,7 @@ namespace Krohonde.RedColony
                 EnemyListedActu enemy = new EnemyListedActu();
                 enemy.fourmis = ant;
                 enemy.time = 60;
+                enemy.importanceAntDetected = importance;
                 enemyRepered.Add(enemy);
             }
         }
@@ -67,10 +73,21 @@ namespace Krohonde.RedColony
                         Move();
                     }
                 }
+                else
+                {
+                    int distance = Math.Abs(Convert.ToInt32(goToPosition.X) - Convert.ToInt32(X)) + Math.Abs(Convert.ToInt32(goToPosition.Y) - Convert.ToInt32(Y));
+                    if (distance > 2)
+                    {
+                        goToPosition = pointOfAction;
+                        Speed.X = goToPosition.X - X;
+                        Speed.Y = goToPosition.Y - Y;
+                        Move();
+                    }
+                }
             }
             foreach(Ant enemy in EnemiesAroundMe())
             {
-                SoldierAnt.PointAnEnemy(enemy);
+                SoldierAnt.PointAnEnemy(enemy,2);
             }
         }
     }
