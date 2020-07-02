@@ -99,6 +99,12 @@ namespace Krohonde
             // Energy consumption
             energy -= (int)(linspeed * MotherNature.LastFrameDuration);
         }
+
+        public void Die()
+        {
+            energy = 0;
+        }
+
         public bool LayEgg(MotherNature.AntTypes typ, System.Drawing.Point loc, Queen queen)
         {
             return LayEgg(typ, loc);
