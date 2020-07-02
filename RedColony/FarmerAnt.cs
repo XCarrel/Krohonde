@@ -19,6 +19,7 @@ namespace Krohonde.RedColony
         private Point goToPosition;
         bool canDumpFood = false;
         int inc = 0;
+        int nouriture = 0;
 
 
         public FarmerAnt(Point location, Point speed, RedColony colony) : base(location, speed, colony)
@@ -38,8 +39,21 @@ namespace Krohonde.RedColony
                 inc = 0;
             }
 
-            if (Energy > 27500)
+            if (Energy < 29000)
             {
+                nouriture = 1;
+            }
+
+            if (nouriture <0)
+            {
+                EatFromBag(2, MotherNature.DigestionFor.Energy);
+                nouriture++;
+                if(nouriture == 5)
+                {
+                    nouriture = 0;
+                }
+            }
+
                 if (FoodBag > 48)
                 {
                     if (X != MyColony.Location.X && Y != MyColony.Location.Y)
@@ -121,12 +135,8 @@ namespace Krohonde.RedColony
                     }
 
                 }
-            }
-            else
-            {
-                EatFromBag(2,MotherNature.DigestionFor.Energy);
-                
-            }
+            
+            
 
             
             
