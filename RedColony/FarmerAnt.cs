@@ -9,7 +9,6 @@ namespace Krohonde.RedColony
     /*
      * Auteur : Méline Juillet
      * version : 3.6 
-     * comment : drop and go to pick
      */
 
 {
