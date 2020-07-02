@@ -21,8 +21,11 @@ namespace Krohonde.RedColony
 
         public override void Live()
         {
+            foreach (Ant enemy in EnemiesAroundMe())
+            {
+                SoldierAnt.PointAnEnemy(enemy);
+            }
 
-            
             if (BrickBag == 50)
             {
                 Speed.X = MyColony.Location.X - X;
