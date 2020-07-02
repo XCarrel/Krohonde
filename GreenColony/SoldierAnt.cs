@@ -21,9 +21,23 @@ namespace Krohonde.GreenColony
             MoveToward(followAnt.SDLocation);
             Move();
 
+            List<Ant> Ennemies = EnemiesAroundMe();
+            foreach (Ant Ennemy in Ennemies)
+            {
+                if (Ennemy.GetType().Name == "SoldierAnt")
+                {
+                    if (Helpers.Distance(Ennemy.SDLocation, SDLocation) <= HIT_REACH)
+                    {
+                        Hit(Ennemy);
+                    }
+                    else
+                    {
+                        MoveToward(Ennemy.SDLocation);
+                    }
+                }
+            }
 
-            
-            foreach(Ant ant in MyColony.Population)
+            foreach (Ant ant in MyColony.Population)
             {
                 if (ant.GetType().Name == "FarmerAnt")
                 {
@@ -38,21 +52,7 @@ namespace Krohonde.GreenColony
             }
 
 
-            List<Ant> Ennemies = EnemiesAroundMe();
-            foreach(Ant Ennemy in Ennemies)
-            {
-                if (Ennemy.GetType().Name == "SoldierAnt")
-                {
-                    if(Helpers.Distance(Ennemy.SDLocation, SDLocation) <= HIT_REACH)
-                    {
-                        Hit(Ennemy);
-                    }
-                    else
-                    {
-                        MoveToward(Ennemy.SDLocation);
-                    }
-                }
-            }
+            
 
             /*List<Pheromon> ListPheromon = SmellsAroundMe();
             
