@@ -20,6 +20,7 @@ namespace Krohonde.RedColony
         public int NbMaxAntTypeSoldier = 300;
         public int SpawnAnt = 0;
         public int SpawnAnt2 = 0;
+        public int SpawnAnt3 = 0;
         private int Phase = 1;
         private int Mouvement = 0;
         public RedQueen(Point location, Point speed, Colony colony) : base(location, speed, colony)
@@ -31,19 +32,29 @@ namespace Krohonde.RedColony
                 foreach (SoldierAnt.EnemyListedActu antCheck in SoldierAnt.enemyRepered.ToList())
                 {
                     antCheck.time = antCheck.time - 1;
-                    if (antCheck.time == 0)
+                    if (antCheck.time <1)
                     {
                         SoldierAnt.enemyRepered.Remove(antCheck);
                     }
                 }
             }
-
+            if (ScoutAnt.ressources.Count > 0)
+            {
+                foreach (ScoutAnt.ResourceCustom resCust in ScoutAnt.ressources.ToList())
+                {
+                    resCust.tickAcurate = resCust.tickAcurate - 1;
+                    if (resCust.tickAcurate < 1)
+                    {
+                        ScoutAnt.ressources.Remove(resCust);
+                    }
+                }
+            }
         }
         public override void Live()
         {
             base.Live();
             GeneralRefresh();
-            if (Energy > 5000 && Energy > 25000)
+            if (Energy > 25000)
             {
                 NbWorkerAnt = 0;
                 NbFarmerAnt = 0;
@@ -109,9 +120,9 @@ namespace Krohonde.RedColony
                         Move();
                         Mouvement++;
                     }
-                    if (Mouvement == 15) Phase = 3;
+                    if (Mouvement > 14) Phase = 3;
                 }
-                if (Phase == 3 && Energy > 25000) 
+                if (Phase == 3 && Energy > 25000)
                 {
                     Logger.WriteLogFile("RED COLONY : SPAWN2!");
                     switch (SpawnAnt2)
@@ -119,7 +130,7 @@ namespace Krohonde.RedColony
                     {
                         case 3:
                             LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X + 16, (int)Y));
-                            Phase = 2;
+                            Phase = 4;
                             break;
 
                         case 2:
@@ -134,29 +145,30 @@ namespace Krohonde.RedColony
                             break;
                     }
                     SpawnAnt2 = (SpawnAnt2 + 1) % 4;
-
-
-
+                }
+                SpawnAnt3 = 0;
+                if (Phase == 4 && Energy > 25000) {
+                   
                     Logger.WriteLogFile("RED COLONY : PHASE2!");
-                    if (NbFarmerAnt < NbMaxAntTypeFarmer && SpawnAnt == 4)
+                    if (NbFarmerAnt < NbMaxAntTypeFarmer && SpawnAnt3 == 4)
                     {
                         LayEgg(MotherNature.AntTypes.FarmerAnt, new Point((int)X + 16, (int)Y + 16));
-                        SpawnAnt = 1;
+                        SpawnAnt3 = 1;
                     }
-                    if (NbWorkerAnt < NbMaxAntTypeWorker && SpawnAnt == 3)
+                    if (NbWorkerAnt < NbMaxAntTypeWorker && SpawnAnt3 == 3)
                     {
                         LayEgg(MotherNature.AntTypes.WorkerAnt, new Point((int)X - 16, (int)Y + 16));
-                        SpawnAnt++;
+                        SpawnAnt3++;
                     }
-                    if (NbScoutAnt < NbMaxAntTypeScout && SpawnAnt == 2)
+                    if (NbScoutAnt < NbMaxAntTypeScout && SpawnAnt3 == 2)
                     {
                         LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X + 16, (int)Y - 16));
-                        SpawnAnt++;
+                        SpawnAnt3++;
                     }
-                    if (NbSoldierAnt < NbMaxAntTypeSoldier && SpawnAnt == 1)
+                    if (NbSoldierAnt < NbMaxAntTypeSoldier && SpawnAnt3 == 1)
                     {
                         LayEgg(MotherNature.AntTypes.SoldierAnt, new Point((int)X - 16, (int)Y - 16));
-                        SpawnAnt++;
+                        SpawnAnt3++;
                     }
                 }
             }
@@ -164,13 +176,8 @@ namespace Krohonde.RedColony
             {
                 Eat(10);
             }
-
+            DoNothing();
         }
-
-    }
-    public class Wait
-    {
-        public int time;
 
     }
 }

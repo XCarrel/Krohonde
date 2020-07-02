@@ -22,6 +22,7 @@ namespace Krohonde.RedColony
             public bool isUsed;
             public bool isFood;
             public Resource resource;
+            public int tickAcurate;
         }
         /*Variables globales*/
         public Point goToPosition;
@@ -86,6 +87,7 @@ namespace Krohonde.RedColony
                 ressourceToAdd.isUsed = false;
                 ressourceToAdd.isFood = false;
                 ressourceToAdd.resource = briqueProche;
+                ressourceToAdd.tickAcurate = 100;
                 currentCheck.Add(ressourceToAdd);
             }
             foreach (Food foodProche in FoodAroundMe())
@@ -94,6 +96,7 @@ namespace Krohonde.RedColony
                 ressourceToAdd.isFood = true;
                 ressourceToAdd.isUsed = false;
                 ressourceToAdd.resource = foodProche;
+                ressourceToAdd.tickAcurate = 100;
                 currentCheck.Add(ressourceToAdd);
             }
            
@@ -104,12 +107,15 @@ namespace Krohonde.RedColony
                 {
                     if(ressourceChecker.resource == ressourceAChecker.resource)
                     {
+                        //Logger.WriteLogFile("RED COLONY : UPDATE TICK TO 120!" + ressourceAChecker.isFood + " X : " + ressourceAChecker.resource.Location.X + " Y : " + ressourceAChecker.resource.Location.Y);
+                        ressourceChecker.tickAcurate = 100;
                         isAlreadyFounded = true;
                     }
                 }
                 if (!isAlreadyFounded)
                 {
-                    Logger.WriteLogFile("RED COLONY : Nouvelle resource trouvée !"+ ressourceAChecker.isFood+" X : "+ ressourceAChecker.resource.Location.X+" Y : "+ ressourceAChecker.resource.Location.Y);
+                    //Logger.WriteLogFile("RED COLONY : Nouvelle resource trouvée !"+ ressourceAChecker.isFood+" X : "+ ressourceAChecker.resource.Location.X+" Y : "+ ressourceAChecker.resource.Location.Y);
+                    Logger.WriteLogFile("RED COLONY : Nouvelle resource trouvée !");
                     ressources.Add(ressourceAChecker);
                 }
             }

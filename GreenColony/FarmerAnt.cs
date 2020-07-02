@@ -10,29 +10,59 @@ namespace Krohonde.GreenColony
 {
     public class FarmerAnt : Ant
     {
+        public Boolean Protected { get; set; }
+
         public FarmerAnt(Point location, Point speed, GreenColony colony) : base(location, speed, colony)
         {
         }
 
         public override void Live()
         {
-            //Updates food list
-            //Todo:update interval for energy efficiency
-            List<Food> greenFoods = FoodAroundMe();
             //default speed direction
             //Todo:change default
-            Speed.X = -20;
+            Speed.X = -1000;
 
-            if (FoodBag < FOOD_BAG_SIZE * 20)
+            //strength increase for speed
+            if (FoodBag > 1 && Strength < 10)
             {
+                EatFromBag(2, MotherNature.DigestionFor.Strength);
+            }
+
+            if (FoodBag >= FOOD_BAG_SIZE * 20)
+            {
+                System.Drawing.Point closestHill = MyColony.Hill[0];
+                //gets closest point to the base
+                foreach (var h in MyColony.Hill)
+                {
+                    if (Helpers.Distance(SDLocation, new System.Drawing.Point(h.X, h.Y)) < Helpers.Distance(SDLocation,
+                        new System.Drawing.Point(closestHill.X, closestHill.Y)))
+                    {
+                        closestHill = h;
+                    }
+                }
+
+                Logger.WriteLogFile(
+                    $"GreenFarmer distance to store{Helpers.Distance(SDLocation, new System.Drawing.Point(closestHill.X, closestHill.Y))}");
+                if (Helpers.Distance(SDLocation, new System.Drawing.Point(closestHill.X, closestHill.Y)) < 2)
+                {
+                    Logger.WriteLogFile("GreenWorker dumped food");
+                    Colony.DumpFood(this);
+                }
+
+                //returns to the colony when full
+                MoveToward(new System.Drawing.Point(closestHill.X, closestHill.Y));
+            }
+            else
+            {
+                //Updates food list
+                var greenFoods = FoodAroundMe();
+
                 //when food is spotted
                 if (greenFoods.Count > 0)
                 {
                     Food closestFood = greenFoods[0];
                     foreach (Food f in greenFoods)
                     {
-                        Logger.WriteLogFile($"GreenFarmer found food at x:{f.Location.X} ; y:{f.Location.Y}");
-
                         //Check which on is closer
                         if (Helpers.Distance(f.Location, SDLocation) <
                             Helpers.Distance(closestFood.Location, SDLocation))
@@ -44,16 +74,11 @@ namespace Krohonde.GreenColony
                     //go toward the closest food
                     MoveToward(closestFood.Location);
 
-                    //Todo: update function
                     if (Helpers.Distance(closestFood.Location, SDLocation) < PICKUP_REACH)
                     {
                         Pickup(closestFood);
                     }
                 }
-            }
-            else
-            {
-                MoveToward(new System.Drawing.Point((int) Colony.Location.X, (int) Colony.Location.Y));
             }
 
             Move();
