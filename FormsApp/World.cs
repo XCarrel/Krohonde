@@ -152,7 +152,7 @@ namespace FormsApp
                 if (!colony.IsAlive)
                 {
                     Image skull = global::FormsApp.Properties.Resources.skull;
-                    graphics.DrawImage(queenImage, (int)colony.Location.X - skull.Width / 2, (int)colony.Location.Y - skull.Height / 2, skull.Width, skull.Height);
+                    graphics.DrawImage(skull, (int)colony.Location.X - skull.Width / 2, (int)colony.Location.Y - skull.Height / 2, skull.Width, skull.Height);
                 }
             }
 
