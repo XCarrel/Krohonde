@@ -23,11 +23,12 @@ namespace Krohonde.RedColony
         {
 
             
-            if (BrickBag > 500)
+            if (BrickBag == 50)
             {
                 Speed.X = MyColony.Location.X - X;
                 Speed.Y = MyColony.Location.Y - Y;
                 Move();
+                MyColony.BuildExtension(this);
             }
 
             double distMin = 5000;
@@ -56,6 +57,7 @@ namespace Krohonde.RedColony
                     ScoutAnt.DesactivateRessource(closest);
                     Logger.WriteLogFile("RED patate");
                     Pickup(closest);
+
                     
                 }
                 else
