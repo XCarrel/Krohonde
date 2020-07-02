@@ -161,6 +161,7 @@ namespace FormsApp
             
             this.lblAntNb.Text = "Nombre de fourmis : " + colony.Population.Count;
             this.lblFoodStore.Text = "Stock nourriture : " + colony.FoodStore;
+            this.lblQueenEnergy.Text = "Energie de la reine: " + colony.Queen.Energy;
 
             if (dgvAnts.Rows.Count > 0 || colony.Population.Count > 0)
             {
