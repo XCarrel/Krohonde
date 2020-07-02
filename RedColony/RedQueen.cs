@@ -142,25 +142,21 @@ namespace Krohonde.RedColony
                     {
                         LayEgg(MotherNature.AntTypes.FarmerAnt, new Point((int)X + 16, (int)Y + 16));
                         SpawnAnt = 1;
-                        //NbMaxAntTypeFarmer = NbMaxAntTypeFarmer + 1;
                     }
                     if (NbWorkerAnt < NbMaxAntTypeWorker && SpawnAnt == 3)
                     {
                         LayEgg(MotherNature.AntTypes.WorkerAnt, new Point((int)X - 16, (int)Y + 16));
                         SpawnAnt++;
-                        //NbMaxAntTypeFarmer = NbMaxAntTypeFarmer + 1;
                     }
                     if (NbScoutAnt < NbMaxAntTypeScout && SpawnAnt == 2)
                     {
                         LayEgg(MotherNature.AntTypes.ScoutAnt, new Point((int)X + 16, (int)Y - 16));
                         SpawnAnt++;
-                        //NbMaxAntTypeFarmer = NbMaxAntTypeFarmer + 1;
                     }
                     if (NbSoldierAnt < NbMaxAntTypeSoldier && SpawnAnt == 1)
                     {
                         LayEgg(MotherNature.AntTypes.SoldierAnt, new Point((int)X - 16, (int)Y - 16));
                         SpawnAnt++;
-                        //NbMaxAntTypeFarmer = NbMaxAntTypeFarmer + 1;
                     }
                 }
             }
