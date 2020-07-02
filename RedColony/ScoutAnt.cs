@@ -9,7 +9,7 @@ namespace Krohonde.RedColony
 {
     /**
      * Auteur : Eliott Jaquier CORP & CO - (P0PC0RN)
-     * Version : 3.6 (01.07.2020) - phase 1
+     * Version : 3.7 (02.07.2020) - phase 1
      * Comments : Remove
      */
     

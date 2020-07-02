@@ -24,9 +24,21 @@ namespace Krohonde.RedColony
         private int Mouvement = 0;
         public RedQueen(Point location, Point speed, Colony colony) : base(location, speed, colony)
         { }
+        void GeneralRefresh()
+        {
+            foreach (SoldierAnt.EnemyListedActu antCheck in SoldierAnt.enemyRepered.ToList())
+            {
+                antCheck.time = antCheck.time - 1;
+                if(antCheck.time == 0)
+                {
+                    SoldierAnt.enemyRepered.Remove(antCheck);
+                }
+            }
+        }
         public override void Live()
         {
             base.Live();
+            GeneralRefresh();
             if (Energy > 5000)
             {
                 NbWorkerAnt = 0;
