@@ -13,6 +13,7 @@ namespace Krohonde.GreenColony
         { }
         public override void Live()
         {
+            base.Live();
             DoNothing(); // The queen MUST either do something (Move, Eat, Lay an egg) or announce that she does nothing
         }
 

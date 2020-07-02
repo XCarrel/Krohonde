@@ -25,6 +25,7 @@ namespace Krohonde.BlueColony
 
         public override void Live()
         {
+            base.Live();
             Logger.WriteLogFile("food: " + MyColony.FoodStore.ToString());
             
             int[] population = { 0, 0, 0, 0 };

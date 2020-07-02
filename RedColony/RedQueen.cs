@@ -26,7 +26,7 @@ namespace Krohonde.RedColony
         { }
         public override void Live()
         {
-
+            base.Live();
             NbWorkerAnt = 0;
             NbFarmerAnt = 0;
             NbScoutAnt = 0;
