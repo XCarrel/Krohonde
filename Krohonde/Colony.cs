@@ -61,7 +61,7 @@ namespace Krohonde
         /// <returns></returns>
         public bool DumpFood(Ant ant)
         {
-            if (!Helpers.IsInPolygon(Hill, ant.SDLocation)) return false; // can't dump from outside
+            if (!Helpers.IsInPolygon(Hill, new System.Drawing.Point((int)ant.HeadPosition.X, (int)ant.HeadPosition.Y))) return false; // can't dump from outside
             foodstore += ant.FoodBag;
             ant.EmptyFoodBag();
             return true;

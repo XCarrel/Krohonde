@@ -11,6 +11,7 @@ namespace Krohonde.RedColony
     {
         private Point position;
         private Point goToPosition;
+        int inc = 0;
         
         
 
@@ -21,10 +22,17 @@ namespace Krohonde.RedColony
 
         public override void Live()
         {
-            foreach (Ant enemy in EnemiesAroundMe())
+            inc++;
+            if(inc == 3)
             {
-                SoldierAnt.PointAnEnemy(enemy);
+                foreach (Ant enemy in EnemiesAroundMe())
+                {
+                    SoldierAnt.PointAnEnemy(enemy);
+                }
+                inc = 0;
             }
+
+            
 
             if (BrickBag == 50)
             {
@@ -88,7 +96,7 @@ namespace Krohonde.RedColony
                 Speed.Y = goToPosition.Y - Y;
                 Move();
             }
-            
+            Move();
 
             
         }
