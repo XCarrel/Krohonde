@@ -147,6 +147,13 @@ namespace FormsApp
                 // Queen
                 Image queenImage = global::FormsApp.Properties.Resources.queen;
                 graphics.DrawImage(queenImage, (int)colony.Queen.X-queenImage.Width/2, (int)colony.Queen.Y-queenImage.Height/2, queenImage.Width, queenImage.Height);
+
+                // Death
+                if (!colony.IsAlive)
+                {
+                    Image skull = global::FormsApp.Properties.Resources.skull;
+                    graphics.DrawImage(queenImage, (int)colony.Location.X - skull.Width / 2, (int)colony.Location.Y - skull.Height / 2, skull.Width, skull.Height);
+                }
             }
 
             // Food

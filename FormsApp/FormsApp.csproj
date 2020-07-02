@@ -142,6 +142,7 @@
     <None Include="Resources\queen.png" />
     <Content Include="Resources\scout.png" />
     <None Include="Resources\scoutegg.png" />
+    <None Include="Resources\skull.png" />
     <Content Include="Resources\soldier.png" />
     <None Include="Resources\soldieregg.png" />
     <Content Include="Resources\worker.png" />
