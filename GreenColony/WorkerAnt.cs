@@ -37,7 +37,8 @@ namespace Krohonde.GreenColony
         private int phase = 1;
         Brick closestBrick;  //the closest brick object
         bool brickPeriod = true;
-        bool haveFoundSomeBricksInArea = false;
+        int numLive = 0;
+        private Brick brickFound;
 
         public WorkerAnt(Point location, Point speed, GreenColony colony) : base(location, speed, colony)
         {
@@ -47,11 +48,15 @@ namespace Krohonde.GreenColony
         {
             //Logger.WriteLogFile($"deltatime: {MotherNature.LastFrameDuration}");
             List<Brick> ListBricks;
-            ListBricks = BricksAroundMe();
+            LogEnergy();
+            numLive++;
+            if (numLive == 1)
+            {
+                SudOuest(); //default start direction.
+            }
 
-            SudOuest(); //default start direction.
             //Default behavior of movement:
-            if (Blocked.Contains("oui"))
+            if (Blocked.Contains("oui") == true)
             {
                 RandomDirection();
             }
@@ -59,37 +64,36 @@ namespace Krohonde.GreenColony
             switch (phase)
             {
                 case 1: //Go to first brick that you find
-                    if (ListBricks.Count() != 0)    //if there are bricks around me:
+                    closestBrick = getClosestBrick();
+                    if (closestBrick != null)
                     {
-                        closestBrick = ListBricks[0];    //first initialize
-
-                        //search the closest brick
-                        foreach (Brick OneBrick in ListBricks)
-                        {
-                            Helpers.Distance(new System.Drawing.Point((int)X, (int)Y), OneBrick.Location);
-                            MoveToward(OneBrick.Location);
-                            //Check which on is closer
-                            if (Helpers.Distance(OneBrick.Location, this.SDLocation) <
-                                Helpers.Distance(closestBrick.Location, this.SDLocation))
-                            {
-                                closestBrick = OneBrick;
-                            }
-                        }
-                        haveFoundSomeBricksInArea = true;
+                        MoveToward(new System.Drawing.Point((int)closestBrick.Location.X, (int)closestBrick.Location.Y));
                     }
+
                     NextMove(); //Move to the next position
-                    if (haveFoundSomeBricksInArea == true)
+                    if (closestBrick != null)
                     {
-                        if (BrickBag < BRICK_BAG_SIZE * 20 && Helpers.Distance(closestBrick.Location, SDLocation) < PICKUP_REACH)
+                        if (Helpers.Distance(closestBrick.Location, SDLocation) < PICKUP_REACH)
                         {
                             phase = 2;
                         }
                     }
                     break;
                 case 2: //Found a brick, just pick up the brick several times
-                    Pickup(closestBrick);
+                    closestBrick = getClosestBrick();
+
+                    if (Helpers.Distance(closestBrick.Location, SDLocation) < PICKUP_REACH)
+                    {
+                        Pickup(closestBrick);
+                    }
+                    else
+                    {
+                        MoveToward(new System.Drawing.Point((int)closestBrick.Location.X, (int)closestBrick.Location.Y));
+                        NextMove();
+                    }
+
                     Logger.WriteLogFile($"GreenWorker {Fullname} found brick and picked up in BrickBag: {BrickBag}");
-                    if (BrickBag < BRICK_BAG_SIZE * 20)
+                    if (BrickBag == BRICK_BAG_SIZE * 20)
                     {
                         phase = 3;
                     }
@@ -129,7 +133,38 @@ namespace Krohonde.GreenColony
             }
 
         }
+        /// <summary>
+        /// Get the closest Brick around the ant
+        /// </summary>
+        /// <returns></returns>
+        public Brick getClosestBrick()
+        {
+            List<Brick> ListBricks;
+            ListBricks = BricksAroundMe();
+            if (ListBricks.Count() != 0)    //if there are bricks around me:
+            {
+                closestBrick = ListBricks[0];    //first initialize
 
+                //search the closest brick
+                foreach (Brick OneBrick in ListBricks)
+                {
+                    //Check which on is closer
+                    if (Helpers.Distance(OneBrick.Location, this.SDLocation) <
+                        Helpers.Distance(closestBrick.Location, this.SDLocation))
+                    {
+                        brickFound = OneBrick;
+                    }
+
+                }
+                return brickFound;
+            }
+            return null;    //if not found, return null
+        }
+
+        public void LogEnergy()
+        {
+            Logger.WriteLogFile($"GreenWorker Energy: {Energy}");
+        }
         public void RandomDirection()
         {
             int rand = 0;
@@ -206,6 +241,10 @@ namespace Krohonde.GreenColony
 
         public void NextMove()
         {
+            if (Blocked.Contains("oui") == true)
+            {
+                RandomDirection();
+            }
             Move();
         }
 
