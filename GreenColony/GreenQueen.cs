@@ -16,7 +16,7 @@ namespace Krohonde.GreenColony
             base.Live();
             for (int i = 0; i < 30; i++)
             {
-                if(Energy <= 20000)
+                if (Energy <= 20000)
                 {
                     Eat(i);
                 }
@@ -24,10 +24,8 @@ namespace Krohonde.GreenColony
                 {
                     LayEgg(MotherNature.AntTypes.SoldierAnt, new Point((int)X + 10, (int)Y));
                 }
-                
+                DoNothing(); // The queen MUST either do something (Move, Eat, Lay an egg) or announce that she does nothing
             }
-            DoNothing(); // The queen MUST either do something (Move, Eat, Lay an egg) or announce that she does nothing
         }
-        
     }
 }
