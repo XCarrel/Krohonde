@@ -38,10 +38,10 @@
             this.pnlScore.AutoScroll = true;
             this.pnlScore.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.pnlScore.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.pnlScore.Location = new System.Drawing.Point(15, 10);
-            this.pnlScore.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pnlScore.Location = new System.Drawing.Point(20, 12);
+            this.pnlScore.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlScore.Name = "pnlScore";
-            this.pnlScore.Size = new System.Drawing.Size(1514, 563);
+            this.pnlScore.Size = new System.Drawing.Size(2019, 693);
             this.pnlScore.TabIndex = 0;
             // 
             // timerScore
@@ -51,14 +51,12 @@
             // 
             // Score
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::FormsApp.Properties.Resources.grass;
-            this.ClientSize = new System.Drawing.Size(1540, 582);
+            this.ClientSize = new System.Drawing.Size(1924, 716);
             this.Controls.Add(this.pnlScore);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Score";
             this.Text = "Score";
             this.Load += new System.EventHandler(this.Score_Load);

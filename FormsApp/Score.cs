@@ -47,6 +47,7 @@ namespace FormsApp
             timerScore.Start();
 
             this.SuspendLayout();
+            this.WindowState = FormWindowState.Maximized;
 
             foreach (Colony colony in world.myWorld.Colonies())
             {
