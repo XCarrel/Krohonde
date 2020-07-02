@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace Krohonde.RedColony
+    /*
+     * Auteur : Méline Juillet
+     * version : 3.6 
+     * comment : drop and go to pick
+     */
+
 {
     public class FarmerAnt : Ant
     {
@@ -17,17 +23,20 @@ namespace Krohonde.RedColony
 
         public FarmerAnt(Point location, Point speed, RedColony colony) : base(location, speed, colony)
         {
-            startSpawnX = X;
+            startSpawnX = X;    // indicates the spawn
             startSpawnY = Y;
         }
 
         public override void Live()
         {
-
+            foreach (Ant enemy in EnemiesAroundMe())
+            {
+                SoldierAnt.PointAnEnemy(enemy);     // defense
+            }
             if (FoodBag >48) {
                 if (X != startSpawnX && Y != startSpawnY)
                 {
-                    Speed.X = startSpawnX - X;
+                    Speed.X = startSpawnX - X;     
                     Speed.Y = startSpawnY - Y;
                     Move();
 
@@ -40,7 +49,7 @@ namespace Krohonde.RedColony
             }
             if (canDumpFood)
             {
-                MyColony.DumpFood(this);
+                MyColony.DumpFood(this);        //drop food
                 if (FoodBag == 0)
                 {
                     canDumpFood = false;
@@ -61,9 +70,9 @@ namespace Krohonde.RedColony
                 if (foodposition.Count() > 0)
                 {
                     Food closest = foodposition[0];
-                    foreach (Food foodproche in foodposition)
+                    foreach (Food foodproche in foodposition)   //find zone
                     {
-                        if (Helpers.Distance(SDLocation, foodproche.Location) < disMin)
+                        if (Helpers.Distance(SDLocation, foodproche.Location) < disMin) 
                         {
                             closest = foodproche;
                             disMin = Helpers.Distance(SDLocation, foodproche.Location);
