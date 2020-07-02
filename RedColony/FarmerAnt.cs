@@ -18,6 +18,9 @@ namespace Krohonde.RedColony
         private Point position;
         private Point goToPosition;
         bool canDumpFood = false;
+        int inc = 0;
+        int nouriture = 0;
+
 
         public FarmerAnt(Point location, Point speed, RedColony colony) : base(location, speed, colony)
         {
@@ -26,89 +29,115 @@ namespace Krohonde.RedColony
 
         public override void Live()
         {
-            foreach (Ant enemy in EnemiesAroundMe())
+            inc++;
+            if(inc == 3)
             {
-                SoldierAnt.PointAnEnemy(enemy,4);     // defense
-            }
-            if (FoodBag >48) {
-                if (X != MyColony.Location.X && Y != MyColony.Location.Y)
+                foreach (Ant enemy in EnemiesAroundMe())
                 {
-                    Speed.X = MyColony.Location.X - X;     
-                    Speed.Y = MyColony.Location.Y - Y;
-                    Move();
-
-                    
+                    SoldierAnt.PointAnEnemy(enemy, 4);     // defense
                 }
-                else {
-                    canDumpFood = true;
-                }
-
+                inc = 0;
             }
-            if (canDumpFood)
+
+            if (Energy < 29000)
             {
-                MyColony.DumpFood(this);        //drop food
-                if (FoodBag == 0)
+                nouriture = 1;
+            }
+
+            if (nouriture <0)
+            {
+                EatFromBag(2, MotherNature.DigestionFor.Energy);
+                nouriture++;
+                if(nouriture == 5)
                 {
-                    canDumpFood = false;
-                    
+                    nouriture = 0;
                 }
             }
-            else
-            {
 
-
-
-
-                double disMin = 5000;
-
-
-
-                List<Food> foodposition = FoodAroundMe();
-                if (foodposition.Count() > 0)
+                if (FoodBag > 48)
                 {
-                    Food closest = foodposition[0];
-                    foreach (Food foodproche in foodposition)   //find zone
+                    if (X != MyColony.Location.X && Y != MyColony.Location.Y)
                     {
-                        if (Helpers.Distance(SDLocation, foodproche.Location) < disMin) 
-                        {
-                            closest = foodproche;
-                            disMin = Helpers.Distance(SDLocation, foodproche.Location);
-                        }
-                    }
-                    int xPos = closest.Location.X;
-                    int yPos = closest.Location.Y;
-                    int xMyPos = Convert.ToInt32(X);
-                    int yMyPos = Convert.ToInt32(Y);
-                    float distance = Math.Abs(xPos - xMyPos) + Math.Abs(yPos - yMyPos);
+                        Speed.X = MyColony.Location.X - X;
+                        Speed.Y = MyColony.Location.Y - Y;
+                        Move();
 
-                    if (distance < 2.0f)
-                    {
-                        ScoutAnt.DesactivateRessource(closest);
-                        Pickup(closest);
+
                     }
                     else
                     {
-                        Speed.X = closest.Location.X - X;
-                        Speed.Y = closest.Location.Y - Y;
-                        Move();
+                        canDumpFood = true;
+                    }
+
+                }
+                if (canDumpFood)
+                {
+                    MyColony.DumpFood(this);        //drop food
+                    if (FoodBag >3)
+                    {
+                        canDumpFood = false;
+
                     }
                 }
                 else
                 {
-                    Resource procheSelonScouts = ScoutAnt.GoToResource(new Point(X, Y), true, true);
 
-                    if (procheSelonScouts != null)
+
+
+
+                    double disMin = 5000;
+
+
+
+                    List<Food> foodposition = FoodAroundMe();
+                    if (foodposition.Count() > 0)
                     {
-                        goToPosition = new Point(procheSelonScouts.Location.X, procheSelonScouts.Location.Y);
+                        Food closest = foodposition[0];
+                        foreach (Food foodproche in foodposition)   //find zone
+                        {
+                            if (Helpers.Distance(SDLocation, foodproche.Location) < disMin)
+                            {
+                                closest = foodproche;
+                                disMin = Helpers.Distance(SDLocation, foodproche.Location);
+                            }
+                        }
+                        int xPos = closest.Location.X;
+                        int yPos = closest.Location.Y;
+                        int xMyPos = Convert.ToInt32(X);
+                        int yMyPos = Convert.ToInt32(Y);
+                        float distance = Math.Abs(xPos - xMyPos) + Math.Abs(yPos - yMyPos);
+
+                        if (distance < 2.0f)
+                        {
+                            ScoutAnt.DesactivateRessource(closest);
+                            Pickup(closest);
+                        }
+                        else
+                        {
+                            Speed.X = closest.Location.X - X;
+                            Speed.Y = closest.Location.Y - Y;
+                            Move();
+                        }
+                    }
+                    else
+                    {
+                        Resource procheSelonScouts = ScoutAnt.GoToResource(new Point(X, Y), true, true);
+
+                        if (procheSelonScouts != null)
+                        {
+                            goToPosition = new Point(procheSelonScouts.Location.X, procheSelonScouts.Location.Y);
+                        }
+
+
+                        Speed.X = goToPosition.X - X;
+                        Speed.Y = goToPosition.Y - Y;
+                        Move();
                     }
 
-
-                    Speed.X = goToPosition.X - X;
-                    Speed.Y = goToPosition.Y - Y;
-                    Move();
                 }
+            
+            
 
-            }
             
             
 
