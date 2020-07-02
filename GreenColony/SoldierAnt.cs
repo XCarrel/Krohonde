@@ -13,9 +13,17 @@ namespace Krohonde.GreenColony
         {
         }
 
-        public override void Live(double deltatime)
+        public override void Live()
         {
-            Move(deltatime);
+            Speed.X = 10;
+            Speed.Y = -10;
+            Move();
+
+            /*while(MotherNature.PheromonTypes.Danger))
+            {
+
+            }
+            */
         }
     }
 }

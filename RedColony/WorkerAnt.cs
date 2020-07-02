@@ -19,7 +19,7 @@ namespace Krohonde.RedColony
             
         }
 
-        public override void Live(double deltatime)
+        public override void Live()
         {
             
 
@@ -27,7 +27,7 @@ namespace Krohonde.RedColony
             {
                 Speed.X = MyColony.Location.X - X;
                 Speed.Y = MyColony.Location.Y - Y;
-                Move(deltatime);
+                Move();
             }
 
             double distMin = 5000;
@@ -60,7 +60,7 @@ namespace Krohonde.RedColony
                 {
                     Speed.X = closest.Location.X - X - 1;
                     Speed.Y = closest.Location.Y - Y - 1;
-                    Move(deltatime);
+                    Move();
                 }
 
                 
@@ -79,7 +79,7 @@ namespace Krohonde.RedColony
 
                 Speed.X = goToPosition.X - X;
                 Speed.Y = goToPosition.Y - Y;
-                Move(deltatime);
+                Move();
             }
             
 

@@ -9,7 +9,7 @@ namespace Krohonde.BlueColony
 {
     public class SoldierAnt : Ant
     {
-        private Point SaveDestination;
+        ///private Point SaveDestination;
         private BlueColony colony;
 
 
@@ -18,24 +18,11 @@ namespace Krohonde.BlueColony
             this.colony = colony;
         }
 
-        public override void Live(double deltatime)
+        public override void Live()
         {
-            Point location = new Point(X, Y);
+            Speed = new Point(-20, -20);
+            
 
-            if (location == this.Speed)
-            {
-                this.BlockedBy = null;
-            }
-
-            if (this.BlockedBy != null)
-            {
-                SaveDestination = Speed;
-                colony.unblock(this, this.Speed);
-            }
-            else
-            {
-                Move(deltatime);
-            }
         }
     }
 }

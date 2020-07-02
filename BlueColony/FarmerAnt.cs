@@ -9,7 +9,8 @@ namespace Krohonde.BlueColony
 {
     public class FarmerAnt : Ant
     {
-        private Point UnblockSpeed;
+        private Point Destination;
+        private Point UnblockDestination;
         private BlueColony colony;
 
         public FarmerAnt(Point location, Point speed, BlueColony colony) : base(location, speed, colony)
@@ -17,21 +18,29 @@ namespace Krohonde.BlueColony
             this.colony = colony;
         }
 
-        public override void Live(double deltatime)
+        public override void Live()
         {
             Point location = new Point(X, Y);
-
-            if(location == UnblockSpeed){
-            this.BlockedBy = null;
+            
+            if (location == UnblockDestination)
+            {
+                this.BlockedBy = null;
+                this.Speed = new Point(Destination.X - X, Destination.Y - Y);
             }
 
-            if(this.BlockedBy != null){
-            colony.unblock(this, this.Speed);
-            } else {
-            Move(deltatime);
+            if (this.BlockedBy != null)
+            {
+                UnblockDestination = colony.unblock(this, Destination);
+                this.Speed = new Point (UnblockDestination.X - X, UnblockDestination.Y - Y);
+
             }
-       
+            else
+            {
+                ///Move();
+            }
         }
+       
+        
 
         
     }

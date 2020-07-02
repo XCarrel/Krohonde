@@ -11,7 +11,10 @@ namespace Krohonde.BlueColony
 {
     public class BlueColony : Colony
     {
+        public List<Food> listeFood = new List<Food>();
+        public List<Brick> listeMat = new List<Brick>();
         public BlueColony(System.Windows.Point loc, IMotherNature world) : base (Color.Blue, loc,world)
+
         {
             queen = new BlueQueen(new System.Drawing.Point((int)loc.X, (int)loc.Y), new System.Drawing.Point(0, 0), this);
         }
@@ -28,38 +31,89 @@ namespace Krohonde.BlueColony
             }
         }
 
-        public System.Windows.Point unblock(Ant ant, System.Windows.Point speed)
+        public System.Windows.Point unblock(Ant ant, System.Windows.Point destination)
         {
-            System.Windows.Point unblockSpeed = speed;
+            System.Windows.Point unblock = destination;
 
             if (ant.Blocked == "oui, par mère nature")
             {
-                if (speed.X <= 0)
+                if (destination.X <= 0)
                 {
-                    unblockSpeed.X = 10;
+                    unblock.X = 10;
                 }
                 else
                 {
-                    unblockSpeed.X = -10;
-                }
+                    if (destination.Y <= 0)
+                    {
+                        unblock.Y = 10;
+                    }
+                    else
+                    {
+                        unblock.Y = -10;
+                    }
 
-                if (speed.Y <= 0)
-                {
-                    unblockSpeed.Y = 10;
-                }
-                else
-                {
-                    unblockSpeed.Y = -10;
+                    unblock.X = -10;
                 }
 
             }
             else
             {
-                unblockSpeed.Y = -1 * speed.X;
-                unblockSpeed.X = -1 * speed.Y;
+                unblock.Y = -1 * destination.X;
+                unblock.X = -1 * destination.Y;
             }
 
-            return unblockSpeed;
+            return unblock;
         }
+        public void AddFood(Food item)
+        {
+            bool present = false;
+            foreach (Food element in listeFood)
+            {
+                if (item.Location.X == element.Location.X && item.Location.Y == element.Location.Y)
+                {
+                    present = true;
+                }
+            }
+            if (present == false)
+            {
+                listeFood.Add(item);
+                Logger.WriteLogFile("nourriture :" + item.Location.X + ":" + item.Location.Y);
+            }
+        }
+        public void AddMat(Brick item)
+        {
+            bool present = false;
+            foreach (Brick element in listeMat)
+            {
+                if (item.Location.X == element.Location.X && item.Location.Y == element.Location.Y)
+                {
+                    present = true;
+                }
+            }
+            if (present == false)
+            {
+                listeMat.Add(item);
+                Logger.WriteLogFile("ressource :" + item.Location.X + ":" + item.Location.Y);
+            }
+        }
+
+        /*  A supprimer
+        public bool CanMove(Ant ant, System.Windows.Point destination)
+        {
+            int width = ant.Colony.World().width;
+            int height = ant.Colony.World().height;
+            Logger.WriteLogFile("width:" + width.ToString());
+            Logger.WriteLogFile("height:" + height.ToString());
+            
+
+            if  (destination.X >= width  -  50 || destination.Y >= height  -  50 || destination.X <= 50 || destination.Y <= 50) {
+                return false;
+            
+            } else
+            {
+                return true;
+            }
+
+        } */
     }
 }

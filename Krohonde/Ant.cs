@@ -104,12 +104,8 @@ namespace Krohonde
         /// If the move would put the ant into a rock, the ant stays there and its 'BlockedBy' attribute identifies the rock that prevented the move
         /// If the move would put the ant outside the garden, the ant stays there and its 'BlockedBy' attribute is MotherNature
         /// </summary>
-        /// <param name="deltatime"></param>
-        protected void Move(double deltatime)
+        protected void Move()
         {
-            // Temporary
-            roam();
-
             if (!ActionAllowed()) return; // ignore multiple actions by same ant
             double maxSpeed = this.getMaxSpeed();
             // Linear speed
@@ -122,8 +118,9 @@ namespace Krohonde
             }
 
             // Check if move is OK
-            double nextX = HeadPosition.X + Speed.X * deltatime;
-            double nextY = HeadPosition.Y + Speed.Y * deltatime;
+            BlockedBy = null; // assume it will be ok to move
+            double nextX = HeadPosition.X + Speed.X * MotherNature.LastFrameDuration;
+            double nextY = HeadPosition.Y + Speed.Y * MotherNature.LastFrameDuration;
             if (nextX < 0 || nextY < 0 || nextX > this.Colony.World().width || nextY > this.Colony.World().height)
             {
                 BlockedBy = this.Colony.World();
@@ -136,12 +133,12 @@ namespace Krohonde
                     return; // can't go through a rock
                 }
 
-            Location.X += Speed.X * deltatime;
-            Location.Y += Speed.Y * deltatime;
+            Location.X += Speed.X * MotherNature.LastFrameDuration;
+            Location.Y += Speed.Y * MotherNature.LastFrameDuration;
 
             // Energy consumption
             double strengthfactor = 1 + strength / 100.0; // strength attenuates fatigue
-            energy -= (int)(linspeed * deltatime / strengthfactor);
+            energy -= (int)(linspeed * MotherNature.LastFrameDuration / strengthfactor);
         }
 
         private void Eat(int amount, MotherNature.DigestionFor purpose)
@@ -234,8 +231,7 @@ namespace Krohonde
         /// <summary>
         /// Updates the ant's state according to the time it has lived since last update
         /// </summary>
-        /// <param name="deltatime"></param>
-        public abstract void Live(double deltatime);
+        public abstract void Live();
 
         /// <summary>
         /// The angle (in degrees) the speed makes with x-axis

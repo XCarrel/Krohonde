@@ -13,7 +13,7 @@ namespace Krohonde.GreenColony
         {
         }
 
-        public override void Live(double deltatime)
+        public override void Live()
         {
             //Updates food list
             //Todo:update interval for energy efficiency
@@ -73,7 +73,7 @@ namespace Krohonde.GreenColony
                 }
             }
 
-            Move(deltatime);
+            Move();
         }
     }
 }

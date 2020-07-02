@@ -38,9 +38,9 @@ namespace Krohonde
             maturity = mat;
         }
 
-        public void Grow(double deltatime)
+        public void Grow()
         {
-            maturity += deltatime;
+            maturity += MotherNature.LastFrameDuration;
             mother.Colony.GetFoodFromStore(MotherNature.COST_OF_EGG_GROWTH);
         }
         public double Maturity { get => maturity; }

@@ -47,10 +47,10 @@ namespace Krohonde
             lastactionby = this; 
         }
 
-        public virtual void Live(double deltatime)
+        public virtual void Live()
         {
             awake = true;
-            energy -= (int)(COST_OF_LIVING * deltatime);
+            energy -= (int)(COST_OF_LIVING * MotherNature.LastFrameDuration);
         }
 
         public void Sleep()
@@ -81,7 +81,7 @@ namespace Krohonde
             return true;
         }
 
-        protected void Move(double deltatime)
+        protected void Move()
         {
             if (!ActionAllowed()) return; // ignore multiple actions by same queen
             // Linear speed
@@ -93,11 +93,11 @@ namespace Krohonde
                 linspeed = MotherNature.MAX_QUEEN_SPEED;
             }
 
-            Location.X += (int)(Speed.X * deltatime);
-            Location.Y += (int)(Speed.Y * deltatime);
+            Location.X += (int)(Speed.X * MotherNature.LastFrameDuration);
+            Location.Y += (int)(Speed.Y * MotherNature.LastFrameDuration);
 
             // Energy consumption
-            energy -= (int)(linspeed * deltatime);
+            energy -= (int)(linspeed * MotherNature.LastFrameDuration);
         }
         public bool LayEgg(MotherNature.AntTypes typ, System.Drawing.Point loc, Queen queen)
         {
