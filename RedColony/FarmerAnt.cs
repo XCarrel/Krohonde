@@ -19,6 +19,8 @@ namespace Krohonde.RedColony
         bool canDumpFood = false;
         int inc = 0;
         int nouriture = 0;
+        int unblock = 0;
+        double disMin = 5000;
 
 
         public FarmerAnt(Point location, Point speed, RedColony colony) : base(location, speed, colony)
@@ -52,8 +54,15 @@ namespace Krohonde.RedColony
                     nouriture = 0;
                 }
             }
+            if (BlockedBy != null && unblock < 15)
+            {
+                Move();
+                unblock++;
+            }
+            else
+            {
+                unblock = 0;
 
-           
                 if (FoodBag > 48)
                 {
                     if (X != MyColony.Location.X && Y != MyColony.Location.Y)
@@ -70,10 +79,10 @@ namespace Krohonde.RedColony
                     }
 
                 }
-                if (canDumpFood)
+                if (canDumpFood == true)
                 {
                     MyColony.DumpFood(this);        //drop food
-                    if (FoodBag >3)
+                    if (FoodBag <4)
                     {
                         canDumpFood = false;
 
@@ -85,7 +94,7 @@ namespace Krohonde.RedColony
 
 
 
-                    double disMin = 5000;
+                    
 
 
 
@@ -135,8 +144,8 @@ namespace Krohonde.RedColony
                     }
 
                 }
-            
-            
+
+            }
 
             
             
