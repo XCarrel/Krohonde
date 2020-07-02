@@ -44,6 +44,7 @@ namespace Krohonde.RedColony
                 if (FoodBag == 0)
                 {
                     canDumpFood = false;
+                    
                 }
             }
             else
