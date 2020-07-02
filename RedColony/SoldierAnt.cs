@@ -56,7 +56,7 @@ namespace Krohonde.RedColony
             {
                 if (enemyRepered.Count > 0)
                 {
-                    /*SELECT PART*/
+                    /*SELECT PART*//*
                     Ant enemyToTarget = enemyRepered[0].fourmis;
 
                     int distance = Math.Abs(Convert.ToInt32(goToPosition.X) - Convert.ToInt32(X)) + Math.Abs(Convert.ToInt32(goToPosition.Y) - Convert.ToInt32(Y));
@@ -89,6 +89,6 @@ namespace Krohonde.RedColony
             {
                 SoldierAnt.PointAnEnemy(enemy,2);
             }
-        }
+        }*/
     }
 }
