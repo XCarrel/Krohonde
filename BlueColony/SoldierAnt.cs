@@ -18,7 +18,7 @@ namespace Krohonde.BlueColony
             this.colony = colony;
         }
 
-        public override void Live(double deltatime)
+        public override void Live()
         {
             Speed = new Point(-20, -20);
             

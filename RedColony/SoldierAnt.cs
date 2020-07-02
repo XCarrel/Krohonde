@@ -13,9 +13,9 @@ namespace Krohonde.RedColony
         {
         }
 
-        public override void Live(double deltatime)
+        public override void Live()
         {
-            Move(deltatime);
+            Move();
         }
     }
 }

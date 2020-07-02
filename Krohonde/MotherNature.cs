@@ -56,6 +56,7 @@ namespace Krohonde
         private readonly int width;
         private readonly int height;
         private TimeSpan lastupdate;
+        public static double LastFrameDuration; // time elapsed (in seconds) between lastupdate and now
         Hashtable birthCertificates;
         Hashtable eggCertificates;
 
@@ -178,7 +179,7 @@ namespace Krohonde
         /// </summary>
         public void Live()
         {
-            double deltatime = (universaltime.Elapsed - lastupdate).TotalSeconds;
+            LastFrameDuration = (universaltime.Elapsed - lastupdate).TotalSeconds;
             foreach (Colony colony in colonies)
             {
                 if (colony.IsAlive)
@@ -188,7 +189,7 @@ namespace Krohonde
                     {
                         if (birthCertificates[ant.Fullname].Equals(ant.Certificate))
                         {
-                            ant.Live(deltatime);
+                            ant.Live();
                             if (ant.Energy < 0)
                             {
                                 birthCertificates.Remove(ant.Fullname);
@@ -204,7 +205,7 @@ namespace Krohonde
                     {
                         if (eggCertificates[egg.Name].Equals(egg.Certificate))
                         {
-                            egg.Grow(deltatime);
+                            egg.Grow();
                             if (egg.Maturity >= 100)
                             {
                                 eggCertificates.Remove(egg.Name);
@@ -219,7 +220,7 @@ namespace Krohonde
                     }
 
                     // Long live the Queen !!!!
-                    colony.Queen.Live(deltatime);
+                    colony.Queen.Live();
                     colony.Queen.Sleep(); // get some rest
                 } else
                 {

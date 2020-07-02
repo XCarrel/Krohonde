@@ -33,9 +33,9 @@ namespace Krohonde.RedColony
         {
             GeneratePosition();//Génération d'une destination aléatoire
         }
-        public override void Live(double deltatime)//Update
+        public override void Live()//Update
         {
-            MoveToPosition(deltatime, goToPosition);//Avance d'un tick en direction de la destination
+            MoveToPosition(MotherNature.LastFrameDuration, goToPosition);//Avance d'un tick en direction de la destination
             CheckFor();
         }
         public static void DesactivateRessource(Resource ressourceADelete)//Supprime la resource une fois qu'elle est utilisée
@@ -124,7 +124,7 @@ namespace Krohonde.RedColony
             canMove = !arrivedToPosition && (Energy > 2000);
             if (canMove)
             {
-                Move(deltatime);
+                Move();
             }
             if (arrivedToPosition)
             {

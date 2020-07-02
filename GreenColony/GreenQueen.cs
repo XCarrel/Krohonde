@@ -11,7 +11,7 @@ namespace Krohonde.GreenColony
     {
         public GreenQueen(Point location, Point speed, Colony colony) : base(location, speed, colony)
         { }
-        public override void Live(double deltatime)
+        public override void Live()
         {
             DoNothing(); // The queen MUST either do something (Move, Eat, Lay an egg) or announce that she does nothing
         }

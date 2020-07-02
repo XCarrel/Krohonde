@@ -24,7 +24,7 @@ namespace Krohonde.RedColony
         private int Mouvement = 0;
         public RedQueen(Point location, Point speed, Colony colony) : base(location, speed, colony)
         { }
-        public override void Live(double deltatime)
+        public override void Live()
         {
 
             NbWorkerAnt = 0;
@@ -78,7 +78,7 @@ namespace Krohonde.RedColony
             {
                 Speed.X = 0;
                 Speed.Y = -100;
-                Move(deltatime);
+                Move();
                 Mouvement++;
             }
             switch (SpawnAnt2)

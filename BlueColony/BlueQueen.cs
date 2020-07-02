@@ -23,7 +23,7 @@ namespace Krohonde.BlueColony
             return true;
         }
 
-        public override void Live(double deltatime)
+        public override void Live()
         {
             Logger.WriteLogFile("food: " + MyColony.FoodStore.ToString());
             
@@ -54,7 +54,7 @@ namespace Krohonde.BlueColony
                 else
                 {
                     Speed = new Point(MotherNature.alea.Next(0, 32), MotherNature.alea.Next(0, 32));
-                     Move(deltatime);
+                     Move();
                     Logger.WriteLogFile("move");
                 }
             }

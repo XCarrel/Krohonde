@@ -22,7 +22,7 @@ namespace Krohonde.BlueColony
             this.bcolony = colony;
             randomPos();
         }
-        public override void Live(double deltatime)
+        public override void Live()
         {
             Point location = new Point(X, Y);
 
@@ -41,7 +41,7 @@ namespace Krohonde.BlueColony
             }
             else
             {
-                Move(deltatime);
+                Move();
             }
 
             if (time == 0)

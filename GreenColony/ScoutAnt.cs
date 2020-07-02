@@ -36,7 +36,7 @@ namespace Krohonde.GreenColony
         {
         }
 
-        public override void Live(double deltatime)
+        public override void Live()
         {
             List<Food> FAM = FoodAroundMe();
             foreach(Food FAM2 in FAM)
@@ -94,8 +94,7 @@ namespace Krohonde.GreenColony
                 }
             }
 
-            Move(deltatime * 3);
-            Move(deltatime);
+            Move();
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Krohonde.BlueColony
             this.colony = colony;
         }
 
-        public override void Live(double deltatime)
+        public override void Live()
         {
             List <Brick> liste = colony.listeMat;
             if (liste.Count > 0)
@@ -57,7 +57,7 @@ namespace Krohonde.BlueColony
                     this.Speed = new Point(Destination.X - location.X, Destination.Y - location.Y);
                     Logger.WriteLogFile("Cap vers:" + Speed.ToString());
                     Logger.WriteLogFile("location:" + location.ToString());
-                    Move(deltatime);
+                    Move();
 
                 }
             }*/

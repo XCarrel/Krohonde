@@ -37,16 +37,16 @@ namespace Krohonde.GreenColony
         {
         }
 
-        public override void Live(double deltatime)
+        public override void Live()
         {
-            Logger.WriteLogFile($"deltatime: {deltatime}");
+            Logger.WriteLogFile($"deltatime: {MotherNature.LastFrameDuration}");
             List<Food> ListFood = FoodAroundMe();
             foreach (Food OneFood in ListFood)
             {
                 Helpers.Distance(new System.Drawing.Point((int)X, (int) Y), OneFood.Location);
                 GoFood(OneFood.Location.X, OneFood.Location.Y);
             }
-            Move(deltatime);
+            Move();
 
         }
 

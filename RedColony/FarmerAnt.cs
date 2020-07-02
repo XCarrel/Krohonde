@@ -20,13 +20,13 @@ namespace Krohonde.RedColony
             startSpawnY = Y;
         }
 
-        public override void Live(double deltatime)
+        public override void Live()
         {
 
             if (FoodBag >48) {
                 Speed.X = startSpawnX - X;
                 Speed.Y = startSpawnY - Y;
-                Move(deltatime);
+                Move();
             }
 
 
@@ -61,7 +61,7 @@ namespace Krohonde.RedColony
                 {
                     Speed.X = closest.Location.X - X;
                     Speed.Y = closest.Location.Y - Y;
-                    Move(deltatime);
+                    Move();
                 }
             }
             else
@@ -76,7 +76,7 @@ namespace Krohonde.RedColony
 
                 Speed.X = goToPosition.X - X;
                 Speed.Y = goToPosition.Y - Y;
-                Move(deltatime);
+                Move();
             }
 
 
