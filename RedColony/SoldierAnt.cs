@@ -18,10 +18,12 @@ namespace Krohonde.RedColony
         public static List<Queen> listOfQueen = new List<Queen>(0);
         private Ant enemyToTarget;
         public Point goToPosition;
+        public bool charging;
         private Point pointOfAction;
         private bool sortirImpasse = false;
         public SoldierAnt(Point location, Point speed, RedColony colony) : base(location, speed, colony)
         {
+            charging = true;
             Random r = new Random();
             System.Drawing.Point pt = new System.Drawing.Point(Convert.ToInt32(MyColony.Location.X), Convert.ToInt32(MyColony.Location.Y));
             pointOfAction = new Point(MyColony.Location.X + r.Next(-100, 300), MyColony.Location.Y + r.Next(-100, 300));
@@ -87,113 +89,65 @@ namespace Krohonde.RedColony
         public override void Live()
         {
             tick++;
-            if (sortirImpasse)
+            if (charging)
             {
-                if ((tick % 10) == 0)
+                if (MyColony.FoodStore > 1000)
                 {
-                    Random r = new Random();
-                    goToPosition = new Point(X + r.Next(-100, 100), Y + r.Next(-100, 100));
+                    EatFromStore(45, MotherNature.DigestionFor.Strength);
                 }
-                Speed.X = goToPosition.X - X;
-                Speed.Y = goToPosition.Y - Y;
-                Move();
-                if ((tick % 25) == 0)
-                {
-                    if(BlockedBy == null)
-                    {
-                        sortirImpasse = false;
-                    }
-                }
-                
-            }
-            bool attackQueen = false;
-            Queen qu = null;
-            foreach (Queen queen in listOfQueen)
-            {
-                int distance = Math.Abs(Convert.ToInt32(queen.X) - Convert.ToInt32(X)) + Math.Abs(Convert.ToInt32(queen.Y) - Convert.ToInt32(Y));
-                if(distance < 100)
-                {
-                    qu = queen;
-                    attackQueen = true;
-                }
-            }
-            if (attackQueen)
-            {
-                int distance = Math.Abs(Convert.ToInt32(qu.X) - Convert.ToInt32(X)) + Math.Abs(Convert.ToInt32(qu.Y) - Convert.ToInt32(Y));
-                if(distance > 30)
-                {
-                    Logger.WriteLogFile("ATTAKING A QUEEN! ( RED COLONY )");
-                    Speed.X = qu.X - X;
-                    Speed.Y = qu.Y - Y;
-                    Move();
-                }
-                else
-                {
-                    Logger.WriteLogFile("QUEEN IS DEAD! ( RED COLONY )");
-                    qu.Die();
-                    listOfQueen.Remove(qu);
-                }
-                
-                
-                /*goToPosition = new Point(qu.X, qu.Y); 
-                int distance = Math.Abs(Convert.ToInt32(goToPosition.X) - Convert.ToInt32(X)) + Math.Abs(Convert.ToInt32(goToPosition.Y) - Convert.ToInt32(Y));
-                if (distance < 40)
-                {
-                    Hit(enemyToTarget);
-                    Logger.WriteLogFile("RED COLONY FORCE: ATTAQUE :" + enemyToTarget.Fullname + " PV:" + enemyToTarget.Energy + " Distance" + distance);
-                }
-                else
-                {
-                    Speed.X = goToPosition.X - X;
-                    Speed.Y = goToPosition.Y - Y;
-                    Move();
-                }*/
+                charging = false;
             }
             else
             {
-                if (enemyRepered.Count > 0)
+                if (sortirImpasse)
                 {
-                    if(enemyToTarget == null || enemyToTarget.Energy < 1 || ((tick%7) == 0)) {
-                        /*SELECT PART*/
-                        int optimal = 0;
-                        int counter = 0;
-                        float importance = 0;
-                        int distLast = 100000;
-                    
-                        foreach (EnemyListedActu enemyTest in enemyRepered)
-                        {
-                            if (enemyTest.importance > importance)
-                            {
-                                if (enemyTest.fourmis.Energy >= 0)
-                                {
-                                    importance = enemyTest.importance;
-                                    optimal = counter;
-                                }
-                            }
-                            if (enemyTest.importance == importance)
-                            {
-                                int distActu = Math.Abs(Convert.ToInt32(enemyTest.fourmis.X) - Convert.ToInt32(X)) + Math.Abs(Convert.ToInt32(enemyTest.fourmis.Y) - Convert.ToInt32(Y));
-                                if (distLast >= distActu)
-                                {
-                                    if (enemyTest.fourmis.Energy >= 0)
-                                    {
-                                        importance = enemyTest.importance;
-                                        optimal = counter;
-                                    }
-                                }
-                            }
-                            counter++;
-                        }
-                        enemyToTarget = enemyRepered[optimal].fourmis;
-                    }
-                    if(BlockedBy != null)
+                    if ((tick % 10) == 0)
                     {
-                        sortirImpasse = true;
+                        Random r = new Random();
+                        goToPosition = new Point(X + r.Next(-100, 100), Y + r.Next(-100, 100));
+                    }
+                    Speed.X = goToPosition.X - X;
+                    Speed.Y = goToPosition.Y - Y;
+                    Move();
+                    if ((tick % 25) == 0)
+                    {
+                        if (BlockedBy == null)
+                        {
+                            sortirImpasse = false;
+                        }
+                    }
+
+                }
+                bool attackQueen = false;
+                Queen qu = null;
+                foreach (Queen queen in listOfQueen)
+                {
+                    int distance = Math.Abs(Convert.ToInt32(queen.X) - Convert.ToInt32(X)) + Math.Abs(Convert.ToInt32(queen.Y) - Convert.ToInt32(Y));
+                    if (distance < 100)
+                    {
+                        qu = queen;
+                        attackQueen = true;
+                    }
+                }
+                if (attackQueen)
+                {
+                    int distance = Math.Abs(Convert.ToInt32(qu.X) - Convert.ToInt32(X)) + Math.Abs(Convert.ToInt32(qu.Y) - Convert.ToInt32(Y));
+                    if (distance > 30)
+                    {
+                        Logger.WriteLogFile("ATTAKING A QUEEN! ( RED COLONY )");
+                        Speed.X = qu.X - X;
+                        Speed.Y = qu.Y - Y;
+                        Move();
                     }
                     else
                     {
-                        goToPosition = new Point(enemyToTarget.X, enemyToTarget.Y);
+                        Logger.WriteLogFile("QUEEN IS DEAD! ( RED COLONY )");
+                        qu.Die();
+                        listOfQueen.Remove(qu);
                     }
+
+
+                    /*goToPosition = new Point(qu.X, qu.Y); 
                     int distance = Math.Abs(Convert.ToInt32(goToPosition.X) - Convert.ToInt32(X)) + Math.Abs(Convert.ToInt32(goToPosition.Y) - Convert.ToInt32(Y));
                     if (distance < 40)
                     {
@@ -205,29 +159,89 @@ namespace Krohonde.RedColony
                         Speed.X = goToPosition.X - X;
                         Speed.Y = goToPosition.Y - Y;
                         Move();
-                    }
+                    }*/
                 }
                 else
                 {
-                    goToPosition = pointOfAction;
-                    int distance = Math.Abs(Convert.ToInt32(goToPosition.X) - Convert.ToInt32(X)) + Math.Abs(Convert.ToInt32(goToPosition.Y) - Convert.ToInt32(Y));
-                    if (distance > 40)
+                    if (enemyRepered.Count > 0)
                     {
+                        if (enemyToTarget == null || enemyToTarget.Energy < 1 || ((tick % 7) == 0))
+                        {
+                            /*SELECT PART*/
+                            int optimal = 0;
+                            int counter = 0;
+                            float importance = 0;
+                            int distLast = 100000;
+
+                            foreach (EnemyListedActu enemyTest in enemyRepered)
+                            {
+                                if (enemyTest.importance > importance)
+                                {
+                                    if (enemyTest.fourmis.Energy >= 0)
+                                    {
+                                        importance = enemyTest.importance;
+                                        optimal = counter;
+                                    }
+                                }
+                                if (enemyTest.importance == importance)
+                                {
+                                    int distActu = Math.Abs(Convert.ToInt32(enemyTest.fourmis.X) - Convert.ToInt32(X)) + Math.Abs(Convert.ToInt32(enemyTest.fourmis.Y) - Convert.ToInt32(Y));
+                                    if (distLast >= distActu)
+                                    {
+                                        if (enemyTest.fourmis.Energy >= 0)
+                                        {
+                                            importance = enemyTest.importance;
+                                            optimal = counter;
+                                        }
+                                    }
+                                }
+                                counter++;
+                            }
+                            enemyToTarget = enemyRepered[optimal].fourmis;
+                        }
                         if (BlockedBy != null)
                         {
                             sortirImpasse = true;
                         }
-                        Speed.X = goToPosition.X - X;
-                        Speed.Y = goToPosition.Y - Y;
-                        Move();
+                        else
+                        {
+                            goToPosition = new Point(enemyToTarget.X, enemyToTarget.Y);
+                        }
+                        int distance = Math.Abs(Convert.ToInt32(goToPosition.X) - Convert.ToInt32(X)) + Math.Abs(Convert.ToInt32(goToPosition.Y) - Convert.ToInt32(Y));
+                        if (distance < 40)
+                        {
+                            Hit(enemyToTarget);
+                            Logger.WriteLogFile("RED COLONY FORCE: ATTAQUE :" + enemyToTarget.Fullname + " PV:" + enemyToTarget.Energy + " Distance" + distance);
+                        }
+                        else
+                        {
+                            Speed.X = goToPosition.X - X;
+                            Speed.Y = goToPosition.Y - Y;
+                            Move();
+                        }
+                    }
+                    else
+                    {
+                        goToPosition = pointOfAction;
+                        int distance = Math.Abs(Convert.ToInt32(goToPosition.X) - Convert.ToInt32(X)) + Math.Abs(Convert.ToInt32(goToPosition.Y) - Convert.ToInt32(Y));
+                        if (distance > 40)
+                        {
+                            if (BlockedBy != null)
+                            {
+                                sortirImpasse = true;
+                            }
+                            Speed.X = goToPosition.X - X;
+                            Speed.Y = goToPosition.Y - Y;
+                            Move();
+                        }
                     }
                 }
-            }
-            if ((tick % 3) == 0)
-            {
-                foreach (Ant enemy in EnemiesAroundMe())
+                if ((tick % 3) == 0)
                 {
-                    SoldierAnt.PointAnEnemy(enemy, 2);
+                    foreach (Ant enemy in EnemiesAroundMe())
+                    {
+                        SoldierAnt.PointAnEnemy(enemy, 2);
+                    }
                 }
             }
         }
