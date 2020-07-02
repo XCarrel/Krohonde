@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-
+/*
+ * Juste pour avoir le dernier commit
+ */
 namespace Krohonde.RedColony
 {
     public class WorkerAnt : Ant
