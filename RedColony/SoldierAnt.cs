@@ -45,18 +45,21 @@ namespace Krohonde.RedColony
         }
         public override void Live()
         {
-            if (enemyRepered.Count > 0)
+            if(enemyRepered != null)
             {
-                int distance = Math.Abs(Convert.ToInt32(goToPosition.X) - Convert.ToInt32(X)) + Math.Abs(Convert.ToInt32(goToPosition.Y) - Convert.ToInt32(Y));
-                if(distance < 2)
+                if (enemyRepered.Count > 0)
                 {
-                    Hit(enemyRepered[0].fourmis);
-                }
-                else
-                {
-                    goToPosition = new Point(enemyRepered[0].fourmis.X, enemyRepered[0].fourmis.Y);
-                    Speed.X = goToPosition.X - X;
-                    Speed.Y = goToPosition.Y - Y;
+                    int distance = Math.Abs(Convert.ToInt32(goToPosition.X) - Convert.ToInt32(X)) + Math.Abs(Convert.ToInt32(goToPosition.Y) - Convert.ToInt32(Y));
+                    if (distance < 2)
+                    {
+                        Hit(enemyRepered[0].fourmis);
+                    }
+                    else
+                    {
+                        goToPosition = new Point(enemyRepered[0].fourmis.X, enemyRepered[0].fourmis.Y);
+                        Speed.X = goToPosition.X - X;
+                        Speed.Y = goToPosition.Y - Y;
+                    }
                 }
             }
             foreach(Ant enemy in EnemiesAroundMe())
