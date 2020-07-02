@@ -47,7 +47,9 @@ namespace Krohonde.RedColony
                 Speed.X = MyColony.Location.X - X;
                 Speed.Y = MyColony.Location.Y - Y;
                 Move();
-                MyColony.BuildExtension(this);
+                Logger.WriteLogFile("RED je pose une brique, j'en ai " + BrickBag);
+                Build();
+                Logger.WriteLogFile("RED j'ai poser une brique, j'en ai " + BrickBag);
             }
 
             

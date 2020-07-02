@@ -196,7 +196,9 @@ namespace Krohonde
             if (MyColony.BuildExtension(this))
             {
                 energy -= MotherNature.COST_OF_BUILDING;
+                Logger.WriteLogFile("RED Ant.Build " + brickbag);
                 brickbag -= MotherNature.BRICKS_TO_BUILD;
+                Logger.WriteLogFile("RED Ant.Build " + brickbag);
                 return true;
             }
             return false;
@@ -276,6 +278,7 @@ namespace Krohonde
             else if (resource.GetType() == typeof(Brick))
             {
                 brickbag = Math.Min(max, brickbag + val); // store it without exceeding max
+                Logger.WriteLogFile("RED Ant.Pickup " + brickbag);
             }
             return true;
         }
