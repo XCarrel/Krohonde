@@ -10,42 +10,76 @@ namespace Krohonde.GreenColony
 {
     public class FarmerAnt : Ant
     {
+        public Boolean Protected { get; set; }
+
         public FarmerAnt(Point location, Point speed, GreenColony colony) : base(location, speed, colony)
         {
         }
 
         public override void Live()
         {
-            //Updates food list
-            //Todo:update interval for energy efficiency
-            List<Food> greenFoods = FoodAroundMe();
             //default speed direction
-            //Todo:change default
-            Speed.X = -20;
+            //Todo:change default movement
+            //Todo:avoid obstacles
+            //Todo:Fix food dump to colony
+            Speed.X = -1000;
 
-            //when food is spotted
-            if (greenFoods.Count > 0)
+            //strength increase for speed
+            if (FoodBag > 1 && Strength < 10)
             {
-                Food closestFood = greenFoods[0];
-                foreach (Food f in greenFoods)
-                {
-                    Logger.WriteLogFile($"GreenFarmer found food at x:{f.Location.X} ; y:{f.Location.Y}");
+                EatFromBag(2, MotherNature.DigestionFor.Strength);
+            }
 
-                    //Check which on is closer
-                    if (Helpers.Distance(f.Location, this.SDLocation) <
-                        Helpers.Distance(closestFood.Location, this.SDLocation))
+            if (FoodBag >= FOOD_BAG_SIZE * 20)
+            {
+                System.Drawing.Point closestHill = MyColony.Hill[0];
+                //gets closest point to the base
+                foreach (var h in MyColony.Hill)
+                {
+                    if (Helpers.Distance(SDLocation, new System.Drawing.Point(h.X, h.Y)) < Helpers.Distance(SDLocation,
+                        new System.Drawing.Point(closestHill.X, closestHill.Y)))
                     {
-                        closestFood = f;
+                        closestHill = h;
                     }
                 }
 
-                //go toward the closes food
-                MoveToward(closestFood.Location);
-
-                //Todo: update function
-                if (Helpers.Distance(closestFood.Location, SDLocation) < PICKUP_REACH)
+                Logger.WriteLogFile(
+                    $"GreenFarmer distance to store{Helpers.Distance(SDLocation, new System.Drawing.Point(closestHill.X, closestHill.Y))}");
+                if (Helpers.Distance(SDLocation, new System.Drawing.Point(closestHill.X, closestHill.Y)) < 2)
                 {
-                    Pickup(closestFood);
+                    Logger.WriteLogFile("GreenWorker dumped food");
+                    Colony.DumpFood(this);
+                }
+
+                //returns to the colony when full
+                MoveToward(new System.Drawing.Point(closestHill.X, closestHill.Y));
+            }
+            else
+            {
+                //Updates food list
+                var greenFoods = FoodAroundMe();
+
+                //when food is spotted
+                if (greenFoods.Count > 0)
+                {
+                    Food closestFood = greenFoods[0];
+                    foreach (Food f in greenFoods)
+                    {
+                        //Check which on is closer
+                        if (Helpers.Distance(f.Location, SDLocation) <
+                            Helpers.Distance(closestFood.Location, SDLocation))
+                        {
+                            closestFood = f;
+                        }
+                    }
+
+                    //go toward the closest food
+                    MoveToward(closestFood.Location);
+
+                    if (Helpers.Distance(closestFood.Location, SDLocation) < PICKUP_REACH)
+                    {
+                        Pickup(closestFood);
+                    }
                 }
             }
 
@@ -54,40 +88,30 @@ namespace Krohonde.GreenColony
 
         private void MoveToward(System.Drawing.Point targetLocation)
         {
-            //gets the distance 
-            //todo:add distance to line function in order to match the 0
-            var distanceToX = Helpers.DistanceToLine(SDLocation,
-                new System.Drawing.Point(targetLocation.X, targetLocation.Y - 10),
-                new System.Drawing.Point(targetLocation.X, targetLocation.Y + 10));
-            var distanceToY = Helpers.DistanceToLine(SDLocation,
-                new System.Drawing.Point(targetLocation.X - 10, targetLocation.Y),
-                new System.Drawing.Point(targetLocation.X + 10, targetLocation.Y));
+            //calculates the distance
+            var distanceToX = targetLocation.X - X;
+            var distanceToY = targetLocation.Y - Y;
+            //makes distances positive values
+            if (distanceToX < 0) distanceToX *= -1;
+            if (distanceToY < 0) distanceToY *= -1;
 
             //adjust signs
-            if (X < targetLocation.X)
+            if (X <= targetLocation.X)
             {
-                Speed.X = +distanceToX;
+                Speed.X = distanceToX;
             }
-            else if (X > targetLocation.X)
+            else
             {
                 Speed.X = -distanceToX;
             }
-            else
-            {
-                Speed.X = 0;
-            }
 
-            if (Y < targetLocation.Y)
+            if (Y <= targetLocation.Y)
             {
                 Speed.Y = +distanceToY;
             }
-            else if (Y > targetLocation.Y)
-            {
-                Speed.Y = -distanceToY;
-            }
             else
             {
-                Speed.Y = 0;
+                Speed.Y = -distanceToY;
             }
         }
     }

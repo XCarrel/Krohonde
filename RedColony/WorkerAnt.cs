@@ -11,6 +11,8 @@ namespace Krohonde.RedColony
     {
         private Point position;
         private Point goToPosition;
+        int inc = 0;
+        int nouriture = 0;
         
         
 
@@ -21,10 +23,24 @@ namespace Krohonde.RedColony
 
         public override void Live()
         {
-            foreach (Ant enemy in EnemiesAroundMe())
+            double distMin = 5000;
+
+            inc++;
+            if(inc == 3)
             {
-                SoldierAnt.PointAnEnemy(enemy);
+                foreach (Ant enemy in EnemiesAroundMe())
+                {
+                    SoldierAnt.PointAnEnemy(enemy,3);
+                }
+                inc = 0;
             }
+
+            if (BlockedBy == this)
+            {
+                Logger.WriteLogFile("RED Je suis bloquer");
+            }
+
+            
 
             if (BrickBag == 50)
             {
@@ -34,7 +50,7 @@ namespace Krohonde.RedColony
                 MyColony.BuildExtension(this);
             }
 
-            double distMin = 5000;
+            
 
             List<Brick> brickpositions = BricksAroundMe();
             if (brickpositions.Count() > 0)
@@ -70,8 +86,6 @@ namespace Krohonde.RedColony
                     Move();
                 }
 
-                
-
 
             }
             else
@@ -88,8 +102,7 @@ namespace Krohonde.RedColony
                 Speed.Y = goToPosition.Y - Y;
                 Move();
             }
-            
-
+            Move();
             
         }
     }

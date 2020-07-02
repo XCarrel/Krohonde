@@ -12,7 +12,7 @@ namespace Krohonde
     {
         private static Queen lastactionby; // the queen that performed an action (prevent double play)
 
-        private const int INITIAL_MATURITY = 25; // When an egg is laid, it doesn't start from 0 so that it is visible
+        private const int INITIAL_MATURITY = 80; // When an egg is laid, it doesn't start from 0 so that it is visible
         private const int COST_OF_LIVING = 200; 
 
         private Point Location;
