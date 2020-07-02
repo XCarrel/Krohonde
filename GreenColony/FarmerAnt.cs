@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,35 +38,10 @@ namespace Krohonde.GreenColony
                         closestFood = f;
                     }
                 }
-                
+
                 //go toward the closes food
-                //todo:add distance to line function in order to match the 0
-                if (X < closestFood.Location.X)
-                {
-                    Speed.X = +20;
-                }
-                else if (X > closestFood.Location.X)
-                {
-                    Speed.X = -20;
-                }
-                else
-                {
-                    Speed.X = 0;
-                }
-                
-                if (Y < closestFood.Location.Y)
-                {
-                    Speed.Y = +20;
-                }
-                else if (Y > closestFood.Location.Y)
-                {
-                    Speed.Y = -20;
-                }
-                else
-                {
-                    Speed.Y = 0;
-                }
-                
+                MoveToward(closestFood.Location);
+
                 //Todo: update function
                 if (Helpers.Distance(closestFood.Location, SDLocation) < PICKUP_REACH)
                 {
@@ -74,6 +50,45 @@ namespace Krohonde.GreenColony
             }
 
             Move();
+        }
+
+        private void MoveToward(System.Drawing.Point targetLocation)
+        {
+            //gets the distance 
+            //todo:add distance to line function in order to match the 0
+            var distanceToX = Helpers.DistanceToLine(SDLocation,
+                new System.Drawing.Point(targetLocation.X, targetLocation.Y - 10),
+                new System.Drawing.Point(targetLocation.X, targetLocation.Y + 10));
+            var distanceToY = Helpers.DistanceToLine(SDLocation,
+                new System.Drawing.Point(targetLocation.X - 10, targetLocation.Y),
+                new System.Drawing.Point(targetLocation.X + 10, targetLocation.Y));
+
+            //adjust signs
+            if (X < targetLocation.X)
+            {
+                Speed.X = +distanceToX;
+            }
+            else if (X > targetLocation.X)
+            {
+                Speed.X = -distanceToX;
+            }
+            else
+            {
+                Speed.X = 0;
+            }
+
+            if (Y < targetLocation.Y)
+            {
+                Speed.Y = +distanceToY;
+            }
+            else if (Y > targetLocation.Y)
+            {
+                Speed.Y = -distanceToY;
+            }
+            else
+            {
+                Speed.Y = 0;
+            }
         }
     }
 }
