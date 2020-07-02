@@ -56,7 +56,6 @@ namespace Krohonde.GreenColony
                 Food closestFood = greenFoods[0];
                 foreach (Food f in greenFoods)
                 {
-                    Logger.WriteLogFile($"GreenFarmer found food at x:{f.Location.X} ; y:{f.Location.Y}");
 
                     //Check which on is closer
                     if (Helpers.Distance(f.Location, this.SDLocation) <
