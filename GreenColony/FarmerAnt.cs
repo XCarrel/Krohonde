@@ -38,7 +38,8 @@ namespace Krohonde.GreenColony
                         closestHill = h;
                     }
                 }
-                Logger.WriteLogFile($"GreenWorker distance to store{Helpers.Distance(SDLocation, new System.Drawing.Point(closestHill.X, closestHill.Y))}");
+                
+                Logger.WriteLogFile($"GreenFarmer distance to store{Helpers.Distance(SDLocation, new System.Drawing.Point(closestHill.X, closestHill.Y))}");
                 if (Helpers.Distance(SDLocation, new System.Drawing.Point(closestHill.X, closestHill.Y)) < 2)
                 {
                     Logger.WriteLogFile("GreenWorker dumped food");
