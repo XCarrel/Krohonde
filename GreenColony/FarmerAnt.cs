@@ -23,30 +23,37 @@ namespace Krohonde.GreenColony
             //Todo:change default
             Speed.X = -20;
 
-            //when food is spotted
-            if (greenFoods.Count > 0)
+            if (FoodBag < FOOD_BAG_SIZE * 20)
             {
-                Food closestFood = greenFoods[0];
-                foreach (Food f in greenFoods)
+                //when food is spotted
+                if (greenFoods.Count > 0)
                 {
-                    Logger.WriteLogFile($"GreenFarmer found food at x:{f.Location.X} ; y:{f.Location.Y}");
-
-                    //Check which on is closer
-                    if (Helpers.Distance(f.Location, this.SDLocation) <
-                        Helpers.Distance(closestFood.Location, this.SDLocation))
+                    Food closestFood = greenFoods[0];
+                    foreach (Food f in greenFoods)
                     {
-                        closestFood = f;
+                        Logger.WriteLogFile($"GreenFarmer found food at x:{f.Location.X} ; y:{f.Location.Y}");
+
+                        //Check which on is closer
+                        if (Helpers.Distance(f.Location, SDLocation) <
+                            Helpers.Distance(closestFood.Location, SDLocation))
+                        {
+                            closestFood = f;
+                        }
+                    }
+
+                    //go toward the closest food
+                    MoveToward(closestFood.Location);
+
+                    //Todo: update function
+                    if (Helpers.Distance(closestFood.Location, SDLocation) < PICKUP_REACH)
+                    {
+                        Pickup(closestFood);
                     }
                 }
-
-                //go toward the closes food
-                MoveToward(closestFood.Location);
-
-                //Todo: update function
-                if (Helpers.Distance(closestFood.Location, SDLocation) < PICKUP_REACH)
-                {
-                    Pickup(closestFood);
-                }
+            }
+            else
+            {
+                MoveToward(new System.Drawing.Point((int) Colony.Location.X, (int) Colony.Location.Y));
             }
 
             Move();
@@ -54,40 +61,30 @@ namespace Krohonde.GreenColony
 
         private void MoveToward(System.Drawing.Point targetLocation)
         {
-            //gets the distance 
-            //todo:add distance to line function in order to match the 0
-            var distanceToX = Helpers.DistanceToLine(SDLocation,
-                new System.Drawing.Point(targetLocation.X, targetLocation.Y - 10),
-                new System.Drawing.Point(targetLocation.X, targetLocation.Y + 10));
-            var distanceToY = Helpers.DistanceToLine(SDLocation,
-                new System.Drawing.Point(targetLocation.X - 10, targetLocation.Y),
-                new System.Drawing.Point(targetLocation.X + 10, targetLocation.Y));
+            //calculates the distance
+            var distanceToX = targetLocation.X - X;
+            var distanceToY = targetLocation.Y - Y;
+            //makes distances positive values
+            if (distanceToX < 0) distanceToX *= -1;
+            if (distanceToY < 0) distanceToY *= -1;
 
             //adjust signs
-            if (X < targetLocation.X)
+            if (X <= targetLocation.X)
             {
-                Speed.X = +distanceToX;
+                Speed.X = distanceToX;
             }
-            else if (X > targetLocation.X)
+            else
             {
                 Speed.X = -distanceToX;
             }
-            else
-            {
-                Speed.X = 0;
-            }
 
-            if (Y < targetLocation.Y)
+            if (Y <= targetLocation.Y)
             {
                 Speed.Y = +distanceToY;
             }
-            else if (Y > targetLocation.Y)
-            {
-                Speed.Y = -distanceToY;
-            }
             else
             {
-                Speed.Y = 0;
+                Speed.Y = -distanceToY;
             }
         }
     }
