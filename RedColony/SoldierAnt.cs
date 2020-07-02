@@ -27,6 +27,7 @@ namespace Krohonde.RedColony
         }
         public static void PointAnEnemy(Ant ant)
         {
+            Logger.WriteLogFile("RED COLONY : Enemy trouvé = "+ant.Fullname);
             bool isAlreadyInList = false;
             foreach(EnemyListedActu antCheck in enemyRepered)
             {
@@ -49,14 +50,18 @@ namespace Krohonde.RedColony
             {
                 if (enemyRepered.Count > 0)
                 {
+                    /*SELECT PART*/
+                    Ant enemyToTarget = enemyRepered[0].fourmis;
+
                     int distance = Math.Abs(Convert.ToInt32(goToPosition.X) - Convert.ToInt32(X)) + Math.Abs(Convert.ToInt32(goToPosition.Y) - Convert.ToInt32(Y));
                     if (distance < 2)
                     {
-                        Hit(enemyRepered[0].fourmis);
+                        Hit(enemyToTarget);
+                        Logger.WriteLogFile("RED COLONY : Enemy attaque = E." + enemyToTarget.Energy+" N."+enemyToTarget.Fullname+" T."+enemyToTarget.Toughness+" S."+ enemyToTarget.Strength);
                     }
                     else
                     {
-                        goToPosition = new Point(enemyRepered[0].fourmis.X, enemyRepered[0].fourmis.Y);
+                        goToPosition = new Point(enemyToTarget.X, enemyToTarget.Y);
                         Speed.X = goToPosition.X - X;
                         Speed.Y = goToPosition.Y - Y;
                         Move();

@@ -37,6 +37,10 @@ namespace Krohonde.RedColony
         {
             MoveToPosition(MotherNature.LastFrameDuration, goToPosition);//Avance d'un tick en direction de la destination
             CheckFor();
+            foreach (Ant enemy in EnemiesAroundMe())
+            {
+                SoldierAnt.PointAnEnemy(enemy);
+            }
         }
         public static void DesactivateRessource(Resource ressourceADelete)//Supprime la resource une fois qu'elle est utilisée
         {
