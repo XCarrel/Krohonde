@@ -17,9 +17,32 @@ namespace Krohonde.GreenColony
 
         public override void Live()
         {
-            followAnt = MyColony.Population.First();
-            MoveToward(followAnt.SDLocation);
-            Move();
+            if (followAnt == null) // pas de fourmis a protégé ---> chercher une
+            {
+                foreach (Ant ant in MyColony.Population)
+                {
+                    if (ant.GetType().Name == "FarmerAnt")
+                    {
+                        FarmerAnt fant = ant as FarmerAnt;
+                        if (!fant.Protected)
+                        {
+                            followAnt = ant; // Suivre la fourmis
+                            fant.Protected = true;
+                            break;
+                        }
+                    }
+
+                }
+                if (followAnt == null) // pas trouver ---> retour base repos
+                {
+                    MoveToward(new System.Drawing.Point((int)MyColony.Location.X, (int)MyColony.Location.Y));
+                }
+            }
+            else
+            {
+                MoveToward(followAnt.SDLocation);
+            }
+
 
             List<Ant> Ennemies = EnemiesAroundMe();
             foreach (Ant Ennemy in Ennemies)
@@ -37,23 +60,6 @@ namespace Krohonde.GreenColony
                 }
             }
 
-            foreach (Ant ant in MyColony.Population)
-            {
-                if (ant.GetType().Name == "FarmerAnt")
-                {
-                    followAnt = ant;
-                    break;
-                }
-                else
-                {
-                    MoveToward(new System.Drawing.Point((int) MyColony.Location.X, (int) MyColony.Location.Y));
-                   
-                }
-            }
-
-
-            
-
             /*List<Pheromon> ListPheromon = SmellsAroundMe();
             
             foreach (Pheromon AllPheromon in ListPheromon)
@@ -66,7 +72,7 @@ namespace Krohonde.GreenColony
             {
                 
             }*/
-
+            Move();
         }
         private void MoveToward(System.Drawing.Point targetLocation)
         {
