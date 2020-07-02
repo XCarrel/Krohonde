@@ -10,38 +10,36 @@ namespace Krohonde.BlueColony
     public class FarmerAnt : Ant
     {
         private Point Destination;
-        private Point UnblockDestination;
         private BlueColony colony;
 
         public FarmerAnt(Point location, Point speed, BlueColony colony) : base(location, speed, colony)
         {
             this.colony = colony;
+            Destination = MyColony.World().Colonies().First().Location;
         }
 
         public override void Live()
         {
-            Point location = new Point(X, Y);
-            
-            if (location == UnblockDestination)
+            Speed.X = Destination.X - X;
+            Speed.Y = Destination.Y - Y;
+            Rock bloc = BlockedBy as Rock;
+            if (bloc != null)
             {
-                this.BlockedBy = null;
-                this.Speed = new Point(Destination.X - X, Destination.Y - Y);
+                // rotate speed 90° left
+                double tr = Speed.X;
+                Speed.X = -Speed.Y;
+                Speed.Y = tr;
+                if (Helpers.IsInPolygon(bloc.Shape, new System.Drawing.Point((int)(X + Speed.X), (int)(Y + Speed.Y))))
+                {
+                    Speed.X = -Speed.X;
+                    Speed.Y = -Speed.Y;
+                }
             }
-
-            if (this.BlockedBy != null)
-            {
-                UnblockDestination = colony.unblock(this, Destination);
-                this.Speed = new Point (UnblockDestination.X - X, UnblockDestination.Y - Y);
-
-            }
-            else
-            {
-                ///Move();
-            }
+            Move();
         }
-       
-        
 
-        
+
+
+
     }
 }

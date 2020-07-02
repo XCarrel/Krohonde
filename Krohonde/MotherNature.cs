@@ -172,6 +172,9 @@ namespace Krohonde
                 int h = MotherNature.alea.Next(MIN_ROCK_HEIGHT, MAX_ROCK_HEIGHT);
                 rocks.Add(new Rock(loc, w, h));
             }
+            System.Drawing.Point locx = new System.Drawing.Point(720,500);
+            rocks.Add(new Rock(locx, 200,200));
+
         }
 
         /// <summary>
