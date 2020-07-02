@@ -33,23 +33,136 @@ namespace Krohonde.GreenColony
 {
     public class WorkerAnt : Ant
     {
+
+        private int phase = 1;
+        Brick closestBrick;  //the closest brick object
+        bool brickPeriod = true;
+        bool haveFoundSomeBricksInArea = false;
+
         public WorkerAnt(Point location, Point speed, GreenColony colony) : base(location, speed, colony)
         {
         }
 
         public override void Live()
         {
-            Logger.WriteLogFile($"deltatime: {MotherNature.LastFrameDuration}");
-            List<Food> ListFood = FoodAroundMe();
-            foreach (Food OneFood in ListFood)
+            //Logger.WriteLogFile($"deltatime: {MotherNature.LastFrameDuration}");
+            List<Brick> ListBricks;
+            ListBricks = BricksAroundMe();
+
+            SudOuest(); //default start direction.
+            //Default behavior of movement:
+            if (Blocked.Contains("oui"))
             {
-                Helpers.Distance(new System.Drawing.Point((int)X, (int) Y), OneFood.Location);
-                GoFood(OneFood.Location.X, OneFood.Location.Y);
+                RandomDirection();
             }
-            Move();
+
+            switch (phase)
+            {
+                case 1: //Go to first brick that you find
+                    if (ListBricks.Count() != 0)    //if there are bricks around me:
+                    {
+                        closestBrick = ListBricks[0];    //first initialize
+
+                        //search the closest brick
+                        foreach (Brick OneBrick in ListBricks)
+                        {
+                            Helpers.Distance(new System.Drawing.Point((int)X, (int)Y), OneBrick.Location);
+                            MoveToward(OneBrick.Location);
+                            //Check which on is closer
+                            if (Helpers.Distance(OneBrick.Location, this.SDLocation) <
+                                Helpers.Distance(closestBrick.Location, this.SDLocation))
+                            {
+                                closestBrick = OneBrick;
+                            }
+                        }
+                        haveFoundSomeBricksInArea = true;
+                    }
+                    NextMove(); //Move to the next position
+                    if (haveFoundSomeBricksInArea == true)
+                    {
+                        if (BrickBag < BRICK_BAG_SIZE * 20 && Helpers.Distance(closestBrick.Location, SDLocation) < PICKUP_REACH)
+                        {
+                            phase = 2;
+                        }
+                    }
+                    break;
+                case 2: //Found a brick, just pick up the brick several times
+                    Pickup(closestBrick);
+                    Logger.WriteLogFile($"GreenWorker {Fullname} found brick and picked up in BrickBag: {BrickBag}");
+                    if (BrickBag < BRICK_BAG_SIZE * 20)
+                    {
+                        phase = 3;
+                    }
+                    break;
+                case 3: //BrickBag is full, return back to the base
+                    Logger.WriteLogFile($"GreenWorker {Fullname}: Distance à la colonie{Helpers.Distance(new System.Drawing.Point((int)Colony.Location.X, (int)Colony.Location.Y), new System.Drawing.Point((int)this.SDLocation.X, (int)this.SDLocation.Y))}");
+                    MoveToward(new System.Drawing.Point((int)Colony.Location.X, (int)Colony.Location.Y));
+
+                    NextMove();
+
+                    if (Helpers.Distance(new System.Drawing.Point((int)Colony.Location.X, (int)Colony.Location.Y), new System.Drawing.Point((int)this.SDLocation.X, (int)this.SDLocation.Y)) < 5)
+                    {
+                        phase = 4;
+                    }
+                    break;
+                case 4: //Build the base with bricks
+                    if (brickPeriod == true)
+                    {
+                        Build();
+                        Logger.WriteLogFile($"GreenWorker {Fullname} pick down a brick in the colony. BrickBag: {BrickBag}");
+                        brickPeriod = false;
+                    }
+                    else
+                    {
+                        //move a bit to exit the base
+                        RandomDirection();
+                        NextMove();
+                        brickPeriod = true;
+                    }
+                    if (BrickBag == 0)
+                    {
+                        phase = 1;
+                    }
+                    break;
+                default:
+                    break;
+            }
 
         }
 
+        public void RandomDirection()
+        {
+            int rand = 0;
+            Random gen = new Random();
+            rand = gen.Next(1, 8);
+            switch (rand)
+            {
+                case 1:
+                    SudOuest();
+                    break;
+                case 2:
+                    NordOuest();
+                    break;
+                case 3:
+                    SudEst();
+                    break;
+                case 4:
+                    NordEst();
+                    break;
+                case 5:
+                    Sud();
+                    break;
+                case 6:
+                    Nord();
+                    break;
+                case 7:
+                    Est();
+                    break;
+                case 8:
+                    Ouest();
+                    break;
+            }
+        }
         public void SudOuest()
         {
             Speed.X = -500;
@@ -91,10 +204,43 @@ namespace Krohonde.GreenColony
             Speed.Y = 0;
         }
 
+        public void NextMove()
+        {
+            Move();
+        }
+
         public void GoFood(int X, int Y)
         {
             Speed.X = X;
             Speed.Y = Y;
+        }
+        private void MoveToward(System.Drawing.Point targetLocation)
+        {
+            //calculates the distance
+            var distanceToX = targetLocation.X - X;
+            var distanceToY = targetLocation.Y - Y;
+            //makes distances positive values
+            if (distanceToX < 0) distanceToX *= -1;
+            if (distanceToY < 0) distanceToY *= -1;
+
+            //adjust signs
+            if (X <= targetLocation.X)
+            {
+                Speed.X = distanceToX;
+            }
+            else
+            {
+                Speed.X = -distanceToX;
+            }
+
+            if (Y <= targetLocation.Y)
+            {
+                Speed.Y = +distanceToY;
+            }
+            else
+            {
+                Speed.Y = -distanceToY;
+            }
         }
 
     }
