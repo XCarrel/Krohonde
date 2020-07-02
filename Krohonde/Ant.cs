@@ -72,7 +72,6 @@ namespace Krohonde
             fullname = colony.GetType().Name + this.GetType().Name + id;
             certificate = colony.World().GetBirthCertificate(fullname);
             energy = MotherNature.MAX_ENERGY;
-            brickbag = 500;
         }
 
         /// <summary>
